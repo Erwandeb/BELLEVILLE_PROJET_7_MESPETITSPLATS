@@ -34,11 +34,32 @@ fetch('Javascript/recette.json')
            
         </div>
         <div class="description-card">
-            <p class="liste-ingredient">${recette.ingredients}</p>
+            <div class="liste-ingredient" id ="liste-ingredient-id-${recette.id}"></div>
             <p class="description-recette">${recette.description}</p>
         </div>
         </article>
         `
+        
+    
+        // Affichage des ingrédients 
+        for(ingredient of recette.ingredients){
+        // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
+        function generateUnit(){
+            if(ingredient.unit == undefined){
+                return `<p class="ingredients"> ${ingredient.ingredient} : ${ingredient.quantity}</p>`;
+            } else if (ingredient.quantity && ingredient.unit == undefined){
+                return `<p class="ingredients"> ${ingredient.ingredient}</p>`;
+            }
+            return `<p class="ingredients"> ${ingredient.ingredient} : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
+        }
+        // Affichage dynamique des données 
+        const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
+            listIngred.innerHTML +=`
+            ${generateUnit()} 
+            `
+        };
+
+    
     };
     
 });

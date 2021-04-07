@@ -92,7 +92,7 @@ main article .titreTempsCuisson {
 main article .titreTempsCuisson h3 {
   font-family: "Lato", sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: bold;
   line-height: 21px;
   width: 70%;
   align-items: flex-start;
@@ -121,26 +121,34 @@ main article .titreTempsCuisson .tempsCuisson p {
 }
 main article .description-card {
   display: flex;
-  margin-top: 20px;
+  margin-top: 10px;
   background-color: #e7e7e7;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
 }
 main article .description-card .liste-ingredient {
   width: 50%;
   margin: 0px 15px 0px 10px;
-  font-size: 12px;
+  font-size: 11px;
+  background-color: #e7e7e7;
+  overflow: hidden;
+  height: 80px;
+}
+main article .description-card .liste-ingredient .ingredients {
+  font-weight: normal;
+  width: 140px;
+  overflow: hidden;
   background-color: #e7e7e7;
 }
 main article .description-card .description-recette {
   width: 50%;
-  height: 90px;
-  overflow: scroll;
+  height: 80px;
+  overflow: hidden;
   text-decoration: none;
   text-overflow: ellipsis;
-  font-size: 12px;
+  font-size: 11px;
   background-color: #e7e7e7;
   margin: 0px 10px 0px 0px;
-  scrollbar-color: rebeccapurple green;
-  scrollbar-width: thin;
 }
 
 /*# sourceMappingURL=style.css.map */
