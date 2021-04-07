@@ -47,7 +47,7 @@ fetch('Javascript/recette.json')
         function generateUnit(){
             if(ingredient.unit == undefined){
                 return `<p class="ingredients"> ${ingredient.ingredient} : ${ingredient.quantity}</p>`;
-            } else if (ingredient.quantity && ingredient.unit == undefined){
+            } else if (ingredient.quantity == undefined){
                 return `<p class="ingredients"> ${ingredient.ingredient}</p>`;
             }
             return `<p class="ingredients"> ${ingredient.ingredient} : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
