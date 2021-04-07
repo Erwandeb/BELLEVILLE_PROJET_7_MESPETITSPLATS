@@ -31,9 +31,12 @@ fetch('Javascript/recette.json')
                 <img class="timerClock" src="Maquettes/timer.png"></img>
                 <p>${recette.time} min</p>
             </div>
+           
         </div>
-        
-
+        <div class="description-card">
+            <p class="liste-ingredient">${recette.ingredients}</p>
+            <p class="description-recette">${recette.description}</p>
+        </div>
         </article>
         `
     };
