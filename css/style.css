@@ -2,7 +2,6 @@
 ./dart-sass/sass sass/style.scss css/style.css --watch
 */
 * {
-  background-color: white;
   margin: auto;
 }
 
@@ -23,7 +22,10 @@ body {
   align-items: center;
 }
 
-input {
+.searchBarreDiv {
+  position: relative;
+}
+.searchBarreDiv input {
   width: 100%;
   height: 50px;
   background-color: #e7e7e7;
@@ -33,11 +35,53 @@ input {
   color: grey;
   padding: 20px;
 }
-input textarea {
+.searchBarreDiv input textarea {
   font-size: large;
 }
+.searchBarreDiv .loupeRecherche {
+  position: absolute;
+  top: 32px;
+  right: 0px;
+  background-color: #e7e7e7;
+}
 
-select {
+#keyWordSelect {
+  align-items: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  height: 40px;
+}
+#keyWordSelect .keyword-block {
+  width: auto;
+  height: 30px;
+  background-color: #3282f7;
+  align-items: flex-start;
+  border-radius: 10px;
+  text-align: start;
+  align-self: flex-start;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: small;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 10px 0px 10px;
+  margin-right: 10px;
+}
+#keyWordSelect .fa-times-circle {
+  padding-left: 10px;
+}
+
+#selectDiv {
+  height: 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+}
+
+label {
   width: auto;
   height: auto;
   border-radius: 5px;
@@ -47,9 +91,56 @@ select {
   font-weight: bold;
 }
 
+#ingredientButton {
+  width: 200px;
+  height: 60px;
+  position: absolute;
+  cursor: pointer;
+}
+
+#selectIngredientButton {
+  background-color: #3282f7;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  height: 60px;
+  width: 200px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+#searchBarIngredient {
+  align-items: center;
+  background-color: #3282f7;
+  color: white;
+  width: 250px;
+  height: 50px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  max-height: 50px;
+  overflow-y: scroll;
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+}
+
 #selectIngredient {
   background-color: #3282f7;
   color: white;
+  padding-left: 20px;
+  max-height: 50px;
+  overflow-y: scroll;
+}
+#selectIngredient option {
+  background-color: #3282f7;
+  color: white;
+  width: 650px;
 }
 
 #selectAppareil {
