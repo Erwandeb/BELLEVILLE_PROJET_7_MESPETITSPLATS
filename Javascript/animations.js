@@ -1,12 +1,14 @@
 
 const ingredientButton = document.getElementById('ingredientButton');
-const selectIngredientButton = document.getElementById('selectIngredientButton');
 const searchBarIngredient = document.getElementById('searchBarIngredient');
+const selectIngredientButton = document.getElementById('selectIngredientButton');
 
-
-function openSearchBar(searchBarName){
-    searchBarName.style.display = "block";
-    searchBarName.style.opacity = "1";
-}
-
-selectIngredientButton.addEventListener('click', openSearchBar(searchBarIngredient));
+document.addEventListener('click', function(event) {
+    const isClickInside = selectIngredientButton.contains(event.target);
+    if (isClickInside) {
+      searchBarIngredient.style.display ="block";
+    }
+    else {
+      searchBarIngredient.style.display ="none";
+    }
+});

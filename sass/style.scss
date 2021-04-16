@@ -114,7 +114,7 @@ label{
     justify-content: center;
     border-radius: 5px;
     height: 60px;
-    width: 200px;
+    width: 160px;
     padding: 0px;
     cursor: pointer;
 }
@@ -123,8 +123,8 @@ label{
     align-items: center;
     background-color: #3282f7;
     color: white;
-    width: 250px;
-    height: 50px;
+    width: 240px;
+    height: 35px;
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -135,7 +135,7 @@ label{
     overflow-y: scroll;
     font-family: 'Roboto', sans-serif;
     border-radius: 5px;
-
+    display: none;
 }
 #selectIngredient {
     background-color: #3282f7;

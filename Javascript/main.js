@@ -29,6 +29,9 @@ function deleteDoublon(tableauOrigine){
     const sansDoublon = new Set(tableauOrigine);
     return Array.from(sansDoublon);
 }
+
+
+
 // Récupération des données saisies dans la liste déroulante
 let ingredientSansDoublon = [];
 
@@ -51,33 +54,38 @@ const boucleIngrédient = fetch('Javascript/recette.json')
     }
 })
 
-console.log('Liste des ingredient avant traitement :', arrayIngredient)
+console.log('Liste des ingredient avant traitement :', arrayIngredient);
 
 
 /*--- BOUTON LISTE DEROULANTE INGRDIENT ----*/
 searchBarIngredient.addEventListener('keyup',(e) => {
-    
-    /*--- Récupération des éléments dans la barre de saisie de l'utilisateur----*/
-    let inputIngredientBtn = e.target.value;
-    console.log("searchBarIngredient :", inputIngredientBtn);
-   
-    /*--- Remplissage de la liste de filtre ----*/
+    console.log(e.target.value);
+    console.log(arrayIngredient)
+
     let ingredientSansDoublon = deleteDoublon(arrayIngredient);
+
     for(element of ingredientSansDoublon){
-        if(inputIngredientBtn === element){
-            filterWordsList.push(inputIngredientBtn);
+        if(e.target.value === element){
+            //let inputIngredientBtn = e.target.value;
+            //console.log("searchBarIngredient :", inputIngredientBtn);
+            console.log('hello');
+            filterWordsList.push(e.target.value);
         }
     }
+    
+    // Récupération des éléments dans la barre de saisie de l'utilisateur
     console.log("Liste mise avant retrait du mot choisi", ingredientSansDoublon);
-     /*--- Traitement des mots clés ----*/
+     //Traitement des mots clés
+
     for(element of filterWordsList){
         // Retrait de l'ingrédient choisi dans la liste d'ingrédient générale
         const index = ingredientSansDoublon.indexOf(element)
         if(index > -1){ 
             ingredientSansDoublon.splice(index, 1);
+
         }
         // Affichage de l'ingredient choisi en étiquette HTML
-        if(element === inputIngredientBtn){
+        if(element === e.target.value){
             const keyWordSelect = document.getElementById('keyWordSelect');
             keyWordSelect.innerHTML +=`<div class="keyword-block">${element}<i id="close-Btn-${element}" class="far fa-times-circle"></i></div> `
             searchBarIngredient.value="";
@@ -85,9 +93,9 @@ searchBarIngredient.addEventListener('keyup',(e) => {
     }
 
     console.log("Liste mise à jour apres retrait mot choisi", ingredientSansDoublon);
-   
-    /*--- Suppression des éléments choisis dans la liste ----*/
-    selectIngredient.innerHTML ="";
+
+    // Suppression des éléments choisis dans la liste 
+    //selectIngredient.innerHTML ="";
     for(element of ingredientSansDoublon){
         selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`
     }
