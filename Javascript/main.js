@@ -1,14 +1,17 @@
 
 /*--------------------------------------------------------------------------*/
-/*------------ENTREES DE DONNEES-------------------------------------------*/
+/*------------Barre de recherche principal -------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 
 // Récupération des caractères dans la Search Bar 
 const searchBarinput = document.getElementById('searchBarInput');
-
 searchBarinput.addEventListener('keyup', (e) => {
     console.log(e.target.value);
 })
+
+/*--------------------------------------------------------------------------*/
+/*------------Filtre par ingrédient -------------------------------------------*/
+/*-------------------------------------------------------------------------*/
 
 // Liste déroulante INGREDIENTS 
 const selectIngredient = document.getElementById('selectIngredient');
@@ -19,15 +22,17 @@ let ingredientKeys = '';
 let arrayIngredient = [];
 
 // Cet array contient les mots clés 
-let keyWordSelected = [];
+let filterWordsList = [];
 
 // Fonction suppression des doublons
 function deleteDoublon(tableauOrigine){
     const sansDoublon = new Set(tableauOrigine);
     return Array.from(sansDoublon);
 }
+// Récupération des données saisies dans la liste déroulante
+let ingredientSansDoublon = [];
 
-// Récupération des données Recette JSON
+// Récupération de la liste d'ingrédient provenant du  JSON
 const boucleIngrédient = fetch('Javascript/recette.json')
 .then((response) => response.json())
 .then(function (data){
@@ -37,49 +42,73 @@ const boucleIngrédient = fetch('Javascript/recette.json')
             arrayIngredient.push(list.ingredient);   
         };
     };
+
     // Suppression des doublons   
     let ingredientSansDoublon = deleteDoublon(arrayIngredient);
-
-    // affichage sur écran de la liste déroulante
+    // affichage Ecran de la liste déroulante
     for(element of ingredientSansDoublon){
         selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`
     }
 })
 
-console.log('ceci est arrayIngredient', arrayIngredient)
-// Récupération des données saisies dans la liste déroulante 
+console.log('Liste des ingredient avant traitement :', arrayIngredient)
+
+
+/*--- BOUTON LISTE DEROULANTE INGRDIENT ----*/
 searchBarIngredient.addEventListener('keyup',(e) => {
-    let keyWordIngrdient = e.target.value;
-    console.log(keyWordIngrdient);
+    
+    /*--- Récupération des éléments dans la barre de saisie de l'utilisateur----*/
+    let inputIngredientBtn = e.target.value;
+    console.log("searchBarIngredient :", inputIngredientBtn);
+   
+    /*--- Remplissage de la liste de filtre ----*/
     let ingredientSansDoublon = deleteDoublon(arrayIngredient);
     for(element of ingredientSansDoublon){
-        if(keyWordIngrdient === element){
-            keyWordSelected.push(keyWordIngrdient);
-
-            const index = ingredientSansDoublon.indexOf(element);
-            if(index > -1){
-                ingredientSansDoublon.splice(index, 1);
-            }
-            console.log("l'Array keywordSelected contient ", keyWordSelected);
-            console.log('test suppression element', ingredientSansDoublon);
+        if(inputIngredientBtn === element){
+            filterWordsList.push(inputIngredientBtn);
         }
     }
-   
-
-    for(element of keyWordSelected){
-       const keyWordSelect = document.getElementById('keyWordSelect');
-       keyWordSelect.innerHTML +=`<div class="keyword-block">${element}<i class="far fa-times-circle"></i></div> `
+    console.log("Liste mise avant retrait du mot choisi", ingredientSansDoublon);
+     /*--- Traitement des mots clés ----*/
+    for(element of filterWordsList){
+        // Retrait de l'ingrédient choisi dans la liste d'ingrédient générale
+        const index = ingredientSansDoublon.indexOf(element)
+        if(index > -1){ 
+            ingredientSansDoublon.splice(index, 1);
+        }
+        // Affichage de l'ingredient choisi en étiquette HTML
+        if(element === inputIngredientBtn){
+            const keyWordSelect = document.getElementById('keyWordSelect');
+            keyWordSelect.innerHTML +=`<div class="keyword-block">${element}<i id="close-Btn-${element}" class="far fa-times-circle"></i></div> `
+            searchBarIngredient.value="";
+        }
     }
-    const closeCross = document.querySelector('.fa-times-circle');
-    const keywordBlock = document.querySelector('.keyword-block')
-    closeCross.addEventListener("click",()=>{
+
+    console.log("Liste mise à jour apres retrait mot choisi", ingredientSansDoublon);
+   
+    /*--- Suppression des éléments choisis dans la liste ----*/
+    selectIngredient.innerHTML ="";
+    for(element of ingredientSansDoublon){
+        selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`
+    }
+
+    console.log("filterWords", filterWordsList);
+});
+
+
+/*
+const closeCross = document.getElementById("close-Btn-"+element);
+const keywordBlock = document.querySelector('.keyword-block')
+
+closeCross.addEventListener("click",()=>{
         keywordBlock.style.display ="none"
     })
-})
+*/
 
 
-
-
+/*--------------------------------------------------------------------------*/
+/*------------Filtre par ustensile-------------------------------------------*/
+/*-------------------------------------------------------------------------*/
 
 // Sortie JSON
 const mainSemantic = document.querySelector("main");
