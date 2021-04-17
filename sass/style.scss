@@ -36,7 +36,7 @@ body{
         background-color: #e7e7e7;
         border: none;
         border-radius: 5px;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
         color: grey;
         padding : 20px;
         textarea{
@@ -52,17 +52,20 @@ body{
 }
 
 #keyWordSelect{
-    align-items: flex-start;
+    align-items: center;
     display:flex;
     justify-content: flex-start;
     position: relative;
-    height: 40px;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+ 
     .keyword-block{
         width: auto;
         height: 30px;
         background-color: #3282f7;
         align-items:flex-start;
-        border-radius: 10px;
+        border-radius: 5px;
         text-align: start;
         align-self: flex-start;
         color: white;
@@ -77,6 +80,7 @@ body{
     }
     .fa-times-circle{
         padding-left: 10px;
+        cursor: pointer;
     }
 }
 #selectDiv{

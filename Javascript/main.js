@@ -65,29 +65,24 @@ searchBarIngredient.addEventListener('keyup',(e) => {
     let ingredientSansDoublon = deleteDoublon(arrayIngredient);
 
     for(element of ingredientSansDoublon){
-        if(e.target.value === element){
-            //let inputIngredientBtn = e.target.value;
-            //console.log("searchBarIngredient :", inputIngredientBtn);
-            console.log('hello');
+        if(e.target.value === element) {
             filterWordsList.push(e.target.value);
         }
     }
-    
     // Récupération des éléments dans la barre de saisie de l'utilisateur
     console.log("Liste mise avant retrait du mot choisi", ingredientSansDoublon);
-     //Traitement des mots clés
 
+     //Traitement des mots clés
     for(element of filterWordsList){
         // Retrait de l'ingrédient choisi dans la liste d'ingrédient générale
         const index = ingredientSansDoublon.indexOf(element)
         if(index > -1){ 
             ingredientSansDoublon.splice(index, 1);
-
         }
         // Affichage de l'ingredient choisi en étiquette HTML
         if(element === e.target.value){
             const keyWordSelect = document.getElementById('keyWordSelect');
-            keyWordSelect.innerHTML +=`<div class="keyword-block">${element}<i id="close-Btn-${element}" class="far fa-times-circle"></i></div> `
+            keyWordSelect.innerHTML +=`<div class="keyword-block" id="keyword-block-${element}">${element}<i id="close-btn-${element}" class="far fa-times-circle"></i></div> `
             searchBarIngredient.value="";
         }
     }
@@ -95,7 +90,7 @@ searchBarIngredient.addEventListener('keyup',(e) => {
     console.log("Liste mise à jour apres retrait mot choisi", ingredientSansDoublon);
 
     // Suppression des éléments choisis dans la liste 
-    //selectIngredient.innerHTML ="";
+    selectIngredient.innerHTML ="";
     for(element of ingredientSansDoublon){
         selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`
     }
@@ -104,14 +99,21 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 });
 
 
-/*
-const closeCross = document.getElementById("close-Btn-"+element);
-const keywordBlock = document.querySelector('.keyword-block')
+console.log('filterWordListZZZz',filterWordsList )
 
-closeCross.addEventListener("click",()=>{
-        keywordBlock.style.display ="none"
+for(element of filterWordsList){
+    console.log("ceci est element",element)
+    //const closeBtnIngredientFilter = document.querySelector('.fa-times-circle');
+    const keywordBlock = document.getElementById("keyword-block-"+element);
+    
+    closeBtnIngredientFilter.addEventListener("click", function hideFilter() {
+        keywordBlock.style.display ="none";
+        console.log("ceci est element", element)
+        console.log("hello");
     })
-*/
+}
+
+
 
 
 /*--------------------------------------------------------------------------*/
@@ -151,11 +153,11 @@ const loadRecette = fetch('Javascript/recette.json')
             // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
             function generateUnit(){
                 if(ingredient.unit == undefined){
-                    return `<p class="ingredients"> ${ingredient.ingredient} : ${ingredient.quantity}</p>`;
+                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
                 } else if (ingredient.quantity == undefined){
-                    return `<p class="ingredients"> ${ingredient.ingredient}</p>`;
+                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> </p>`;
                 }
-                return `<p class="ingredients"> ${ingredient.ingredient} : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
+                return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
             }
             // Affichage dynamique des données 
             const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
