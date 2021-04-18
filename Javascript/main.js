@@ -96,22 +96,25 @@ searchBarIngredient.addEventListener('keyup',(e) => {
     }
 
     console.log("filterWords", filterWordsList);
+
+    for(element of filterWordsList){
+        const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
+        const keywordBlock = document.getElementById("keyword-block-"+element);
+
+        closeBtnIngredientFilter.addEventListener("click", function hideFilter() {
+            keywordBlock.style.display ="none";
+            const index = filterWordsList.indexOf(element)
+        if(index > -1){ 
+            filterWordsList.splice(index, 1);
+        }
+        ingredientSansDoublon.push(element);
+            console.log('test suppressionA', filterWordsList)
+            console.log('test retour dans la liste', ingredientSansDoublon)
+        })
+    }
+  
 });
 
-
-console.log('filterWordListZZZz',filterWordsList )
-
-for(element of filterWordsList){
-    console.log("ceci est element",element)
-    //const closeBtnIngredientFilter = document.querySelector('.fa-times-circle');
-    const keywordBlock = document.getElementById("keyword-block-"+element);
-    
-    closeBtnIngredientFilter.addEventListener("click", function hideFilter() {
-        keywordBlock.style.display ="none";
-        console.log("ceci est element", element)
-        console.log("hello");
-    })
-}
 
 
 
