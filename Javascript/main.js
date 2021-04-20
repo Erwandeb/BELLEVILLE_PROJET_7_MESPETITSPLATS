@@ -30,6 +30,27 @@ function deleteDoublon(tableauOrigine){
     return Array.from(sansDoublon);
 }
 
+function deleteKeyWord(list) {
+    const index = list.indexOf(element)
+    if(index > -1){ 
+        list.splice(index, 1);
+        return list;
+    }
+}
+
+function deleteKeyWordTest(list){
+    const index = list.indexOf(element)
+    console.log("index :", index);
+    console.log("element : ", element)
+    
+    if(index > -1 || index === -1){ 
+        list.splice(index, 1);
+        return list;
+    }
+}
+
+
+
 // Récupération des données saisies dans la liste déroulante
 let listIngredientNoDoublon = [];
 let listAppareilNoDoublon = [];
@@ -128,20 +149,30 @@ searchBarIngredient.addEventListener('keyup',(e) => {
         const keywordBlock = document.getElementById("keyword-block-"+element);
 
         closeBtnIngredientFilter.addEventListener("click", function hideFilter() {
-            keywordBlock.style.display ="none";
+            keywordBlock.style.display ="none"; 
+            console.log(this);
+            /*
+            let test = deleteKeyWord(filterWordsList);
+            console.log("ceci est ZZZ ",test)
+           */
+            
+            /*
             const index = filterWordsList.indexOf(element)
-        if(index > -1){ 
+            if(index > -1){ 
             filterWordsList.splice(index, 1);
-        }
+            console.log('hello');
+            }
+            */
+            deleteKeyWordTest(filterWordsList);
+
         listIngredientNoDoublon.push(element);
-            console.log('test suppressionA', filterWordsList)
+            console.log("MAJ de filterWordsList", filterWordsList)
             console.log('test retour dans la liste', listIngredientNoDoublon)
         })
     }
-  
 });
 
-
+ 
 /*--------------------------------------------------------------------------*/
 /*------------Filtre par Appareil-------------------------------------------*/
 /*-------------------------------------------------------------------------*/
@@ -151,7 +182,6 @@ searchBarAppareil.addEventListener('keyup',(e) => {
     console.log(listIngredientRaw)
     let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
   
-    
     for(element of listAppareilNoDoublon){
         if(e.target.value === element) {
             filterWordsList.push(e.target.value);
