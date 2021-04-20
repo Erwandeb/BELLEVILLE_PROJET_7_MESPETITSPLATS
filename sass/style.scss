@@ -60,7 +60,7 @@ body{
     margin-top: 10px;
     margin-bottom: 10px;
  
-    .keyword-block{
+    .keyword-block-bleu{
         width: auto;
         height: 30px;
         background-color: #3282f7;
@@ -73,7 +73,41 @@ body{
         font-size: small;
         display: flex;
         align-items: center;
-        //text-align: center;
+        justify-content: center;
+        padding: 0px 10px 0px 10px;
+        margin: 0px 10px 0px 0px;
+    }
+    .keyword-block-green{
+        width: auto;
+        height: 30px;
+        background-color: #68d9a4;
+        align-items:flex-start;
+        border-radius: 5px;
+        text-align: start;
+        align-self: flex-start;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-size: small;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 10px 0px 10px;
+        margin: 0px 10px 0px 0px;
+    }
+
+    .keyword-block-red{
+        width: auto;
+        height: 30px;
+        background-color: #ed6454;
+        align-items:flex-start;
+        border-radius: 5px;
+        text-align: start;
+        align-self: flex-start;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-size: small;
+        display: flex;
+        align-items: center;
         justify-content: center;
         padding: 0px 10px 0px 10px;
         margin: 0px 10px 0px 0px;
@@ -105,67 +139,157 @@ label{
 #ingredientButton{
     width: 200px;
     height: 60px;
-    position: absolute;
     cursor: pointer;
-
-}
-#selectIngredientButton{
-    background-color: #3282f7;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-weight: normal;
-    display: flex;
-    justify-content: center;
-    border-radius: 5px;
-    height: 60px;
-    width: 160px;
-    padding: 0px;
-    cursor: pointer;
-}
-
-#searchBarIngredient{
-    align-items: center;
-    background-color: #3282f7;
-    color: white;
-    width: 240px;
-    height: 35px;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    max-height: 50px;
-    overflow-y: scroll;
-    font-family: 'Roboto', sans-serif;
-    border-radius: 5px;
-    display: none;
-}
-#selectIngredient {
-    background-color: #3282f7;
-    color: white;
-    padding-left: 20px;
-    max-height: 50px;
-    overflow-y: scroll;
+    margin: 0px;
     
-    option{
+    #selectIngredientButton{
         background-color: #3282f7;
-        color: white; 
-        width: 650px;
-
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-weight: normal;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+        height: 60px;
+        width: 160px;
+        padding: 0px;
+        cursor: pointer;
+    }
+    
+    #searchBarIngredient{
+        align-items: center;
+        background-color: #3282f7;
+        color: white;
+        width: 240px;
+        height: 35px;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        position: absolute;
+        left: 0px;
+        max-height: 50px;
+        overflow-y: scroll;
+        font-family: 'Roboto', sans-serif;
+        border-radius: 5px;
+        display: none;
+    }
+    #selectIngredient {
+        background-color: #3282f7;
+        color: white;
+        padding-left: 20px;
+        max-height: 50px;
+        overflow-y: scroll;
+        appearance: none;
+        .option{
+            background-color: #3282f7;
+            width: 650px;
+        }
     }
 }
-  
 
-#selectAppareil{
-    background-color: #68d9a4;
-    color: white;
+    
+#appareilButton{
+    width: 200px;
+    height: 60px;
+    cursor: pointer;
+    margin: 0px;
+    #selectAppareilButton{
+        background-color: #68d9a4;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-weight: normal;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+        height: 60px;
+        width: 160px;
+        padding: 0px;
+        cursor: pointer;
+    }
+    
+    #searchBarAppareil{
+        align-items: center;
+        background-color: #68d9a4;
+        color: white;
+        width: 240px;
+        height: 35px;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        position: absolute;
+        left: 200px;
+        max-height: 50px;
+        overflow-y: scroll;
+        font-family: 'Roboto', sans-serif;
+        border-radius: 5px;
+        display: none;
+    }
+    #selectAppareil {
+        background-color: #68d9a4;
+        color: white;
+        padding-left: 20px;
+        max-height: 50px;
+        overflow-y: scroll;
+        appearance: none;
+        .option{
+            background-color: #68d9a4;
+            width: 650px;
+        }
+    }
 }
 
-#selectUstensiles{
-    background-color: #ed6454;
-    color: white;
+
+#ustensileButton{
+    width: 200px;
+    height: 60px;
+    cursor: pointer;
+    margin: 0px;
+    #selectUstensileButton{
+        background-color: #ed6454;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-weight: normal;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+        height: 60px;
+        width: 160px;
+        padding: 0px;
+        cursor: pointer;
+    }
+    
+    #searchBarUstensile{
+        align-items: center;
+        background-color: #ed6454;
+        color: white;
+        width: 240px;
+        height: 35px;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        position: absolute;
+        left: 400px;
+        max-height: 50px;
+        overflow-y: scroll;
+        font-family: 'Roboto', sans-serif;
+        border-radius: 5px;
+        display: none;
+    }
+    #selectUstensile {
+        background-color: #ed6454;
+        color: white;
+        padding-left: 20px;
+        max-height: 50px;
+        overflow-y: scroll;
+        appearance: none;
+        .option{
+            background-color: #ed6454;
+            width: 650px;
+        }
+    }
 }
+
+
 
 main{
     margin-top: 50px ;
