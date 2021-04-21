@@ -106,7 +106,6 @@ const boucleIngrédient = fetch('Javascript/recette.json')
     let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
     let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
 
-
     // affichage listes déroulantes
     for(element of listIngredientNoDoublon){
         selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`;
@@ -326,12 +325,12 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
 
     // Recherche commence a partir de 3 lettre 
     if(userSearchWord.length < 3){
-        console.log("moins de 3");
         e.preventDefault();
         return;
     }
-
+    console.log('ceci est ', userSearchWord);
     mainSemantic.innerHTML = "";
+
 
     fetch('Javascript/recette.json')
         .then((response) => response.json())
@@ -339,7 +338,19 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
             // Boucle création d'un nouvel objet recette
             for(item of data.recipes) {
                 const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-                
+            
+
+                listIngredientNoDoublon.filter(function(item) {
+                    if(item === userSearchWord){
+                        console.log('bonjour', item);
+                        return true 
+                    }
+                });
+
+                if(recipes === null){
+                    console.log("pas de resultat à afficher");
+                    mainSemantic.innerHTML +=`<span class ="no-result"> Aucun résultat </span>`
+                }
                 
                 // Création d'un squelette HTML pour chaque recette 
                 mainSemantic.innerHTML +=`
