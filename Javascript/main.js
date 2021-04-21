@@ -1,16 +1,52 @@
-
 /*--------------------------------------------------------------------------*/
-/*------------Barre de recherche principal -------------------------------------------*/
+/*------------Standard sortie ---------------------------------------------*/
 /*-------------------------------------------------------------------------*/
-const searchBarGeneral = [];
+const mainSemantic = document.querySelector("main");
+const loadRecette = fetch('Javascript/recette.json')
+    .then((response) => response.json())
+    .then(function (data){
 
-// Récupération des caractères dans la Search Bar 
-const mainSearchBarinput = document.getElementById('searchBarInput');
-mainSearchBarinput.addEventListener('keyup', (e) => {
-    console.log(e.target.value);
-    searchBarGeneral = e.target.value;
-    console.log("hello");
-})
+        // Boucle création d'un nouvel objet recette
+        for(item of data.recipes) {
+            const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
+
+            // Création d'un squelette HTML pour chaque recette 
+            mainSemantic.innerHTML +=`
+            <article>
+            <div class="illustrationRecette"></div>
+            <div class="titreTempsCuisson"> 
+                <h3>${recette.name}</h3>
+                <div class ="tempsCuisson">
+                    <img class="timerClock" src="Maquettes/timer.png"></img>
+                    <p>${recette.time} min</p>
+                </div>
+            
+            </div>
+            <div class="description-card">
+                <div class="liste-ingredient" id ="liste-ingredient-id-${recette.id}"></div>
+                <p class="description-recette">${recette.description}</p>
+            </div>
+            </article>
+            `
+            // Affichage des ingrédients 
+            for(ingredient of recette.ingredients){
+            // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
+            function generateUnit(){
+                if(ingredient.unit == undefined){
+                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
+                } else if (ingredient.quantity == undefined){
+                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> </p>`;
+                }
+                return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
+            }
+            // Affichage dynamique des données 
+            const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
+            listIngred.innerHTML +=`${generateUnit()}` ;
+        };
+    };
+    
+});
+
 
 
 // Variables 
@@ -46,7 +82,6 @@ function deleteKeyWord(list, element){
 let listIngredientNoDoublon = [];
 let listAppareilNoDoublon = [];
 let listUstensileNoDoublon = [];
-
 
 
 // Récupération de la liste d'ingrédient provenant du  JSON
@@ -94,51 +129,50 @@ console.log('Liste des ustensile avant traitement :', listUstensileRaw);
 
 
 /*--------------------------------------------------------------------------*/
-/*------------Filtre par Ingredient-------------------------------------------*/
-/*-------------------------------------------------------------------------*/
+/*------------Filtre par Ingredient----------------------------------------*/
+/*------------------------------------------------------------------------*/
+
 searchBarIngredient.addEventListener('keyup',(e) => {
     console.log(e.target.value);
 
     // Nettoyage des doublons
     let listIngredientNoDoublon = deleteDoublon(listIngredientRaw);
 
-    // Récupération des éléments dans la barre de saisie de l'utilisateur
+    // Ajout des filtres ingredients dans la liste de filtre générale
     const keyWordPusher = listIngredientNoDoublon.filter(function (element) {
         if(element === e.target.value){
             filterWordsList.push(e.target.value);
             return true 
         }
-    })
+    });
 
     console.log("Liste mise avant retrait du mot choisi", listIngredientNoDoublon);
 
-    // Suppression des élements sélectionnés dans la liste 
-    const keywordDelete = listIngredientNoDoublon.filter(function (element) {
-            if(e.target.value === element){
-                const index = listIngredientNoDoublon.indexOf(element)
-                if(index > -1){ 
-                    listIngredientNoDoublon.splice(index, 1);
-                }
-
-                if(element === e.target.value){
-                    const keyWordSelect = document.getElementById('keyWordSelect');
-                    keyWordSelect.innerHTML +=`<div class="keyword-block-bleu" id="keyword-block-${element}">${element}<i id="close-btn-${element}" class="far fa-times-circle"></i></div> `
-                    searchBarIngredient.value="";
-                }
-            } 
-        })
+    // Retrait des elements sélectionnés par l'utilisateur
+    listIngredientNoDoublon.filter(function (element){
+        if(element === e.target.value){
+            const index = listIngredientNoDoublon.indexOf(element)
+            if(index > -1 ){ 
+                listIngredientNoDoublon.splice(index, 1);
+            }
+            const keyWordSelect = document.getElementById('keyWordSelect');
+            keyWordSelect.innerHTML +=`<div class="keyword-block-bleu" id="keyword-block-${element}">${element}<i id="close-btn-${element}" class="far fa-times-circle"></i></div> `
+            searchBarIngredient.value="";
+        }
+    });
        
     console.log("Liste mise à jour apres retrait mot choisi", listIngredientNoDoublon);
 
-    
-    // Suppression des éléments choisis dans la liste 
+    // Mise à jour de la liste sans les éléments selectionnés par l'utilisateur
     selectIngredient.innerHTML ="";
     for(const element of listIngredientNoDoublon){
         selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`
     }
 
+    
     console.log("filterWords", filterWordsList);
 
+    // Suppression des filtres
     for(const element of filterWordsList){
         const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
         const keywordBlock = document.getElementById("keyword-block-"+element);
@@ -156,7 +190,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
         })
     }
 });
-
 
 /*--------------------------------------------------------------------------*/
 /*------------Filtre par Appareil-------------------------------------------*/
@@ -280,51 +313,70 @@ searchBarUstensile.addEventListener('keyup',(e) => {
     }
 });
 
+/*--------------------------------------------------------------------------*/
+/*------------Barre de recherche principal ------------------------------*/
+/*-------------------------------------------------------------------------*/
+const searchBarGeneral = [];
 
-
-// Sortie JSON
-const mainSemantic = document.querySelector("main");
-const loadRecette = fetch('Javascript/recette.json')
-    .then((response) => response.json())
-    .then(function (data){
-
-        // Boucle création d'un nouvel objet recette
-        for(item of data.recipes) {
-            const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-
-            // Création d'un squelette HTML pour chaque recette 
-            mainSemantic.innerHTML +=`
-            <article>
-            <div class="illustrationRecette"></div>
-            <div class="titreTempsCuisson"> 
-                <h3>${recette.name}</h3>
-                <div class ="tempsCuisson">
-                    <img class="timerClock" src="Maquettes/timer.png"></img>
-                    <p>${recette.time} min</p>
-                </div>
-            
-            </div>
-            <div class="description-card">
-                <div class="liste-ingredient" id ="liste-ingredient-id-${recette.id}"></div>
-                <p class="description-recette">${recette.description}</p>
-            </div>
-            </article>
-            `
-            // Affichage des ingrédients 
-            for(ingredient of recette.ingredients){
-            // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
-            function generateUnit(){
-                if(ingredient.unit == undefined){
-                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
-                } else if (ingredient.quantity == undefined){
-                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> </p>`;
-                }
-                return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
-            }
-            // Affichage dynamique des données 
-            const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
-            listIngred.innerHTML +=`${generateUnit()}` ;
-        };
-    };
+// Récupération des caractères dans la Search Bar 
+const mainSearchBarinput = document.getElementById('searchBarInput');
+mainSearchBarinput.addEventListener('keyup', (e) => {
     
-});
+    const userSearchWord = e.target.value;
+
+    // Recherche commence a partir de 3 lettre 
+    if(userSearchWord.length < 3){
+        console.log("moins de 3");
+        e.preventDefault();
+        return;
+    }
+
+    mainSemantic.innerHTML = "";
+
+    fetch('Javascript/recette.json')
+        .then((response) => response.json())
+        .then(function (data){
+            // Boucle création d'un nouvel objet recette
+            for(item of data.recipes) {
+                const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
+                
+                
+                // Création d'un squelette HTML pour chaque recette 
+                mainSemantic.innerHTML +=`
+                <article>
+                <div class="illustrationRecette"></div>
+                <div class="titreTempsCuisson"> 
+                    <h3>${recette.name}</h3>
+                    <div class ="tempsCuisson">
+                        <img class="timerClock" src="Maquettes/timer.png"></img>
+                        <p>${recette.time} min</p>
+                    </div>
+                
+                </div>
+                <div class="description-card">
+                    <div class="liste-ingredient" id ="liste-ingredient-id-${recette.id}"></div>
+                    <p class="description-recette">${recette.description}</p>
+                </div>
+                </article>
+                `
+                // Affichage des ingrédients 
+                for(ingredient of recette.ingredients){
+                // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
+                function generateUnit(){
+                    if(ingredient.unit == undefined){
+                        return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
+                    } else if (ingredient.quantity == undefined){
+                        return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> </p>`;
+                    }
+                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
+                }
+                // Affichage dynamique des données 
+                const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
+                listIngred.innerHTML +=`${generateUnit()}` ;
+                };
+            };
+        
+        });
+
+})
+
