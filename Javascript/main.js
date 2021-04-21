@@ -2,11 +2,14 @@
 /*--------------------------------------------------------------------------*/
 /*------------Barre de recherche principal -------------------------------------------*/
 /*-------------------------------------------------------------------------*/
+const searchBarGeneral = [];
 
 // Récupération des caractères dans la Search Bar 
-const searchBarinput = document.getElementById('searchBarInput');
-searchBarinput.addEventListener('keyup', (e) => {
+const mainSearchBarinput = document.getElementById('searchBarInput');
+mainSearchBarinput.addEventListener('keyup', (e) => {
     console.log(e.target.value);
+    searchBarGeneral = e.target.value;
+    console.log("hello");
 })
 
 
@@ -22,6 +25,7 @@ let listAppareilRaw = [];
 let listUstensileRaw = [];
 
 // Cet array contient les mots clés filtrant choisi par l'utilisateur
+
 let filterWordsList = [];
 
 // Fonction suppression des doublons
@@ -30,26 +34,13 @@ function deleteDoublon(tableauOrigine){
     return Array.from(sansDoublon);
 }
 
-function deleteKeyWord(list) {
+function deleteKeyWord(list, element){
     const index = list.indexOf(element)
-    if(index > -1){ 
-        list.splice(index, 1);
-        return list;
-    }
-}
-
-function deleteKeyWordTest(list){
-    const index = list.indexOf(element)
-    console.log("index :", index);
-    console.log("element : ", element)
-    
     if(index > -1 || index === -1){ 
         list.splice(index, 1);
         return list;
     }
 }
-
-
 
 // Récupération des données saisies dans la liste déroulante
 let listIngredientNoDoublon = [];
@@ -107,72 +98,66 @@ console.log('Liste des ustensile avant traitement :', listUstensileRaw);
 /*-------------------------------------------------------------------------*/
 searchBarIngredient.addEventListener('keyup',(e) => {
     console.log(e.target.value);
-    console.log(listIngredientRaw)
 
+    // Nettoyage des doublons
     let listIngredientNoDoublon = deleteDoublon(listIngredientRaw);
 
-    for(element of listIngredientNoDoublon){
-        if(e.target.value === element) {
-            filterWordsList.push(e.target.value);
-        }
-    }
     // Récupération des éléments dans la barre de saisie de l'utilisateur
+    const keyWordPusher = listIngredientNoDoublon.filter(function (element) {
+        if(element === e.target.value){
+            filterWordsList.push(e.target.value);
+            return true 
+        }
+    })
+
     console.log("Liste mise avant retrait du mot choisi", listIngredientNoDoublon);
 
-     //Traitement des mots clés
-    for(element of filterWordsList){
-        // Retrait de l'ingrédient choisi dans la liste d'ingrédient générale
-        const index = listIngredientNoDoublon.indexOf(element)
-        if(index > -1){ 
-            listIngredientNoDoublon.splice(index, 1);
-        }
-        // Affichage de l'ingredient choisi en étiquette HTML
-        if(element === e.target.value){
-            const keyWordSelect = document.getElementById('keyWordSelect');
-            keyWordSelect.innerHTML +=`<div class="keyword-block-bleu" id="keyword-block-${element}">${element}<i id="close-btn-${element}" class="far fa-times-circle"></i></div> `
-            searchBarIngredient.value="";
-        }
-    }
+    // Suppression des élements sélectionnés dans la liste 
+    const keywordDelete = listIngredientNoDoublon.filter(function (element) {
+            if(e.target.value === element){
+                const index = listIngredientNoDoublon.indexOf(element)
+                if(index > -1){ 
+                    listIngredientNoDoublon.splice(index, 1);
+                }
 
+                if(element === e.target.value){
+                    const keyWordSelect = document.getElementById('keyWordSelect');
+                    keyWordSelect.innerHTML +=`<div class="keyword-block-bleu" id="keyword-block-${element}">${element}<i id="close-btn-${element}" class="far fa-times-circle"></i></div> `
+                    searchBarIngredient.value="";
+                }
+            } 
+        })
+       
     console.log("Liste mise à jour apres retrait mot choisi", listIngredientNoDoublon);
 
+    
     // Suppression des éléments choisis dans la liste 
     selectIngredient.innerHTML ="";
-    for(element of listIngredientNoDoublon){
+    for(const element of listIngredientNoDoublon){
         selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`
     }
 
     console.log("filterWords", filterWordsList);
 
-    for(element of filterWordsList){
+    for(const element of filterWordsList){
         const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
         const keywordBlock = document.getElementById("keyword-block-"+element);
 
         closeBtnIngredientFilter.addEventListener("click", function hideFilter() {
-            keywordBlock.style.display ="none"; 
-            console.log(this);
-            /*
-            let test = deleteKeyWord(filterWordsList);
-            console.log("ceci est ZZZ ",test)
-           */
             
-            /*
-            const index = filterWordsList.indexOf(element)
-            if(index > -1){ 
-            filterWordsList.splice(index, 1);
-            console.log('hello');
+            keywordBlock.style.display ="none"; 
+            deleteKeyWord(filterWordsList,element);
+            listIngredientNoDoublon.push(element);
+            selectIngredient.innerHTML ="";
+            
+            for(const element of listIngredientNoDoublon){
+                selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`
             }
-            */
-            deleteKeyWordTest(filterWordsList);
-
-        listIngredientNoDoublon.push(element);
-            console.log("MAJ de filterWordsList", filterWordsList)
-            console.log('test retour dans la liste', listIngredientNoDoublon)
         })
     }
 });
 
- 
+
 /*--------------------------------------------------------------------------*/
 /*------------Filtre par Appareil-------------------------------------------*/
 /*-------------------------------------------------------------------------*/
@@ -191,7 +176,7 @@ searchBarAppareil.addEventListener('keyup',(e) => {
     console.log("Liste mise avant retrait du mot choisi", listAppareilNoDoublon);
 
      //Traitement des mots clés
-    for(element of filterWordsList){
+    for( const element of filterWordsList){
         // Retrait de l'ingrédient choisi dans la liste d'ingrédient générale
         const index = listAppareilNoDoublon.indexOf(element)
         if(index > -1){ 
@@ -209,25 +194,26 @@ searchBarAppareil.addEventListener('keyup',(e) => {
 
     // Suppression des éléments choisis dans la liste 
     selectAppareil.innerHTML ="";
-    for(element of listAppareilNoDoublon){
+    for( const element of listAppareilNoDoublon){
         selectAppareil.innerHTML +=`<option value="${element}">${element}</option>`
     }
 
     console.log("filterWords", filterWordsList);
 
-    for(element of filterWordsList){
+    for(const element of filterWordsList){
         const closeBtnAppareilFilter = document.getElementById("close-btn-"+element);
         const keywordBlock = document.getElementById("keyword-block-"+element);
 
         closeBtnAppareilFilter.addEventListener("click", function hideFilter() {
-            keywordBlock.style.display ="none";
-            const index = filterWordsList.indexOf(element)
-        if(index > -1){ 
-            filterWordsList.splice(index, 1);
-        }
-        listAppareilNoDoublon.push(element);
-            console.log('test suppression filterWordsList', filterWordsList)
-            console.log('test retour dans la liste', listAppareilNoDoublon)
+            
+            keywordBlock.style.display ="none"; 
+            deleteKeyWord(filterWordsList,element);
+            listAppareilNoDoublon.push(element);
+            selectAppareil.innerHTML ="";
+            
+            for( const element of listAppareilNoDoublon){
+                selectAppareil.innerHTML +=`<option value="${element}">${element}</option>`
+            }
         })
     }
 });
@@ -277,19 +263,19 @@ searchBarUstensile.addEventListener('keyup',(e) => {
 
     console.log("filterWords", filterWordsList);
 
-    for(element of filterWordsList){
+    for(const element of filterWordsList){
         const closeBtnUstensileFilter = document.getElementById("close-btn-"+element);
         const keywordBlock = document.getElementById("keyword-block-"+element);
 
         closeBtnUstensileFilter.addEventListener("click", function hideFilter() {
-            keywordBlock.style.display ="none";
-            const index = filterWordsList.indexOf(element)
-        if(index > -1){ 
-            filterWordsList.splice(index, 1);
-        }
-        listUstensileNoDoublon.push(element);
-            console.log('test suppression filterWordsList', filterWordsList)
-            console.log('test retour dans la liste', listUstensileNoDoublon)
+            keywordBlock.style.display ="none"; 
+            deleteKeyWord(filterWordsList,element);
+            listUstensileNoDoublon.push(element);
+            selectUstensile.innerHTML ="";
+            
+            for(const element of listUstensileNoDoublon){
+                selectUstensile.innerHTML +=`<option value="${element}">${element}</option>`
+            }
         })
     }
 });
