@@ -330,24 +330,26 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
     }
     console.log('ceci est ', userSearchWord);
     mainSemantic.innerHTML = "";
-
-
+    
     fetch('Javascript/recette.json')
         .then((response) => response.json())
         .then(function (data){
             // Boucle création d'un nouvel objet recette
-            for(item of data.recipes) {
+            for(item of data.recipes){
                 const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
             
-
-                listIngredientNoDoublon.filter(function(item) {
-                    if(item === userSearchWord){
-                        console.log('bonjour', item);
-                        return true 
+                const result = data.filter(function(element){
+                    if(element === userSearchWord){
+                        console.log('hello', element);
                     }
-                });
-
-                if(recipes === null){
+                })
+                
+                if(item === userSearchWord){
+                    console.log('bonjour', item);
+                    return true 
+                }
+            
+                if(item === undefined){
                     console.log("pas de resultat à afficher");
                     mainSemantic.innerHTML +=`<span class ="no-result"> Aucun résultat </span>`
                 }
