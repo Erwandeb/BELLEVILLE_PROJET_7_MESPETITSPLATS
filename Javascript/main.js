@@ -1,32 +1,39 @@
+
+
 /*--------------------------------------------------------------------------*/
 /*------------Standard sortie ---------------------------------------------*/
 /*-------------------------------------------------------------------------*/
+const allRecetteList = [];
+
 const mainSemantic = document.querySelector("main");
-const loadRecette = fetch('Javascript/recette.json')
+
+const loadRecette = async() => {
+    meals = await fetch('Javascript/recette.json')
     .then((response) => response.json())
     .then(function (data){
 
         // Boucle création d'un nouvel objet recette
         for(item of data.recipes) {
             const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-
-            // Création d'un squelette HTML pour chaque recette 
-            mainSemantic.innerHTML +=`
-            <article>
-            <div class="illustrationRecette"></div>
-            <div class="titreTempsCuisson"> 
-                <h3>${recette.name}</h3>
-                <div class ="tempsCuisson">
-                    <img class="timerClock" src="Maquettes/timer.png"></img>
-                    <p>${recette.time} min</p>
-                </div>
+            allRecetteList.push(recette);
             
-            </div>
-            <div class="description-card">
-                <div class="liste-ingredient" id ="liste-ingredient-id-${recette.id}"></div>
-                <p class="description-recette">${recette.description}</p>
-            </div>
-            </article>
+            // Création d'un squelette HTML pour chaque recette 
+            mainSemantic.innerHTML +=
+            `
+                <article>
+                    <div class="illustrationRecette"></div>
+                    <div class="titreTempsCuisson"> 
+                        <h3>${recette.name}</h3>
+                        <div class ="tempsCuisson">
+                                <img class="timerClock" src="Maquettes/timer.png"></img>
+                                <p>${recette.time} min</p>
+                        </div>
+                    </div>
+                    <div class="description-card">
+                        <div class="liste-ingredient" id ="liste-ingredient-id-${recette.id}"></div>
+                        <p class="description-recette">${recette.description}</p>
+                    </div>
+                </article>
             `
             // Affichage des ingrédients 
             for(ingredient of recette.ingredients){
@@ -42,11 +49,12 @@ const loadRecette = fetch('Javascript/recette.json')
             // Affichage dynamique des données 
             const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
             listIngred.innerHTML +=`${generateUnit()}` ;
+            };
         };
-    };
-    
-});
+    });
+}
 
+   
 
 
 // Variables 
@@ -54,11 +62,13 @@ const selectIngredient = document.getElementById('selectIngredient');
 const keyWordSelect = document.getElementById('keyWordSelect');
 const selectAppareil = document.getElementById('selectAppareil');
 const selectUstensile = document.getElementById('selectUstensile');
+const noResultatBloc = document.querySelector('.no-resultat-bloc');
 
 // Liste des éléments brut présent dans le JSON. Attention aux doublons.
 let listIngredientRaw = [];
 let listAppareilRaw = [];
 let listUstensileRaw = [];
+let listSearchAnswer = [];
 
 // Cet array contient les mots clés filtrant choisi par l'utilisateur
 
@@ -76,6 +86,10 @@ function deleteKeyWord(list, element){
         list.splice(index, 1);
         return list;
     }
+}
+
+function camalize(str) {
+    return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
 }
 
 // Récupération des données saisies dans la liste déroulante
@@ -320,76 +334,146 @@ const searchBarGeneral = [];
 // Récupération des caractères dans la Search Bar 
 const mainSearchBarinput = document.getElementById('searchBarInput');
 mainSearchBarinput.addEventListener('keyup', (e) => {
-    
+   
     const userSearchWord = e.target.value;
-
-    // Recherche commence a partir de 3 lettre 
-    if(userSearchWord.length < 3){
-        e.preventDefault();
-        return;
-    }
-    console.log('ceci est ', userSearchWord);
-    mainSemantic.innerHTML = "";
     
-    fetch('Javascript/recette.json')
-        .then((response) => response.json())
-        .then(function (data){
-            // Boucle création d'un nouvel objet recette
-            for(item of data.recipes){
-                const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-            
-                const result = data.filter(function(element){
-                    if(element === userSearchWord){
-                        console.log('hello', element);
-                    }
-                })
-                
-                if(item === userSearchWord){
-                    console.log('bonjour', item);
-                    return true 
-                }
-            
-                if(item === undefined){
-                    console.log("pas de resultat à afficher");
-                    mainSemantic.innerHTML +=`<span class ="no-result"> Aucun résultat </span>`
-                }
-                
-                // Création d'un squelette HTML pour chaque recette 
-                mainSemantic.innerHTML +=`
+    const searchDisplay = async() => {
+        await loadRecette();
+    
+        if(meals == null){
+            console.log("aucun resultat");
+            mainSemantic.innerHTML= "";
+            noResultatBloc.innerHTML = 
+            `
+            <h3 class ="no-resultat-by-searchbar"> AUCUN RESULTAT A AFFICHER <h3>
+            `
+        }
+        
+        const filtreRecetteBySearchBar = allRecetteList.filter((item) => {
+            return(
+                item.name.includes(userSearchWord) ||
+                item.ingredients.includes(userSearchWord)  ||
+                item.appliance.includes(userSearchWord) ||
+                item.ustensils.includes(userSearchWord)
+            );
+        })
+        
+        const test1 = deleteDoublon(filtreRecetteBySearchBar);
+        console.log("ceci est filtreRecetteBySearchBar",test1 );
+
+        for(item of filtreRecetteBySearchBar){
+            // Création d'un squelette HTML pour chaque recette 
+            mainSemantic.innerHTML +=
+            `
                 <article>
                 <div class="illustrationRecette"></div>
                 <div class="titreTempsCuisson"> 
-                    <h3>${recette.name}</h3>
-                    <div class ="tempsCuisson">
-                        <img class="timerClock" src="Maquettes/timer.png"></img>
-                        <p>${recette.time} min</p>
-                    </div>
-                
+                <h3>${item.name}</h3>
+                <div class ="tempsCuisson">
+                    <img class="timerClock" src="Maquettes/timer.png"></img>
+                    <p>${item.time} min</p>
+                </div>
+            
                 </div>
                 <div class="description-card">
-                    <div class="liste-ingredient" id ="liste-ingredient-id-${recette.id}"></div>
-                    <p class="description-recette">${recette.description}</p>
+                    <div class="liste-ingredient" id ="liste-ingredient-id-${item.id}"></div>
+                    <p class="description-recette">${item.description}</p>
                 </div>
                 </article>
-                `
-                // Affichage des ingrédients 
-                for(ingredient of recette.ingredients){
-                // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
-                function generateUnit(){
-                    if(ingredient.unit == undefined){
-                        return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
-                    } else if (ingredient.quantity == undefined){
-                        return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> </p>`;
-                    }
-                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
+            `
+            // Affichage des ingrédients 
+            for(ingredient of item.ingredients){
+            // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
+            function generateUnit(){
+                if(ingredient.unit == undefined){
+                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
+                } else if (ingredient.quantity == undefined){
+                    return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> </p>`;
                 }
-                // Affichage dynamique des données 
-                const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
-                listIngred.innerHTML +=`${generateUnit()}` ;
-                };
+                return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
+            }
+            // Affichage dynamique des données 
+            const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+            listIngred.innerHTML +=`${generateUnit()}` ;
             };
+        }
         
-        });
+    }
 
+    searchDisplay();
+    mainSemantic.innerHTML ="";
+
+    // Recherche commence a partir de 3 lettre 
+    if(userSearchWord.length < 3){
+        mainSemantic.innerHTML ="";
+        e.preventDefault();
+        return;
+    }
+ 
+  
+    //console.log("allRecetteList", allRecetteList);
+
+
+    /*
+    const filtreRecetteBySearchBar = allRecetteList.filter((item) => {
+         return(
+            item.name.includes(userSearchWord) ||
+            item.ingredients.includes(userSearchWord)  ||
+            item.appliance.includes(userSearchWord) ||
+            item.ustensils.includes(userSearchWord)
+        );
+    })
+    */
+
+    //console.log(filtreRecetteBySearchBar);
+    
+    /*
+    for(item of filtreRecetteBySearchBar){
+           // Création d'un squelette HTML pour chaque recette 
+           mainSemantic.innerHTML +=
+           `
+               <article>
+               <div class="illustrationRecette"></div>
+               <div class="titreTempsCuisson"> 
+               <h3>${item.name}</h3>
+               <div class ="tempsCuisson">
+                   <img class="timerClock" src="Maquettes/timer.png"></img>
+                   <p>${item.time} min</p>
+               </div>
+           
+               </div>
+               <div class="description-card">
+                   <div class="liste-ingredient" id ="liste-ingredient-id-${item.id}"></div>
+                   <p class="description-recette">${item.description}</p>
+               </div>
+               </article>
+           `
+           // Affichage des ingrédients 
+           for(ingredient of item.ingredients){
+           // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
+           function generateUnit(){
+               if(ingredient.unit == undefined){
+                   return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
+               } else if (ingredient.quantity == undefined){
+                   return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> </p>`;
+               }
+               return `<p class="ingredients"> <strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit} </p>` ;
+           }
+           // Affichage dynamique des données 
+           const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+           listIngred.innerHTML +=`${generateUnit()}` ;
+           };
+    }
+    */
+
+/*
+   if(userSearchWord != filtreRecetteBySearchBar){
+        mainSemantic.innerHTML= "";
+        noResultatBloc.innerHTML = 
+        `
+        <h3 class ="no-resultat-by-searchbar"> AUCUN RESULTAT A AFFICHER <h3>
+        `
+    }
+*/
 })
 
