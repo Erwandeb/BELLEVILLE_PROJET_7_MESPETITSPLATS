@@ -3,7 +3,7 @@
     "recipes" : [
         {
             "id": 1,
-            "name" : "Limonade de Coco",
+            "name" : "Limonade de coco",
             "servings" : 1,
             "ingredients": [
                 {
@@ -36,7 +36,7 @@
         },
         {
             "id": 2,
-            "name" : "Poisson Cru à la tahitienne",
+            "name" : "Poisson cru à la tahitienne",
             "servings": 2,
             "ingredients": [
                 {
@@ -296,7 +296,7 @@
         },
         {
             "id": 9,
-            "name": "Salade Méditerannéene fraiche au chèvre",
+            "name": "Salade méditerannéene fraiche au chèvre",
             "servings": 4,
             "ingredients":[
                 {
@@ -400,7 +400,7 @@
             "ustensils": ["Couteau", "Cuillère à melon" ]
         },{
             "id": 12,
-            "name": "Compote pomme rhubarbe",
+            "name": "Compote pommes rhubarbe",
             "servings": 4,
             "ingredients":[
                 {
@@ -466,7 +466,7 @@
         },
         {
             "id": 14,
-            "name": "Galette Bretonne Saucisse et Fromage à raclette",
+            "name": "Galette bretonne saucisse et fromage à raclette",
             "servings": 2,
             "ingredients": [
                 {
@@ -506,7 +506,7 @@
         },
         {
             "id": 15,
-            "name": "Crêpes Chocolat Banane",
+            "name": "Crêpes chocolat banane",
             "servings": 10,
             "ingredients": [
                 {
@@ -638,7 +638,7 @@
         },
         {
             "id": 19,
-            "name": "Shake Banane Kiwi",
+            "name": "Shake banane kiwi",
             "servings": 4,
             "ingredients": [
                 {
@@ -671,7 +671,7 @@
         },
         {
             "id": 20,
-            "name": "Pates Carbonara",
+            "name": "Pates carbonara",
             "servings": 5,
             "ingredients": [
                 {
@@ -996,7 +996,7 @@
         },
         {
             "id": 29,
-            "name": "Houmous Express",
+            "name": "Houmous express",
             "servings": 2,
             "ingredients": [
                 {
@@ -1086,7 +1086,7 @@
         },
         {
             "id": 32,
-            "name": "Croque Monsieur à la dinde",
+            "name": "Croque monsieur à la dinde",
             "servings": 4,
             "ingredients": [
                 {
@@ -1229,7 +1229,7 @@
         },
         {
             "id": 36,
-            "name": "Lasagne Courgettes et Chèvre",
+            "name": "Lasagne courgettes et chèvre",
             "servings": 2,
             "ingredients": [
                 {
@@ -1308,7 +1308,7 @@
         },
         {
             "id": 38,
-            "name": "Pain Perdu",
+            "name": "Pain perdu",
             "servings": 4,
             "ingredients": [
                 {
