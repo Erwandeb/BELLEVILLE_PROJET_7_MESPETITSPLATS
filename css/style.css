@@ -346,19 +346,23 @@ main article .description-card .liste-ingredient {
   margin: 0px 15px 0px 10px;
   font-size: 11px;
   background-color: #e7e7e7;
-  overflow: hidden;
-  height: 80px;
+  overflow-y: scroll;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  height: 90px;
 }
 main article .description-card .liste-ingredient .ingredients {
   font-weight: normal;
   width: 140px;
   overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
   background-color: #e7e7e7;
 }
 main article .description-card .description-recette {
   width: 50%;
   height: 80px;
-  overflow: hidden;
+  overflow-y: scroll;
   text-decoration: none;
   text-overflow: ellipsis;
   font-size: 11px;
@@ -381,6 +385,11 @@ main article .description-card .description-recette {
   margin: 0px;
   justify-content: center;
   align-items: center;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
 }
 
 /*# sourceMappingURL=style.css.map */

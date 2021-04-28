@@ -7,7 +7,6 @@ const allRecetteList = [];
 let meals = [];
 const mainSemantic = document.querySelector("main");
 
-
 const loadRecette = async() => {
     let meals = await fetch('Javascript/recette.json')
     .then((response) => response.json())
@@ -60,7 +59,6 @@ const loadRecette = async() => {
 // Variables Asynchrone
 const searchDisplay = async() => {
     await loadRecette();
-    console.log('test', meals);
 }
 
 searchDisplay();
@@ -96,20 +94,36 @@ function deleteKeyWord(list, element){
 }
 
 
+function generateUnit(item, array){
+
+    for(element of array)
+    if(item.unit == undefined){
+        return `<p class="ingredients"> <strong>${item.ingredient}</strong> : ${item.quantity}</p>`;
+    } else if (item.quantity == undefined){
+        return `<p class="ingredients"> <strong>${item.ingredient}</strong> </p>`;
+    }
+    return `<p class="ingredients"> <strong>${item.ingredient}</strong> : ${item.quantity}  ${item.unit} </p>` ;
+}
+
+           
 function recetteDisplay(array){
-    const htmlString = array.map((item) => {  
+    const htmlString = array.map((item) => {    
+        const listIngred = document.getElementById("liste-ingredient-id-"+item.id); 
+
+
+        console.log(listIngred)
       return `
                 <article>
                     <div class="illustrationRecette"></div>
                     <div class="titreTempsCuisson"> 
                         <h3>${item.name}</h3>
                         <div class ="tempsCuisson">
-                                <img class="timerClock" src="Maquettes/timer.png"></img>
-                                <p>${item.time} min</p>
+                            <img class="timerClock" src="Maquettes/timer.png"></img>
+                            <p>${item.time} min</p>
                         </div>
                     </div>
                     <div class="description-card">
-                        <div class="liste-ingredient" id ="liste-ingredient-id-${item.id}"></div>
+                        <div class="liste-ingredient" id ="liste-ingredient-id-${item.id}">${generateUnit(item,array)}</div>
                         <p class="description-recette">${item.description}</p>
                     </div>
                 </article>
@@ -289,8 +303,6 @@ searchBarAppareil.addEventListener('keyup',(e) => {
     }
 });
 
-
-
 /*--------------------------------------------------------------------------*/
 /*------------Filtre par ustensile-------------------------------------------*/
 /*-------------------------------------------------------------------------*/
@@ -365,22 +377,21 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
 
     // Bloquage du input avant 3 lettres 
     if(userSearchWord.length < 3){
-        mainSemantic.innerHTML ="";
         noResultatBloc.innerHTML ="";
         e.preventDefault();
         return;
     }
    
+  
     //allRecetteList.toLowerCase();
     //console.log(allRecetteList);
 
    filtreRecetteBySearchBar = allRecetteList.filter((item) => {
-
         return(
             item.name.toLowerCase().includes(userSearchWord) ||
-            item.ingredients.includes(userSearchWord)  ||
-            item.appliance.includes(userSearchWord) ||
-            item.ustensils.includes(userSearchWord)
+            item.ingredients.toString().toLowerCase().includes(userSearchWord)  ||
+            item.appliance.toString().toLowerCase().includes(userSearchWord) ||
+            item.ustensils.toString().toLowerCase().includes(userSearchWord)
         );
     })
 
@@ -396,6 +407,5 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
         <h3 class ="no-resultat-by-searchbar"> AUCUN RESULTAT A AFFICHER <h3>
         `
     }
-
 })
 
