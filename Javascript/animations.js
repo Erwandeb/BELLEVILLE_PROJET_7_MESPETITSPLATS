@@ -15,6 +15,8 @@ document.addEventListener('click', function(event) {
 });
 
 
+
+
 // Animation du bouton Appareil 
 const appareilButton = document.getElementById('appareilButton');
 const searchBarAppareil = document.getElementById('searchBarAppareil');
