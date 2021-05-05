@@ -5,6 +5,7 @@
 /*-------------------------------------------------------------------------*/
 const allRecetteList = [];
 let meals = [];
+
 const mainSemantic = document.querySelector("main");
 
 const loadRecette = async() => {
@@ -56,6 +57,7 @@ const loadRecette = async() => {
             const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
             listIngred.innerHTML +=`${generateUnit()}` ;
             };
+
         };
     });
 }
@@ -107,16 +109,16 @@ function capitalizeFirstLetter(string) {
 
 
 function generateUnit(item, array){
-
-    for(element of array)
-    if(item.unit == undefined){
-        return `<p class="ingredients"> <strong>${item.ingredient}</strong> : ${item.quantity}</p>`;
-    } else if (item.quantity == undefined){
-        return `<p class="ingredients"> <strong>${item.ingredient}</strong> </p>`;
+    for(item of array){
+        if(item.quantity === undefined && item.unit === undefined ){
+            return `<p class="ingredients"><strong>${item.ingredient}</strong></p>`;
+        }
+       else if(item.quantity === undefined){
+            return `<p class="ingredients"><strong>${item.ingredient}</strong> : ${item.quantity}</p>`;
+        } 
+        return `<p class="ingredients"><strong>${item.ingredient}</strong> : ${item.quantity} ${item.unit}</p>`;
     }
-    return `<p class="ingredients"> <strong>${item.ingredient}</strong> : ${item.quantity}  ${item.unit} </p>` ;
 }
-
 
 //function objectToArray()
            
@@ -201,14 +203,13 @@ const boucleIngrédient = fetch('Javascript/recette.json')
 
 })
 
-console.log('Liste des ingredient avant traitement :', listIngredientRaw);
-console.log('Liste des appareil avant traitement :', listAppareilRaw);
-console.log('Liste des ustensile avant traitement :', listUstensileRaw);
 
+let ingredientTest ="";
 
 /*--------------------------------------------------------------------------*/
 /*------------Filtre par Ingredient----------------------------------------*/
 /*------------------------------------------------------------------------*/
+
 
 searchBarIngredient.addEventListener('keyup',(e) => {
     const filterWordIngredient = e.target.value;
@@ -236,34 +237,32 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 
 
     // Récupération des éléments dans la barre de saisie de l'utilisateur
-    //console.log("Liste mise avant retrait du mot choisi", listIngredientNoDoublon);
 
     console.log("filterWordsList", filterWordsList);
-    let ingredientRaw = [];
-    let ingredientLowerCase = "";
-    let ingredientArrayLower = [];
-    let propertyValues = [];
+
+
     let IngredientFromPropertyValuesListe = "";
+    let propertyValues = [];
 
    // Filtre toutes les recettes en fonction des ingredients
    resultatFilter = allRecetteList.filter((item) => {
-    //console.log("ceci est item", item)
-    // Convertir l'objet ingredient en Arra
-    for(element of item.ingredients){
-        propertyValues = Object.values(element); //Convertir l'objet ingredient en Array
-        if(propertyValues.length != null){
-            IngredientFromPropertyValuesListe = propertyValues.shift(); // Extraction du premier element de la list ingredient
-        }
-        console.log("test", IngredientFromPropertyValuesListe.toLowerCase());
-    }
-    console.log("test", IngredientFromPropertyValuesListe.toLowerCase());
-    console.log("filterwordList", filterWordsList);
-    return(
-        IngredientFromPropertyValuesListe.toLowerCase().includes(filterWordsList) // Tri des données  
-        );
-    })
+    //console.log("ceci est item", item);
+    
+        for(element of item.ingredients){
+            //console.log('ceci est element', element);
 
-    console.log("test filtreRecetteByFilterIngredient ", resultatFilter)
+            propertyValues = Object.values(element); //Convertir l'objet ingredient en Array
+            //console.log('ceci est property Values', propertyValues);
+
+            IngredientFromPropertyValuesListe = propertyValues.shift(); // Extraction du premier element de la list ingredient
+            //console.log("test ingredient from propery values", IngredientFromPropertyValuesListe);
+        }
+        
+        return IngredientFromPropertyValuesListe.toLowerCase().includes(filterWordsList);
+
+    });
+
+    console.log("Le nombre de recette correspondant est ", resultatFilter)
 
 
     // Affichage des résultats sur ecran
@@ -272,8 +271,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
     if(resultatFilter.length === 0){
         noResultatBloc.innerHTML = NoResultatForResearch;
     }
-
-    //console.log("Liste mise à jour apres retrait mot choisi", listIngredientNoDoublon);
 
     // Suppression des éléments choisis dans la liste 
   
@@ -289,7 +286,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
         const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
         const keywordBlock = document.getElementById("keyword-block-"+element);
 
-        //console.log("yoooo",element)
         closeBtnIngredientFilter.addEventListener("click", function hideFilter() {
 
             keywordBlock.style.display ="none"; 
@@ -350,17 +346,15 @@ searchBarAppareil.addEventListener('keyup',(e) => {
 
     // Récupération des éléments dans la barre de saisie de l'utilisateur
     console.log("Liste mise avant retrait du mot choisi", listAppareilNoDoublon);
-
     console.log("filterWordsList", filterWordsList);
+ 
 
    // Systeme de filtre
    resultatFilter = allRecetteList.filter((item) => {
-    return(
-        item.appliance.toString().toLowerCase().includes(filterWordsList) 
-        );
+    return(item.appliance.toString().toLowerCase().includes(filterWordsList));
     })
 
-    console.log("test filtreRecetteByFilterAppareil ", resultatFilter)
+    console.log("test filtreRecetteByFilterAppareil ", resultatFilter);
 
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);
@@ -442,8 +436,6 @@ searchBarUstensile.addEventListener('keyup',(e) => {
 
     // Récupération des éléments dans la barre de saisie de l'utilisateur
     console.log("Liste mise avant retrait du mot choisi", listUstensileNoDoublon);
-
-  
     console.log("filterWordsList", filterWordsList);
 
    // Systeme de filtre
@@ -451,19 +443,19 @@ searchBarUstensile.addEventListener('keyup',(e) => {
     return(
         item.ustensils.toString().toLowerCase().includes(filterWordsList) 
         );
-    })
+    });
 
-    console.log("test filtreRecetteByFilterAppareil ",resultatFilter)
+    console.log("test filtreRecetteByFilterAppareil ", resultatFilter)
 
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);
 
     if(resultatFilter.length === 0){
         noResultatBloc.innerHTML = NoResultatForResearch;
-    }
+    };
 
 
-    console.log("Liste mise à jour apres retrait mot choisi", listUstensileNoDoublon);
+    //console.log("Liste mise à jour apres retrait mot choisi", listUstensileNoDoublon);
 
     // Suppression des éléments choisis dans la liste 
 
@@ -504,6 +496,7 @@ searchBarUstensile.addEventListener('keyup',(e) => {
     });
 });
 
+console.log('test resultat filter', resultatFilter);
 
 /*--------------------------------------------------------------------------*/
 /*------------Barre de recherche principal --------------------------------*/
