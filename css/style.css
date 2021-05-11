@@ -8,7 +8,9 @@
 header {
   display: flex;
   justify-content: center;
+  text-align: center;
   align-items: center;
+  margin-top: 2%;
   margin-left: 5%;
   margin-right: 5%;
 }
@@ -26,7 +28,7 @@ body {
   position: relative;
 }
 .searchBarreDiv input {
-  width: 100%;
+  width: 96%;
   height: 50px;
   background-color: #e7e7e7;
   border: none;
@@ -41,7 +43,7 @@ body {
 .searchBarreDiv .loupeRecherche {
   position: absolute;
   top: 32px;
-  right: 0px;
+  right: 35px;
   background-color: #e7e7e7;
 }
 

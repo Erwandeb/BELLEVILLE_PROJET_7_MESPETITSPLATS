@@ -1,0 +1,74 @@
+let IngredientFromPropertyValuesListe = "";
+    let propertyValues = [];
+
+   // Récupère tous les ingrédient, puis transforme en string itérable
+   ingredientIntoString = allRecetteList.filter((item) => {
+        for(element of item.ingredients){
+            propertyValues = Object.values(element); //Convertir l'objet ingredient en Array
+            IngredientFromPropertyValuesListe = propertyValues.shift(); // Extraction du premier element de la list ingredient
+        }
+        return IngredientFromPropertyValuesListe.toLowerCase();
+    });
+
+ 
+    if(filterWordListIngredient.length === 1){
+        function getIngredientFilter(){
+            let resultat = [];
+            for (const recette of ingredientIntoString){
+                for (const ingredient of recette.ingredients) {
+                    if (ingredient.ingredient.toLowerCase() == filterWordListIngredient.toString()) {
+                        resultat.push(recette);
+                    }
+                }
+            }
+            return resultat;
+        }
+    
+        resultatFilter = getIngredientFilter();
+    }
+ 
+
+    //filterWordListIngredient.toString()
+
+    console.log('resultatFilter', resultatFilter);
+    
+    if(filterWordListIngredient.length >= 2){
+        console.log('2 element recherché')
+        console.log('resultatFilter2222', resultatFilter);
+
+        function getIngredientFilter2(){
+
+            ingredientIntoString2 = resultatFilter.filter((item) => {
+                for(element of item.ingredients){
+                    propertyValues = Object.values(element); //Convertir l'objet ingredient en Array
+                    IngredientFromPropertyValuesListe = propertyValues.shift(); // Extraction du premier element de la list ingredient
+                }
+                return IngredientFromPropertyValuesListe.toLowerCase();
+            });
+            console.log('ingredienttostring2', ingredientIntoString2);
+
+            let resultat = [];
+            for(const recette of ingredientIntoString2){
+                console.log('resultatFilter 2', resultatFilter)
+
+                for (const ingredient of recette.ingredients) {
+                    console.log('ingredient', ingredient);
+                    console.log('ingredientsSS', recette.ingredients);
+
+
+                    if (ingredient.ingredient.toString().toLowerCase() != filterWordListIngredient.toString()) {
+                        console.log('test23', ingredient.ingredient.toString().toLowerCase());
+                        //console.log('recette apres condition', recette);
+                        resultat.push(recette);
+                    }
+
+                    //resultat.push(recette);
+                }  
+            }
+            
+            console.log('the resultat', resultat);
+            return resultat;
+
+        }
+        resultatFilter = getIngredientFilter2();
+    }
