@@ -211,6 +211,7 @@ const boucleIngrédient = fetch('Javascript/recette.json')
 .then(function (data){
     for(item of data.recipes){
         const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
+        
         for(list of recette.ingredients){
             listIngredientRaw.push(list.ingredient);   
         };
@@ -227,19 +228,19 @@ const boucleIngrédient = fetch('Javascript/recette.json')
     let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
     let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
 
-    // affichage listes déroulantes
-    for(element of listIngredientNoDoublon){
-        selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`;
-    }
 
-    for(element of listAppareilNoDoublon){
-        selectAppareil.innerHTML +=`<option value="${element}">${element}</option>`;
-    }
+    // affichage listes déroulante
+    listIngredientNoDoublon.map((element) => {
+        return   selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`;
+    })
 
-    for(element of listUstensileNoDoublon){
-        selectUstensile.innerHTML+=`<option value="${element}">${element}</option>`;
-    }
+    listAppareilNoDoublon.map((element) => {
+        return  selectAppareil.innerHTML +=`<option value="${element}">${element}</option>`;
+    })
 
+    listUstensileNoDoublon.map((element) => {
+        return  selectUstensile.innerHTML +=`<option value="${element}">${element}</option>`;
+    })
 })
 
 
@@ -278,16 +279,9 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 
 
 
-
-
-
-
-
     //let IngredientFromPropertyValuesListe = "";
     //let propertyValues = [];
 
-
-  
     
         //transformIngredientIntoString(allRecetteList);
       
@@ -301,127 +295,118 @@ searchBarIngredient.addEventListener('keyup',(e) => {
             return IngredientFromPropertyValuesListe.toLowerCase();
         });
         */
-
-       if(filterWordListIngredient.length === 1){
-            
-       function getIngredientFilter(){
-                let resultat = [];
-                for (const recette of allRecetteList){
-                    for (const ingredient of recette.ingredients) {
-                        if (ingredient.ingredient.toLowerCase() === filterWordListIngredient.toString()) {
-                            console.log('hello');
-                            resultat.push(recette);
-                        }
-                    }
-                }
-                return resultat;
-            }
         
-            resultatFilter = getIngredientFilter();
-        }
-       
-
-        
-        if(filterWordListIngredient.length >= 2){
-        
-            function getIngredientFilter2wordsandmore(){
-                let resultat = [];
-                for(const recette of allRecetteList){
-                    for(const ingredient of recette.ingredients){
-                      filterWordListIngredient.forEach((element) =>{
-                          if(ingredient.ingredient.toString().toLowerCase() === element.toString()){
-                              console.log('match');
-                              resultat.push(recette);
-                             
-                          }
-                      });
-                    }  
-                }
-            
-                return resultat
-            }  
-             
-            resultatFilter = getIngredientFilter2wordsandmore();
-        };
-        
-
         /*
-        if(filterWordListIngredient.length >= 2){
+        for(const element of filterWordListIngredient){
+            resultatFilter = allRecetteList.filter((recette) => {
+                let resultat = []
+                for(const ingredient of recette.ingredients){
+                    if(ingredient.ingredient.toLowerCase().includes(element.toString())){
+                        return resultat
+                    } 
+                }
+                resultatFilter = resultat
+            })     
         
-            function getIngredientFilter2wordsandmore(){
-                let resultat = [];
-                for(const recette of allRecetteList){
+        }
+        */
+
+        filterWordListIngredient.filter((element) =>{
+            if(filterWordListIngredient.length ===1){
+                resultatFilter = allRecetteList.filter((recette) => {
+                    let resultat = []
                     for(const ingredient of recette.ingredients){
-                        for(const element of filterWordListIngredient){
-                            if(ingredient.ingredient.toString().toLowerCase() === element.toString()) {
-                                console.log('bonsoirrr')
-                                resultat.push(recette);
+                        if(ingredient.ingredient.toLowerCase().includes(element.toString())){
+                            return resultat
+                        } 
+                    }
+                    resultatFilter = resultat
+                })
+            }
+            if(filterWordListIngredient.length >=2){
+                console.log('wesh');
+               resultatFilter = resultatFilter.filter((recette) => {
+                    let resultat = []
+                    for(const ingredient of recette.ingredients){
+                        if(ingredient.ingredient.toLowerCase().includes(element.toString())){
+                            return resultat
+                        } 
+                    }
+                    resultatFilter = resultat
+                })
+            }
+           
+        })
+        
+            /*
+    
+                if(filterWordListIngredient.length >=2){
+                   // console.log('bim', resultatFilter);
+
+                   resultatFilter = resultatFilter.filter((recette) => {
+                        let resultat = []
+                        for(const ingredient of recette.ingredients){
+                            if(ingredient.ingredient.toLowerCase() === filterWordListIngredient.toString()){
+                                return resultat
                             }
                         }
-                    }  
+                        resultatFilter = resultat
+                    })
                 }
-            
-                return resultat
-            }  
-             
-            resultatFilter = getIngredientFilter2wordsandmore();
-        };
-        */
-     
-
-
-                /*
-                for(const recette of resultatFilter){
-                    console.log('resultatFilter 2', recette)
-    
-                    for (const ingredient of recette.ingredients) {
-                        console.log('ingredient', ingredient);
-                        console.log('ingredientsSS', recette.ingredients);
-    
-    
-                        if (ingredient.ingredient.toString().toLowerCase() === filterWordListIngredient.toString()) {
-                            console.log('test23', ingredient.ingredient.toString().toLowerCase());
-                            //console.log('recette apres condition', recette);
-                            resultat.push(recette);
-                        }
-    
-                        resultat.push(recette);
-                    }  
-                }
-                */
-    
-           
+                  */  
         
+        
+        
+       
+     
+               
+        
+               
+              
+        console.log('apres le script', resultatFilter)
+       
 
 
-
-   
-
- 
-   
- 
-
+        /*
+        function getResultIngred(){   
+             let resultat = [];
     
-   
+                resultatFilter = allRecetteList.filter((recette) => {
+                    for(const ingredient of recette.ingredients){
+                        if(filterWordListIngredient.length ===1){
+                            if(ingredient.ingredient.toLowerCase().includes(filterWordListIngredient.toString())){
+                                    //console.log("list filtre", filterWordListIngredient)
+                                    console.log('recette', recette)
+                                   
+                                    //resultat.push(recette);
+                                    //resultat.reduce(recette);
+                            }
+                        }
+                        if(filterWordListIngredient.length >=2){
+                            for(const element of filterWordListIngredient){
+                                if(ingredient.ingredient.toLowerCase().includes(element.toString())){
+                                    //console.log("list filtre", filterWordListIngredient)
+                                
+                                    console.log('recette', recette)
+                                    //resultat.push(recette);
+                                    //resultat.reduce(recette);
+                                }
+                            }
+                        }
+                    }
+                })
+               
+           return resultat
+        }
+    
+        resultatFilter = getResultIngred();
 
+        */
+  
+        
+        //console.log('resultatFilter', resultatFilter);
+    
 
-    /*
-    if(filterWordListAppareil.length >= 1){
-        resultatFilter.filter((item) =>{
-            return(
-                item.ingredient.toString().toLowerCase() === filterWordListUstensile.toString()
-            );
-        })
-    }
-
-    if(filterWordListAppareil.length >=1 ){
-        resultatFilter.filter((item) =>{
-            return(
-                item.ingredient.toString().toLowerCase() === filterWordListUstensile.toString() && filterWordListAppareil.toString()
-                );
-        })
-    }
-    */
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);
     
@@ -630,12 +615,8 @@ searchBarUstensile.addEventListener('keyup',(e) => {
 
 
     // Récupération des éléments dans la barre de saisie de l'utilisateur
-    console.log("Liste mise avant retrait du mot choisi", listUstensileNoDoublon);
-    console.log("filterWordsList", filterWordListUstensile);
-
-
-
-
+    //console.log("Liste mise avant retrait du mot choisi", listUstensileNoDoublon);
+    //console.log("filterWordsList", filterWordListUstensile);
 
 
 
@@ -671,7 +652,7 @@ searchBarUstensile.addEventListener('keyup',(e) => {
 
         resultatFilter.filter((item) =>{
             return(
-                item.ustensils.toString().toLowerCase() === filterWordListUstensile.toString() && filterWordListIngredient.toString()
+                item.ustensils.toString().toLowerCase().includes(filterWordListUstensile.toString() && filterWordListIngredient.toString())
             )
         })
     }
