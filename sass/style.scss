@@ -120,12 +120,12 @@ body{
     }
 }
 #selectDiv{
-    height: 40px;
+    height: 60px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     position: relative;
-
+    width: 100%;
 }
 label{
     width: auto;
@@ -143,6 +143,7 @@ label{
     height: 60px;
     cursor: pointer;
     margin: 0px;
+    position: relative;
     
     #selectIngredientButton{
         background-color: #3282f7;
@@ -189,12 +190,13 @@ label{
     }
 }
 
-    
+
 #appareilButton{
     width: 200px;
     height: 60px;
     cursor: pointer;
     margin: 0px;
+    position: relative;
     #selectAppareilButton{
         background-color: #68d9a4;
         color: white;
@@ -207,6 +209,7 @@ label{
         width: 160px;
         padding: 0px;
         cursor: pointer;
+        position: absolute;
     }
     
     #searchBarAppareil{
@@ -219,7 +222,7 @@ label{
         padding-top: 10px;
         padding-bottom: 10px;
         position: absolute;
-        left: 200px;
+        left: 0px;
         max-height: 50px;
         overflow-y: scroll;
         font-family: 'Roboto', sans-serif;
@@ -246,6 +249,8 @@ label{
     height: 60px;
     cursor: pointer;
     margin: 0px;
+    position: relative;
+
     #selectUstensileButton{
         background-color: #ed6454;
         color: white;
@@ -258,6 +263,7 @@ label{
         width: 160px;
         padding: 0px;
         cursor: pointer;
+        position: absolute;
     }
     
     #searchBarUstensile{
@@ -270,12 +276,13 @@ label{
         padding-top: 10px;
         padding-bottom: 10px;
         position: absolute;
-        left: 400px;
+        left: 0px;
         max-height: 50px;
         overflow-y: scroll;
         font-family: 'Roboto', sans-serif;
         border-radius: 5px;
         display: none;
+        position: absolute;
     }
     #selectUstensile {
         background-color: #ed6454;

@@ -717,7 +717,7 @@ searchBarAppareil.addEventListener('keyup',(e) => {
 
     filterWordListAppareil.filter((element) => {
 
-        console.log("element appareil :", element);
+        console.log("element appareil :",element);
         const closeBtnAppareilFilter = document.getElementById("close-btn-"+element);
         const keywordBlock = document.getElementById("keyword-block-"+element);
 

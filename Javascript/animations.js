@@ -1,41 +1,55 @@
 
-// Animation du bouton ingrédient 
+// Variables ingrédients
 const ingredientButton = document.getElementById('ingredientButton');
 const searchBarIngredient = document.getElementById('searchBarIngredient');
 const selectIngredientButton = document.getElementById('selectIngredientButton');
 
-document.addEventListener('click', function(event) {
-    const isClickInside = selectIngredientButton.contains(event.target);
-    if (isClickInside) {
-      searchBarIngredient.style.display ="block";
-    }
-    else {
-      searchBarIngredient.style.display ="none";
-    }
-});
-
-
-// Animation du bouton Appareil 
+// Variables Appareils
 const appareilButton = document.getElementById('appareilButton');
 const searchBarAppareil = document.getElementById('searchBarAppareil');
 const selectAppareilButton = document.getElementById('selectAppareilButton');
 
+// Variables ustensiles
+const ustensileButton = document.getElementById('ustensileButton');
+const searchBarUstensile = document.getElementById('searchBarUstensile');
+const selectUstensileButton = document.getElementById('selectUstensileButton');
+
+
+// Animation du bouton ingrédient 
+document.addEventListener('click', function(event) {
+    const isClickInside = selectIngredientButton.contains(event.target);
+    if (isClickInside) {
+      searchBarIngredient.style.display ="block";
+      selectAppareilButton.style.left = 60 +"px";
+      
+      selectUstensileButton.style.left = 60 +"px";
+      ustensileButton.style.left = 60 +"px"
+      
+    }
+    else {
+      searchBarIngredient.style.display ="none";
+      selectAppareilButton.style.left ="";
+      ustensileButton.style.left = "";
+    }
+});
+
+
+
+// Animation du bouton Appareil 
 document.addEventListener('click', function(event) {
     const isClickInside = selectAppareilButton.contains(event.target);
     if (isClickInside) {
       searchBarAppareil.style.display ="block";
+      selectUstensileButton.style.left = 60 +"px";
     }
     else {
       searchBarAppareil.style.display ="none";
+      selectUstensileButton.style.left ="";
     }
 });
 
 
 // Animation du bouton Ustensile 
-const ustensileButton = document.getElementById('ustensileButton');
-const searchBarUstensile = document.getElementById('searchBarUstensile');
-const selectUstensileButton = document.getElementById('selectUstensileButton');
-
 document.addEventListener('click', function(event) {
     const isClickInside = selectUstensileButton.contains(event.target);
     if (isClickInside) {
