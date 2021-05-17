@@ -429,7 +429,7 @@ searchBarIngredient.addEventListener('keyup',(e) => {
     selectIngredient.innerHTML = filterRefreshList;
 
     filterWordListIngredient.filter((element) => {
-       
+            console.log("element ingredient :", element);
             const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
             const keywordBlock = document.getElementById("keyword-block-"+element);
 
@@ -716,6 +716,8 @@ searchBarAppareil.addEventListener('keyup',(e) => {
 
 
     filterWordListAppareil.filter((element) => {
+
+        console.log("element appareil :", element);
         const closeBtnAppareilFilter = document.getElementById("close-btn-"+element);
         const keywordBlock = document.getElementById("keyword-block-"+element);
 
@@ -738,29 +740,29 @@ searchBarAppareil.addEventListener('keyup',(e) => {
             // Systeme de filtre
             if(filterWordListIngredient.length == 0 && filterWordListUstensile.length == 0 && filterWordListMainBar.length == 0) {
 
-            filterWordListAppareil.filter((element) => {
-                if(filterWordListAppareil.length === 1){
-                    resultatFilter = allRecetteList.filter((recette) => {
+                filterWordListAppareil.filter((element) => {
+                    if(filterWordListAppareil.length === 1){
+                        resultatFilter = allRecetteList.filter((recette) => {
+                            let resultat = []
+                            if(recette.appliance.toString().toLowerCase().includes(element.toString())){
+                                return resultat
+                            } 
+                            
+                            resultatFilter = resultat
+                        })
+                    }
+
+                if(filterWordListAppareil.length >=2){
+                    resultatFilter = resultatFilter.filter((recette) => {
                         let resultat = []
                         if(recette.appliance.toString().toLowerCase().includes(element.toString())){
                             return resultat
                         } 
-                        
                         resultatFilter = resultat
-                    })
-                }
-
-            if(filterWordListAppareil.length >=2){
-                resultatFilter = resultatFilter.filter((recette) => {
-                    let resultat = []
-                    if(recette.appliance.toString().toLowerCase().includes(element.toString())){
-                        return resultat
-                    } 
-                    resultatFilter = resultat
-                    })
-                }   
-            })
-        }
+                        })
+                    }   
+                })
+             }
 
             if(filterWordListIngredient.length >= 1) {
                 filterWordListAppareil.filter((element) => {
@@ -978,9 +980,11 @@ searchBarUstensile.addEventListener('keyup',(e) => {
 
 
       filterWordListUstensile.filter((element) => {
-       
+
+        console.log("element ustensiles :", element);
         const closeBtnUstensileFilter = document.getElementById("close-btn-"+element);
         const keywordBlock = document.getElementById("keyword-block-"+element);
+
         closeBtnUstensileFilter.addEventListener("click", function hideFilter() {
 
             keywordBlock.style.display ="none"; 
@@ -988,7 +992,6 @@ searchBarUstensile.addEventListener('keyup',(e) => {
             listUstensileNoDoublon.push(element);
             selectUstensile.innerHTML ="";
 
-          
             // Liste MAJ
             const filterRefreshList = listUstensileNoDoublon.map((element) => {    
                 return `
