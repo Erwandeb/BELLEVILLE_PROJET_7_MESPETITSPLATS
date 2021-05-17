@@ -20,10 +20,8 @@ document.addEventListener('click', function(event) {
     const isClickInside = selectIngredientButton.contains(event.target);
     if (isClickInside) {
       searchBarIngredient.style.display ="block";
-      selectAppareilButton.style.left = 60 +"px";
-      
-      selectUstensileButton.style.left = 60 +"px";
-      ustensileButton.style.left = 60 +"px"
+      selectAppareilButton.style.left = 80 +"px";
+      ustensileButton.style.left = 80 +"px"
       
     }
     else {
@@ -40,7 +38,7 @@ document.addEventListener('click', function(event) {
     const isClickInside = selectAppareilButton.contains(event.target);
     if (isClickInside) {
       searchBarAppareil.style.display ="block";
-      selectUstensileButton.style.left = 60 +"px";
+      selectUstensileButton.style.left = 80 +"px";
     }
     else {
       searchBarAppareil.style.display ="none";
