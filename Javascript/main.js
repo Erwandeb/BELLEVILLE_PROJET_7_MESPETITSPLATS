@@ -146,9 +146,11 @@ function transformIngredientIntoString(array){
     });
 }
 
-function generateUnitFromResultatFilter(array){
-    for(const recette of array){
-        for(const ingredient of recette.ingredients){
+
+
+function generateUnitFromResultatFilter(item){
+
+        for(const ingredient of item.ingredients){
             if(ingredient.quantity === undefined && ingredient.unit === undefined ){
                 return `<p class="ingredients"><strong>${ingredient.ingredient}</strong></p>`;
             }
@@ -157,12 +159,16 @@ function generateUnitFromResultatFilter(array){
             } 
             return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
         }
-    }     
+  
+    
 }
+
 
 //function objectToArray()
 function recetteDisplay(array){
+
     const htmlString = array.map((item) => {    
+        console.log("test item", item)
       return `
                 <article>
                     <div class="illustrationRecette"></div>
@@ -174,7 +180,7 @@ function recetteDisplay(array){
                         </div>
                     </div>
                     <div class="description-card">
-                        <div class="liste-ingredient" id ="liste-ingredient-id-${item.id}">${generateUnitFromResultatFilter(array)}</div>
+                        <div class="liste-ingredient" id ="liste-ingredient-id-${item.id}">${generateUnitFromResultatFilter(item)}</div>
                         <p class="description-recette">${item.description}</p>
                     </div>
                 </article>
@@ -182,8 +188,6 @@ function recetteDisplay(array){
     }).join('');
     mainSemantic.innerHTML = htmlString;
 }
-
-
 
 
 // Variable message d'erreur
