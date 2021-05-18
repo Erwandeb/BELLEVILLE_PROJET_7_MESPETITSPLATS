@@ -1,11 +1,11 @@
 
 
-
+// Variables 
 const allRecetteList = [];
 let meals = [];
-
 const mainSemantic = document.querySelector("main");
 
+// Récupération des recettes dans recette.JSON
 const loadRecette = async() => {
     let meals = await fetch('Javascript/recette.json')
     .then((response) => response.json())
@@ -65,6 +65,7 @@ const searchDisplay = async() => {
     await loadRecette();
 }
 
+// Affichage des données à l'ouverture de la page 
 searchDisplay();
 
 // Variables 

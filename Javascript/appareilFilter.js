@@ -1,7 +1,9 @@
 
-/*--------------------------------------------------------------------------*/
-/*------------Filtre par Appareil-------------------------------------------*/
-/*-------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------------------*/
+/*------------EVENT: -------------------------------------------------------------------------*/
+/*------------Ajout des mots clés Appareil----------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------*/
 
 searchBarAppareil.addEventListener('keyup',(e) => {
     console.log(e.target.value);
@@ -130,10 +132,8 @@ searchBarAppareil.addEventListener('keyup',(e) => {
         noResultatBloc.innerHTML = NoResultatForResearch
     }
 
-    //console.log("Liste mise à jour apres retrait mot choisi", listAppareilNoDoublon);
 
     // Suppression des éléments choisis dans la liste 
-  
     const filterRefreshList = listAppareilNoDoublon.map((element) => {    
         return `
                 <option value="${element}">${element}</option>
@@ -142,6 +142,17 @@ searchBarAppareil.addEventListener('keyup',(e) => {
       selectAppareil.innerHTML = filterRefreshList;
 
 
+
+
+
+
+
+
+
+    /*--------------------------------------------------------------------------------------------*/
+    /*------------EVENT: -------------------------------------------------------------------------*/
+    /*------------Supression des mots clés--------------------------------------------------------*/
+    /*--------------------------------------------------------------------------------------------*/
     filterWordListAppareil.filter((element) => {
 
         console.log("element appareil :",element);

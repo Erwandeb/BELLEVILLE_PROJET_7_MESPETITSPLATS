@@ -32,7 +32,6 @@ document.addEventListener('click', function(event) {
 });
 
 
-
 // Animation du bouton Appareil 
 document.addEventListener('click', function(event) {
     const isClickInside = selectAppareilButton.contains(event.target);
