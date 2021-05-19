@@ -255,6 +255,19 @@ searchBarUstensile.addEventListener('keyup',(e) => {
                     })
                 })
             }
+
+             
+            if(filterWordListUstensile.length == 0 && filterWordListIngredient >= 1 && filterWordListAppareil >= 1) {
+                filterWordListUstensile.filter((element) => {
+                    resultatFilter = resultatFilter.filter((recette) => {
+                        let resultat = []
+                            if(recette.ustensils.toString().toLowerCase().includes(element.toString())){
+                                return resultat
+                            } 
+                        resultatFilter = resultat
+                    })
+                })
+            }
         
             // Affichage des résultats sur ecran
             recetteDisplay(resultatFilter);
