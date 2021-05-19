@@ -138,9 +138,12 @@ function transformIngredientIntoString(array){
 
 // Fonction permettant d'afficher les recettes qui ont été trouvé suite à une recherche
 function recetteDisplay(array){
+   
     const htmlString = array.map((item) => {    
-        console.log("test item", item)
+        //console.log("test item", item)
 
+        let itemIngredient = generateUnitFromResultatFilter(item);
+      
       return `
                 <article>
                     <div class="illustrationRecette"></div>
@@ -152,17 +155,19 @@ function recetteDisplay(array){
                         </div>
                     </div>
                     <div class="description-card">
-                        <div class="liste-ingredient" id ="liste-ingredient-id-${item.id}">${generateUnitFromResultatFilter(item)}</div>
+                        <div class="liste-ingredient" id="liste-ingredient-id-${item.id}">${itemIngredient} </div>
                         <p class="description-recette">${item.description}</p>
                     </div>
                 </article>
             `;
+
     }).join('');
     mainSemantic.innerHTML = htmlString;
 }
 
 // Fonction permettant de générer les ingrédient automatiquement. Ceci est à implémenter avec la fonction RecetteDisplay
 function generateUnitFromResultatFilter(item){
+
     for(const ingredient of item.ingredients){
         if(ingredient.quantity === undefined && ingredient.unit === undefined ){
             return `<p class="ingredients"><strong>${ingredient.ingredient}</strong></p>`;
@@ -172,7 +177,8 @@ function generateUnitFromResultatFilter(item){
         } 
         return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
     }
-}
+} 
+   
 
 
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 
@@ -227,20 +233,3 @@ const boucleIngredientListe = fetch('Javascript/recette.json')
 
 
 let ingredientTest ="";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
