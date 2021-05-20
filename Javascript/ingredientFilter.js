@@ -161,9 +161,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 
 
 
-
-    
-    
     /*--------------------------------------------------------------------------------------------*/
     /*------------EVENT: -------------------------------------------------------------------------*/
     /*------------Supression des mots clés--------------------------------------------------------*/
@@ -186,9 +183,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
                 selectIngredient.innerHTML ="";
                 console.log('click Appareil croix');
 
-                if(keywordBlockIngredient === undefined){
-                    console.log ('rie')
-                }
 
                 // Renvoie d'une nouvelle liste d'ingredient avec le retour de l'élément supprimé
                 const filterRefreshList = listIngredientNoDoublon.map((element) => {    
@@ -198,9 +192,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
                 }).join('');
                 selectIngredient.innerHTML = filterRefreshList; 
                 
-
-
-
 
                 // Ré-Affichage des nouveaux résultats
                 if(filterWordListUstensile.length == 0 && filterWordListAppareil.length == 0 && filterWordListMainBar.length == 0){
@@ -338,6 +329,7 @@ searchBarIngredient.addEventListener('keyup',(e) => {
                 }
 
                 if(filterWordListIngredient.length == 0 && filterWordListAppareil.length >= 1) {
+                   
                     filterWordListIngredient.filter((element) => {
                         resultatFilter = resultatFilter.filter((recette) => {
                             let resultat = [];
@@ -354,13 +346,14 @@ searchBarIngredient.addEventListener('keyup',(e) => {
                 recetteDisplay(resultatFilter);
 
                 // Si plus aucun resultat afficher car liste de filtre vide
-                if(filterWordListIngredient.length === 0){
-                    console.log('plus rien a afficher');
+                if(filterWordListIngredient.length === 0 ){
+                    console.log("plus d'ingredients selectionnés");
                     filterWordListIngredient = [];
                     resultOfGetIngredientFilter = [];
-                    resultatFilter= [];
-                return recetteDisplay(allRecetteList);
-            }
+                   // resultatFilter= [];
+
+                    return recetteDisplay(allRecetteList);
+                }
         })
     });
 });

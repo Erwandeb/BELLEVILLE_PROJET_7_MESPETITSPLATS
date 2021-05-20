@@ -272,7 +272,7 @@ searchBarUstensile.addEventListener('keyup',(e) => {
             // Affichage des résultats sur ecran
             recetteDisplay(resultatFilter);
         
-            
+
             if(filterWordListUstensile.length == 0){
                 console.log('plus rien a afficher');
                 return recetteDisplay(allRecetteList);

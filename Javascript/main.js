@@ -160,7 +160,7 @@ function recetteDisplay(array){
             const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
             //listIngred.innerHTML +=`` ;
             
-            console.log('info', generateUnitFromResultatFilter())
+            //console.log('info', generateUnitFromResultatFilter())
         
             return `
                 <article>
