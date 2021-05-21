@@ -1,8 +1,9 @@
 
 /*--------------------------------------------------------------------------------------------*/
 /*------------EVENT: -------------------------------------------------------------------------*/
-/*------------Ajout des mots clés Appareil----------------------------------------------------*/
+/*------------Ajout des mots clés Ingredient---------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------*/
+
 
 
 searchBarIngredient.addEventListener('keyup',(e) => {
@@ -57,25 +58,57 @@ searchBarIngredient.addEventListener('keyup',(e) => {
     /*------------EVENT: -------------------------------------------------------------------------*/
     /*------------Supression des mots clés--------------------------------------------------------*/
     /*--------------------------------------------------------------------------------------------*/
-    filterWordListIngredient.filter((element) => {
+    for(const element of filterWordListAppareil){
 
+        console.log("element appareil :",element);
+        const closeBtnAppareilFilter = document.getElementById("close-btn-"+element);
+        const keywordBlockAppareil = document.getElementById("keyword-block-"+element);
+      
+        closeBtnAppareilFilter.addEventListener("click", function () {
+            console.log('testinig', closeBtnAppareilFilter);
+            filterWordListAppareil.filter((element) => {
+                keywordBlockAppareil.style.display ="none"; 
+                deleteKeyWord(filterWordListAppareil, element);
+                listAppareilNoDoublon.push(element);
+                selectAppareil.innerHTML ="";
+                console.log('click Appareil croix')
+              
+        
+                const filterRefreshList = listAppareilNoDoublon.map((element) => {    
+                    return `
+                            <option value="${element}">${element}</option>
+                          `;
+                }).join('');
+                selectAppareil.innerHTML = filterRefreshList;
+        
+                  
+                filterAppareilAlgorithme();
+        
+                if(filterWordListAppareil.length === 0){
+                    return recetteDisplay(allRecetteList);
+                }
+            })
+        })
+
+       
+    }
+
+    filterWordListIngredient.filter((element) => {
         console.log("element ingredient :", element);
-        const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
-        const keywordBlockIngredient = document.getElementById("keyword-block-"+element);
+       const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
+       const  keywordBlockIngredient = document.getElementById("keyword-block-"+element);
+       
 
         // Au clic sur la croix d'une etiquette de mot clé
         closeBtnIngredientFilter.addEventListener("click", function() {
 
-
-
-                
+       
             keywordBlockIngredient.style.display ="none";  // Retrait du visuel etiquette
-
             deleteKeyWord(filterWordListIngredient, element);
             listIngredientNoDoublon.push(element); 
             selectIngredient.innerHTML ="";
             console.log('click Appareil croix');
-
+            console.log('element', element);
 
             // Renvoie d'une nouvelle liste d'ingredient avec le retour de l'élément supprimé
             const filterRefreshList = listIngredientNoDoublon.map((element) => {    
@@ -85,8 +118,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
             }).join('');
             selectIngredient.innerHTML = filterRefreshList; 
                 
-
-
             filterIngredientAlgorithme();
               
 
@@ -95,12 +126,51 @@ searchBarIngredient.addEventListener('keyup',(e) => {
                 console.log("plus d'ingredients selectionnés");
                 filterWordListIngredient = [];
                 resultOfGetIngredientFilter = [];
-                // resultatFilter= [];
-
                 return recetteDisplay(allRecetteList);
             }
+        
         })
     });
+    
+    filterWordListUstensile.filter((element) => {
+        console.log("element ustensiles :", element);
+        const closeBtnUstensileFilter = document.getElementById("close-btn-"+element);
+        const keywordBlockUstensile = document.getElementById("keyword-block-"+element);
+        
+        closeBtnUstensileFilter2 = closeBtnUstensileFilter;
+        keywordBlockUstensile2 = keywordBlockUstensile;
+
+         closeBtnUstensileFilter.addEventListener("click", function() {
+
+     
+            keywordBlockUstensile.style.display ="none"; 
+            deleteKeyWord(filterWordListUstensile, element);
+            listUstensileNoDoublon.push(element);
+            selectUstensile.innerHTML ="";
+            console.log('click Ustensile croix')
+    
+            // Liste MAJ
+            const filterRefreshList = listUstensileNoDoublon.map((element) => {    
+                return `
+                    <option value="${element}">${element}</option>
+                        `;
+            }).join('');
+            selectUstensile.innerHTML = filterRefreshList;
+    
+    
+            filterUstensileAlgorithme();
+           
+    
+            if(filterWordListUstensile.length == 0){
+                console.log('plus rien a afficher');
+                return recetteDisplay(allRecetteList);
+            }
+
+        })
+    })   
+
+
+ 
 });
 
 
