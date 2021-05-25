@@ -5,7 +5,6 @@
 /*--------------------------------------------------------------------------------------------*/
 
 searchBarAppareil.addEventListener('keyup',(e) => {
-    console.log(e.target.value);
     const filterWordAppareil = e.target.value;
 
     
@@ -33,8 +32,6 @@ searchBarAppareil.addEventListener('keyup',(e) => {
         });
 
 
-    // Récupération des éléments dans la barre de saisie de l'utilisateur
-    console.log("filterWordsList", filterWordListAppareil);
  
     filterAppareilAlgorithme();
 
@@ -168,18 +165,11 @@ searchBarAppareil.addEventListener('keyup',(e) => {
     })   
 });
 
-console.log('hello', filterWordListAppareil);
+
 
 
 
   
-
-
-   
-    
-
-
-
 
 
 

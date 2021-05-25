@@ -7,7 +7,7 @@
 
 
 searchBarUstensile.addEventListener('keyup',(e) => {
-    console.log(e.target.value);
+
     const filterWordUsentsile = e.target.value;
 
     
@@ -54,7 +54,7 @@ searchBarUstensile.addEventListener('keyup',(e) => {
 
 
 
-      
+    
     /*--------------------------------------------------------------------------------------------*/
     /*------------EVENT: -------------------------------------------------------------------------*/
     /*------------Supression des mots clés--------------------------------------------------------*/

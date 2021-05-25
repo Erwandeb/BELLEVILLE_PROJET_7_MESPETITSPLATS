@@ -31,8 +31,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
         }
     });
 
-    console.log("filterWordsList", filterWordListIngredient);
-
 
     filterIngredientAlgorithme();
 

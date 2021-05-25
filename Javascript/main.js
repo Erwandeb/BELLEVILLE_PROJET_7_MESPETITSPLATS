@@ -55,7 +55,6 @@ const loadRecette = async() => {
             const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
             listIngred.innerHTML +=`${generateUnit()}` ;
             };
-
         };
     });
 }
@@ -158,9 +157,8 @@ function recetteDisplay(array){
             } 
             // Affichage dynamique des données 
             const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
-            //listIngred.innerHTML +=`` ;
             
-            //console.log('info', generateUnitFromResultatFilter())
+            
         
             return `
                 <article>
