@@ -159,7 +159,6 @@ function recetteDisplay(array){
             const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
             
             
-        
             return `
                 <article>
                     <div class="illustrationRecette"></div>
@@ -184,11 +183,6 @@ function recetteDisplay(array){
 }
 
      
-  
-
-
-   
-
 
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 
 const NoResultatForResearch = `<h3 class ="no-resultat-by-searchbar"> AUCUNE RECETTE NE CORRESPOND A VOTRE RECHERCHE <h3>`
