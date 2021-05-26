@@ -80,11 +80,7 @@ searchBarIngredient.addEventListener('keyup',(e) => {
         
                   
                 filterAppareilAlgorithme();
-                
-                /*
-                if(filterWordListAppareil.length === 0){
-                    return recetteDisplay(allRecetteList);
-                */
+              
                 
             })
         })
