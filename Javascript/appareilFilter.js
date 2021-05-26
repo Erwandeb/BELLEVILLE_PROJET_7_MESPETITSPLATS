@@ -116,12 +116,7 @@ searchBarAppareil.addEventListener('keyup',(e) => {
                 
             filterIngredientAlgorithme();
               
-            
-            // Si plus aucun resultat afficher car liste de filtre vide
-            if(filterWordListIngredient.length === 0 ){
-                return recetteDisplay(allRecetteList);
-            }
-            
+           
         
         })
     });
@@ -289,6 +284,40 @@ function filterAppareilAlgorithme(){
                 resultatFilter = resultat
             })
         })
+    }
+
+    if(filterWordListAppareil.length == 0 && filterWordListUstensile.length == 0  && filterWordListIngredient.length == 0 && filterWordListMainBar.length >=1) {
+        filterWordListAppareil.filter((element) => {
+            resultatFilter = resultatFilter.filter((recette) => {
+                let resultat = []
+                if(recette.appliance.toString().toLowerCase().includes(element.toString())){
+                    return resultat
+                } 
+                resultatFilter = resultat
+            })
+        })
+    }
+
+    if(filterWordListMainBar.length >= 1){
+        filterWordListAppareil.filter((element) => {
+            resultatFilter = resultatFilter.filter((recette) => {
+                let resultat = []
+                if(recette.appliance.toString().toLowerCase().includes(element.toString())){
+                    return resultat
+                } 
+                resultatFilter = resultat
+            })
+        })
+    }
+
+
+ 
+    if(filterWordListIngredient.length == 0 && filterWordListUstensile.length == 0 && filterWordListAppareil.length == 0 ){
+        return recetteDisplay(allRecetteList)
+    }
+
+    if(filterWordListIngredient.length == 0 && filterWordListUstensile.length == 0 && filterWordListAppareil.length == 0 && filterWordListMainBar.length ==0){
+        return recetteDisplay(allRecetteList)
     }
 
     // Affichage des résultats sur ecran
