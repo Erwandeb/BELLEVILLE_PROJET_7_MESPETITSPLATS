@@ -156,10 +156,11 @@ searchBarAppareil.addEventListener('keyup',(e) => {
     
             filterUstensileAlgorithme();
            
-            
+            /*
             if(filterWordListUstensile.length == 0){
                 return recetteDisplay(allRecetteList);
             }
+            */
             
         })
     })   
