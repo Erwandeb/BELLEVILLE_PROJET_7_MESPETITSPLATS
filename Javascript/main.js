@@ -138,9 +138,15 @@ function transformIngredientIntoString(array){
 // Fonction permettant d'afficher les recettes qui ont été trouvé suite à une recherche
 function recetteDisplay(array){
    
+    let affichageIngredients = "";
+
     const htmlString = array.map((item) => {    
 
         for(const ingredient of item.ingredients){
+             // Affichage dynamique des données 
+             const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+             console.log('listIngred', listIngred);
+
             // Fonction permettant de générer les ingrédient automatiquement. Ceci est à implémenter avec la fonction RecetteDisplay
             function generateUnitFromResultatFilter(){
                 if(ingredient.quantity === undefined && ingredient.unit === undefined ){
@@ -152,8 +158,11 @@ function recetteDisplay(array){
                 return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
             } 
 
-            // Affichage dynamique des données 
-            const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+           
+            affichageIngredients =  listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
+            
+
+
             return `
                 <article>
                     <div class="illustrationRecette"></div>
@@ -165,20 +174,20 @@ function recetteDisplay(array){
                         </div>
                     </div>
                     <div class="description-card">
-                        <div class="liste-ingredient" id="liste-ingredient-id-${item.id}">${generateUnitFromResultatFilter()}</div>
+                        <div class="liste-ingredient" id="liste-ingredient-id-${item.id}">${affichageIngredients}</div>
                         <p class="description-recette">${item.description}</p>
                     </div>
                 </article>
             `;
             
         }
+        
     }).join('');
     
     mainSemantic.innerHTML = htmlString;
 }
 
      
-
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 
 const NoResultatForResearch = `<h3 class ="no-resultat-by-searchbar"> AUCUNE RECETTE NE CORRESPOND A VOTRE RECHERCHE <h3>`
 
