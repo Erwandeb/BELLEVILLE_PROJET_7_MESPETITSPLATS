@@ -114,8 +114,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
             filterIngredientAlgorithme();
               
             
-           
-            
         })
     });
     

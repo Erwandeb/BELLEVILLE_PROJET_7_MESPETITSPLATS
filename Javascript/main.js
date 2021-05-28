@@ -138,15 +138,14 @@ let affichageIngredients = "";
 // Fonction permettant d'afficher les recettes qui ont été trouvé suite à une recherche
 function recetteDisplay(array){
    
-   
 
     const htmlString = array.map((item) => {    
 
         for(const ingredient of item.ingredients){
-             // Affichage dynamique des données 
-             const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+            
+            // Affichage dynamique des données 
+            const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
              
-
             // Fonction permettant de générer les ingrédient automatiquement. Ceci est à implémenter avec la fonction RecetteDisplay
             function generateUnitFromResultatFilter(){
                 if(ingredient.quantity === undefined && ingredient.unit === undefined ){
@@ -157,15 +156,18 @@ function recetteDisplay(array){
                 } 
                 return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
             } 
-
-           
-            affichageIngredients = listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
-          
-            console.log("affichage Ingredient", affichageIngredients);
-            console.log('generateUnit', generateUnitFromResultatFilter());
-            console.log('listIngred', listIngred);
             
-
+            affichageIngredients += `${generateUnitFromResultatFilter()}`;
+            console.log('listIngred', listIngred);
+        }
+           
+            
+          
+             //console.log("affichage Ingredient", affichageIngredients);
+             // console.log('generateUnit', generateUnitFromResultatFilter());
+            
+            
+        for(const ingredient of item.ingredients){
             return `
                 <article>
                     <div class="illustrationRecette"></div>
@@ -183,7 +185,6 @@ function recetteDisplay(array){
                 </article>
             `;
         }
-        
     }).join('');
     
     mainSemantic.innerHTML = htmlString;
