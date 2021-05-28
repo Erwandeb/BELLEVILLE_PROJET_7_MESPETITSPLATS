@@ -134,11 +134,11 @@ function transformIngredientIntoString(array){
     });
 }
 
-
+let affichageIngredients = "";
 // Fonction permettant d'afficher les recettes qui ont été trouvé suite à une recherche
 function recetteDisplay(array){
    
-    let affichageIngredients = "";
+   
 
     const htmlString = array.map((item) => {    
 
@@ -159,10 +159,11 @@ function recetteDisplay(array){
             } 
 
            
-            affichageIngredients =  listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
+            affichageIngredients = listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
           
             console.log("affichage Ingredient", affichageIngredients);
             console.log('generateUnit', generateUnitFromResultatFilter());
+            console.log('listIngred', listIngred);
             
 
             return `
