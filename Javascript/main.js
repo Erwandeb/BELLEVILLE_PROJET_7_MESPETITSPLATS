@@ -145,7 +145,7 @@ function recetteDisplay(array){
         for(const ingredient of item.ingredients){
              // Affichage dynamique des données 
              const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
-             console.log('listIngred', listIngred);
+             
 
             // Fonction permettant de générer les ingrédient automatiquement. Ceci est à implémenter avec la fonction RecetteDisplay
             function generateUnitFromResultatFilter(){
@@ -160,8 +160,10 @@ function recetteDisplay(array){
 
            
             affichageIngredients =  listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
+          
+            console.log("affichage Ingredient", affichageIngredients);
+            console.log('generateUnit', generateUnitFromResultatFilter());
             
-
 
             return `
                 <article>
@@ -179,7 +181,6 @@ function recetteDisplay(array){
                     </div>
                 </article>
             `;
-            
         }
         
     }).join('');
