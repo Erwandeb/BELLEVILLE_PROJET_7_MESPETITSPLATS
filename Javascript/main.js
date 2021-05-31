@@ -142,28 +142,35 @@ function recetteDisplay(array){
     const htmlString = array.map((item) => {    
 
       
-            
-            // Affichage dynamique des données 
-        
-            const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+        const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+
         for(const ingredient of item.ingredients){
+            
             // Fonction permettant de générer les ingrédient automatiquement. Ceci est à implémenter avec la fonction RecetteDisplay
             function generateUnitFromResultatFilter(){
-                
-                    if(ingredient.quantity === undefined && ingredient.unit === undefined ){
-                        return `<p class="ingredients"><strong>${ingredient.ingredient}</strong></p>`;
-                    }
-                    else if(ingredient.unit == undefined){
-                        return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
-                    } 
-                    return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
+                if(ingredient.quantity === undefined && ingredient.unit === undefined ){
+                    return `<p class="ingredients"><strong>${ingredient.ingredient}</strong></p>`;
                 }
-            } 
-            
-            affichageIngredients = generateUnitFromResultatFilter();
+                else if(ingredient.unit == undefined){
+                    return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
+                } 
+                return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
+            }
 
+            //affichageIngredients = generateUnitFromResultatFilter();
+     
             
-            console.log('listIngred', listIngred);
+                listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
+            
+                
+            
+           
+
+        } 
+            
+        
+            
+        console.log('listIngred', listIngred);
 
            // listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
                 
@@ -184,7 +191,7 @@ function recetteDisplay(array){
                         </div>
                     </div>
                     <div class="description-card">
-                        <div class="liste-ingredient" id="liste-ingredient-id-${item.id}">${affichageIngredients}</div>
+                        <div class="liste-ingredient" id="liste-ingredient-id-${item.id}"></div>
                         <p class="description-recette">${item.description}</p>
                     </div>
                 </article>
