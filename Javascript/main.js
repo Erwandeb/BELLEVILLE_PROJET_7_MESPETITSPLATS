@@ -158,27 +158,23 @@ function recetteDisplay(array){
             }
 
             //affichageIngredients = generateUnitFromResultatFilter();
-     
-            
-                listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
-            
+         
+        
+            //listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
+        }   
                 
             
-           
-
-        } 
-            
         
-            
-        console.log('listIngred', listIngred);
-
+            console.log('listIngred', listIngred);
+       
+            let testGenerate = listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
            // listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
                 
             
              //console.log("affichage Ingredient", affichageIngredients);
              // console.log('generateUnit', generateUnitFromResultatFilter());
             
-            
+             for(const ingredient of item.ingredients){
 
             return `
                 <article>
@@ -191,12 +187,12 @@ function recetteDisplay(array){
                         </div>
                     </div>
                     <div class="description-card">
-                        <div class="liste-ingredient" id="liste-ingredient-id-${item.id}"></div>
+                        <div class="liste-ingredient" id="liste-ingredient-id-${item.id}">${testGenerate}</div>
                         <p class="description-recette">${item.description}</p>
                     </div>
                 </article>
             `;
-        
+             }
     }).join('');
     
     mainSemantic.innerHTML = htmlString;
