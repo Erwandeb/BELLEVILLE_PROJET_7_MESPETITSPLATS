@@ -142,10 +142,10 @@ function recetteDisplay(array){
     const htmlString = array.map((item) => {    
 
       
-        const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+       
 
         for(const ingredient of item.ingredients){
-            
+            const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
             // Fonction permettant de générer les ingrédient automatiquement. Ceci est à implémenter avec la fonction RecetteDisplay
             function generateUnitFromResultatFilter(){
                 if(ingredient.quantity === undefined && ingredient.unit === undefined ){
@@ -158,8 +158,6 @@ function recetteDisplay(array){
             }
 
             //affichageIngredients = generateUnitFromResultatFilter();
-         
-        
             //listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
         }   
                 
@@ -171,11 +169,9 @@ function recetteDisplay(array){
            // listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
                 
             
-             //console.log("affichage Ingredient", affichageIngredients);
-             // console.log('generateUnit', generateUnitFromResultatFilter());
+            // console.log("affichage Ingredient", affichageIngredients);
+            // console.log('generateUnit', generateUnitFromResultatFilter());
             
-             for(const ingredient of item.ingredients){
-
             return `
                 <article>
                     <div class="illustrationRecette"></div>
@@ -192,7 +188,7 @@ function recetteDisplay(array){
                     </div>
                 </article>
             `;
-             }
+             
     }).join('');
     
     mainSemantic.innerHTML = htmlString;
