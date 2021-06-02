@@ -3,60 +3,27 @@
 // Variables 
 const allRecetteList = [];
 let meals = [];
-const mainSemantic = document.querySelector("main");
+
 
 // Récupération des recettes dans recette.JSON
 const loadRecette = async() => {
     let meals = await fetch('Javascript/recette.json')
     .then((response) => response.json())
     .then(function (data){
-
-        // Boucle création d'un nouvel objet recette
-        for(item of data.recipes) {
-            const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-            
-            allRecetteList.push(recette);
-            
-            // Création d'un squelette HTML pour chaque recette 
-            mainSemantic.innerHTML +=
-            `
-                <article>
-                    <div class="illustrationRecette"></div>
-                    <div class="titreTempsCuisson"> 
-                        <h3>${recette.name}</h3>
-                        <div class ="tempsCuisson">
-                                <img class="timerClock" src="Maquettes/timer.png"></img>
-                                <p>${recette.time} min</p>
-                        </div>
-                    </div>
-                    <div class="description-card">
-                        <div class="liste-ingredient" id ="liste-ingredient-id-${recette.id}"></div>
-                        <p class="description-recette">${recette.description}</p>
-                    </div>
-                </article>
-            `
-
-            // Affichage des ingrédients 
-            for(ingredient of recette.ingredients){
-            // Factory méthode pour l'affichage des données si UNIT ou QUANTITY sont undefined
-            function generateUnit(){
-
-                if(ingredient.quantity === undefined && ingredient.unit === undefined ){
-                    return `<p class="ingredients"><strong>${ingredient.ingredient}</strong></p>`;
-                }
-               else if(ingredient.unit == undefined){
-                    return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
-                } 
-            
-                return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
-            }
-
-            // Affichage dynamique des données 
-            const listIngred = document.getElementById("liste-ingredient-id-"+recette.id);
-            listIngred.innerHTML +=`${generateUnit()}` ;
-            };
-        };
+        allRecetteList = data.recipes;
+        displayRecettes(data.recipes)
     });
+}
+
+const displayRecettes = (recettes) => {
+    const mainSemantic = document.querySelector("main");
+// Boucle création d'un nouvel objet recette
+    for(item of recettes) {
+     const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
+    
+    mainSemantic.innerHTML += recette.render();
+    
+};
 }
 
 // Variables Asynchrone
