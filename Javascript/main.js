@@ -142,10 +142,10 @@ function recetteDisplay(array){
     const htmlString = array.map((item) => {    
 
       
-       
+        const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
 
         for(const ingredient of item.ingredients){
-            const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
+            
             // Fonction permettant de générer les ingrédient automatiquement. Ceci est à implémenter avec la fonction RecetteDisplay
             function generateUnitFromResultatFilter(){
                 if(ingredient.quantity === undefined && ingredient.unit === undefined ){
@@ -156,9 +156,6 @@ function recetteDisplay(array){
                 } 
                 return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
             }
-
-            //affichageIngredients = generateUnitFromResultatFilter();
-            //listIngred.innerHTML += `${generateUnitFromResultatFilter()}`;
         }   
                 
             
@@ -166,9 +163,7 @@ function recetteDisplay(array){
             console.log('listIngred', listIngred);
        
             let testGenerate = listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
-           // listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
-                
-            
+            // listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
             // console.log("affichage Ingredient", affichageIngredients);
             // console.log('generateUnit', generateUnitFromResultatFilter());
             

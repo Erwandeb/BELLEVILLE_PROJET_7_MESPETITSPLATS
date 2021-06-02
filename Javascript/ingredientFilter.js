@@ -50,8 +50,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 
 
 
-
-
     /*--------------------------------------------------------------------------------------------*/
     /*------------EVENT: -------------------------------------------------------------------------*/
     /*------------Supression des mots clés--------------------------------------------------------*/
@@ -84,8 +82,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
                 
             })
         })
-
-       
     }
 
     filterWordListIngredient.filter((element) => {
@@ -148,8 +144,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
         })
     })   
 
-
- 
 });
 
 
