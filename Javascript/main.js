@@ -5,7 +5,7 @@ let meals = [];
 
 
 // Récupération des recettes dans recette.JSON
-const loadAllRecette = async() => {
+let loadAllRecette = async() => {
     let meals = await fetch('Javascript/recette.json')
     .then((response) => response.json())
     .then(function (data){
@@ -98,67 +98,17 @@ function transformIngredientIntoString(array){
 
 let affichageIngredients = "";
 // Fonction permettant d'afficher les recettes qui ont été trouvé suite à une recherche
+
 function recetteDisplay(array){
 
-    const loadResultRecette = (recettes) => {
-        const mainSemantic = document.querySelector("main");
-        for(item of recettes) {
-            const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-            mainSemantic.innerHTML += recette.render();
-        };
-    }
-       
-    loadResultRecette();
-    
+    //loadAllRecette = "";
+    const mainSemantic = document.querySelector("main");
+    mainSemantic.innerHTML ="";
 
-   
-    /*
-    const htmlString = array.map((item) => {    
-
-        const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
-
-        for(const ingredient of item.ingredients){
-            
-            // Fonction permettant de générer les ingrédient automatiquement. Ceci est à implémenter avec la fonction RecetteDisplay
-            function generateUnitFromResultatFilter(){
-                if(ingredient.quantity === undefined && ingredient.unit === undefined ){
-                    return `<p class="ingredients"><strong>${ingredient.ingredient}</strong></p>`;
-                }
-                else if(ingredient.unit == undefined){
-                    return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}</p>`;
-                } 
-                return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
-            }
-        }   
-            
-            console.log('listIngred', listIngred);
-       
-            let testGenerate = listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
-            // listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
-            // console.log("affichage Ingredient", affichageIngredients);
-            // console.log('generateUnit', generateUnitFromResultatFilter());
-            
-            return `
-                <article>
-                    <div class="illustrationRecette"></div>
-                    <div class="titreTempsCuisson"> 
-                        <h3>${item.name}</h3>
-                        <div class ="tempsCuisson">
-                            <img class="timerClock" src="Maquettes/timer.png"></img>
-                            <p>${item.time} min</p>
-                        </div>
-                    </div>
-                    <div class="description-card">
-                        <div class="liste-ingredient" id="liste-ingredient-id-${item.id}">${testGenerate}</div>
-                        <p class="description-recette">${item.description}</p>
-                    </div>
-                </article>
-            `;
-             
-    }).join('');
-    
-    mainSemantic.innerHTML = htmlString;
-    */
+    for(item of array){
+        const recetteResultat = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
+        mainSemantic.innerHTML += recetteResultat.render();
+    };
 }
 
      
