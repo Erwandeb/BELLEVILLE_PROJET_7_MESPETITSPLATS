@@ -105,6 +105,7 @@ function recetteDisplay(array){
         const recetteResultat = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
         mainSemantic.innerHTML += recetteResultat.render();
     };
+    
 }
 
      

@@ -92,13 +92,11 @@ searchBarIngredient.addEventListener('keyup',(e) => {
         // Au clic sur la croix d'une etiquette de mot clé
         closeBtnIngredientFilter.addEventListener("click", function() {
 
-       
             keywordBlockIngredient.style.display ="none";  // Retrait du visuel etiquette
             deleteKeyWord(filterWordListIngredient, element);
             listIngredientNoDoublon.push(element); 
             selectIngredient.innerHTML ="";
    
-
             // Renvoie d'une nouvelle liste d'ingredient avec le retour de l'élément supprimé
             const filterRefreshList = listIngredientNoDoublon.map((element) => {    
                 return `
@@ -109,7 +107,6 @@ searchBarIngredient.addEventListener('keyup',(e) => {
                 
             filterIngredientAlgorithme();
               
-            
         })
     });
     
@@ -150,7 +147,7 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 
 function filterIngredientAlgorithme(){
 
-        // Ré-Affichage des nouveaux résultats
+    // Ré-Affichage des nouveaux résultats
     if(filterWordListUstensile.length == 0 && filterWordListAppareil.length == 0 && filterWordListMainBar.length == 0){
         filterWordListIngredient.filter((element) => {
             if(filterWordListIngredient.length === 1){
