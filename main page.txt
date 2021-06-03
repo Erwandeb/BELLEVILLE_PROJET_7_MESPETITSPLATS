@@ -5,30 +5,34 @@ let meals = [];
 
 
 // Récupération des recettes dans recette.JSON
-const loadAllRecette = async() => {
+const loadRecette = async() => {
     let meals = await fetch('Javascript/recette.json')
     .then((response) => response.json())
     .then(function (data){
         allRecetteList = data.recipes;
-        displayRecettes(data.recipes);
+        displayRecettes(data.recipes)
     });
 }
 
-
 const displayRecettes = (recettes) => {
     const mainSemantic = document.querySelector("main");
+    // Boucle création d'un nouvel objet recette
     for(item of recettes) {
-        const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-        mainSemantic.innerHTML += recette.render();
+     const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
+    
+    mainSemantic.innerHTML += recette.render();
     };
 }
 
+// Variables Asynchrone
+const searchDisplay = async() => {
+    await loadRecette();
+}
 
-// Affichage des recettes au chargement de la page 
-loadAllRecette();
+// Affichage des données à l'ouverture de la page 
+searchDisplay();
 
-
-// Variables du DOM
+// Variables 
 const selectIngredient = document.getElementById('selectIngredient');
 const keyWordSelect = document.getElementById('keyWordSelect');
 const selectAppareil = document.getElementById('selectAppareil');
@@ -95,26 +99,14 @@ function transformIngredientIntoString(array){
     });
 }
 
-
 let affichageIngredients = "";
 // Fonction permettant d'afficher les recettes qui ont été trouvé suite à une recherche
 function recetteDisplay(array){
-
-    const loadResultRecette = (recettes) => {
-        const mainSemantic = document.querySelector("main");
-        for(item of recettes) {
-            const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-            mainSemantic.innerHTML += recette.render();
-        };
-    }
-       
-    loadResultRecette();
-    
-
    
-    /*
+
     const htmlString = array.map((item) => {    
 
+      
         const listIngred = document.getElementById("liste-ingredient-id-"+item.id);
 
         for(const ingredient of item.ingredients){
@@ -130,7 +122,9 @@ function recetteDisplay(array){
                 return `<p class="ingredients"><strong>${ingredient.ingredient}</strong> : ${ingredient.quantity}  ${ingredient.unit}</p>`;
             }
         }   
+                
             
+        
             console.log('listIngred', listIngred);
        
             let testGenerate = listIngred.innerHTML +=`${generateUnitFromResultatFilter()}`;
@@ -158,7 +152,6 @@ function recetteDisplay(array){
     }).join('');
     
     mainSemantic.innerHTML = htmlString;
-    */
 }
 
      
@@ -170,6 +163,7 @@ const NoResultatForResearch = `<h3 class ="no-resultat-by-searchbar"> AUCUNE REC
 let listIngredientNoDoublon = [];
 let listAppareilNoDoublon = [];
 let listUstensileNoDoublon = [];
+
 
 
 // Récupération de la liste d'ingrédient provenant du  JSON
@@ -187,6 +181,7 @@ const boucleIngredientListe = fetch('Javascript/recette.json')
         for(element of recette.ustensils){
             listUstensileRaw.push(element);
         }
+
     };
    
     // Suppression des doublons   

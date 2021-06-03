@@ -33,20 +33,22 @@ class Recette {
     }
 
     render(){
-        return `<article>
-            <div class="illustrationRecette"></div>
-            <div class="titreTempsCuisson"> 
-                <h3>${this.name}</h3>
-                <div class ="tempsCuisson">
-                    <img class="timerClock" src="Maquettes/timer.png"></img>
-                    <p>${this.time} min</p>
-                </div>
-            </div>
-            <div class="description-card">
-                <div class="liste-ingredient">${this.ingredients.map(ingredient => ingredient.render()).join('')}</div>
-                <p class="description-recette">${this.description}</p>
-            </div>
-        </article>`
+        return `
+                <article>
+                    <div class="illustrationRecette"></div>
+                    <div class="titreTempsCuisson"> 
+                        <h3>${this.name}</h3>
+                        <div class ="tempsCuisson">
+                            <img class="timerClock" src="Maquettes/timer.png"></img>
+                            <p>${this.time} min</p>
+                        </div>
+                    </div>
+                    <div class="description-card">
+                        <div class="liste-ingredient">${this.ingredients.map(ingredient => ingredient.render()).join('')}</div>
+                        <p class="description-recette">${this.description}</p>
+                    </div>
+                </article>
+                `
     }
 }
 
