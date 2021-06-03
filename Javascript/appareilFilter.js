@@ -84,11 +84,8 @@ searchBarAppareil.addEventListener('keyup',(e) => {
                 filterAppareilAlgorithme();
         
             
-                
             })
         })
-
-       
     }
 
     filterWordListIngredient.filter((element) => {

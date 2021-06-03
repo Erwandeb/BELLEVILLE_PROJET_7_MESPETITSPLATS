@@ -23,10 +23,8 @@ const displayRecettes = (recettes) => {
     };
 }
 
-
 // Affichage des recettes au chargement de la page 
 loadAllRecette();
-
 
 // Variables du DOM
 const selectIngredient = document.getElementById('selectIngredient');
@@ -78,7 +76,6 @@ function capitalizeFirstLetter(string) {
   }
 
 
-
 // Fonction permettant de transformer un array en String
 let ingredientIntoString =""
 function transformIngredientIntoString(array){
@@ -101,7 +98,6 @@ let affichageIngredients = "";
 
 function recetteDisplay(array){
 
-    //loadAllRecette = "";
     const mainSemantic = document.querySelector("main");
     mainSemantic.innerHTML ="";
 
