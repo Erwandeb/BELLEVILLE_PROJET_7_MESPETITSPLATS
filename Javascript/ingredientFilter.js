@@ -14,7 +14,7 @@ searchBarIngredient.addEventListener('keyup',(e) => {
   
     listIngredientNoDoublon.filter((element) =>{
         if(filterWordIngredient === element) {
-            filterWordListIngredient.push(filterWordIngredient.toLowerCase());
+            filterWordList.push(filterWordIngredient.toLowerCase());
         }
     })
 
@@ -146,6 +146,8 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 
 
 function filterIngredientAlgorithme(){
+
+    console.log("filterword list", filterWordList);
 
     // Ré-Affichage des nouveaux résultats
     if(filterWordListUstensile.length == 0 && filterWordListAppareil.length == 0 && filterWordListMainBar.length == 0){
