@@ -119,8 +119,6 @@ function closeCrossFilter() {
       
         closeBtnAppareilFilter.addEventListener("click", function () {
        
-            console.log("supression appareil")
-           
 
                 // supression étiquette HTML
                 keywordBlockAppareil.style.display ="none"; 
@@ -135,10 +133,13 @@ function closeCrossFilter() {
                           `;
                 }).join('');
                 selectAppareil.innerHTML = filterRefreshList;
-        
-                // Application de l'algorithme
-                deleteFiltreAppareil();
 
+
+            // Message si pas de resultat
+            noResultatDiplay()
+
+            // Application de l'algorithme
+            deleteFiltreAppareil();
         })
     
     
@@ -147,12 +148,9 @@ function closeCrossFilter() {
        const  keywordBlockIngredient = document.getElementById("keyword-block-"+element);
         // Au clic sur la croix d'une etiquette de mot clé
         closeBtnIngredientFilter.addEventListener("click", function() {
-            console.log("supression Ingredient")
-            console.log('filterWordList avant traitement', filterWordList)
-            console.log('element', element)
+  
             // supression étiquette HTML
             keywordBlockIngredient.style.display ="none";  // Retrait du visuel etiquette
-            console.log('filterWordList Bingo', filterWordList)
             listIngredientNoDoublon.push(element); 
             selectIngredient.innerHTML ="";
     
@@ -164,9 +162,13 @@ function closeCrossFilter() {
                     `;
             }).join('');
             selectIngredient.innerHTML = filterRefreshList; 
+
+            // Message si pas de resultat
+            noResultatDiplay();
+
                 
             // Application de l'algorithme
-            deleteFiltreIngredient()
+            deleteFiltreIngredient();
         })
     
     
@@ -177,7 +179,6 @@ function closeCrossFilter() {
     
          closeBtnUstensileFilter.addEventListener("click", function() {
     
-            console.log("supression ustensile")
             // supression étiquette HTML
             keywordBlockUstensile.style.display ="none"; 
             listUstensileNoDoublon.push(element);
@@ -192,15 +193,28 @@ function closeCrossFilter() {
             }).join('');
             selectUstensile.innerHTML = filterRefreshList;
     
+            // Message si pas de resultat
+            noResultatDiplay()
 
             // Application de l'algorithme
             deleteFiltreUstensile();
+            
            
         })
     })  
 
 }
 
+
+function noResultatDiplay(){
+    if(resultatFilter.length == 0){
+        noResultatBloc.innerHTML = NoResultatForResearch;
+    } 
+
+    if(resultatFilter.length != 0){
+        noResultatBloc.innerHTML = "";
+    }   
+}
      
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 
 const NoResultatForResearch = `<h3 class ="no-resultat-by-searchbar"> AUCUNE RECETTE NE CORRESPOND A VOTRE RECHERCHE <h3>`
@@ -252,5 +266,4 @@ const boucleIngredientListe = fetch('Javascript/recette.json')
 
 
 let ingredientTest ="";
-
 

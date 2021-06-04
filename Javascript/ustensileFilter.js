@@ -34,11 +34,13 @@ searchBarUstensile.addEventListener('keyup',(e) => {
         });
 
     filterUstensileAlgorithme();
-   // filterAppareilAlgorithme2();
   
+   /*
     if(resultatFilter.length === 0){
-        noResultatBloc.innerHTML = NoResultatForResearch;
-    };
+        noResultatBloc.innerHTML = NoResultatForResearch
+    }
+    */
+    noResultatDiplay();
 
 
     

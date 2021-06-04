@@ -34,9 +34,8 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 
     filterIngredientAlgorithme();
 
-    if(resultatFilter.length === 0){
-        noResultatBloc.innerHTML = NoResultatForResearch;
-    }
+
+    noResultatDiplay();
 
 
     // SUPPRESSION des éléments choisis dans la liste   
@@ -117,9 +116,7 @@ function filterIngredientAlgorithme(){
 function deleteFiltreIngredient(){
 
 
-    if(filterWordList.length === 1){
-        console.log('filterwordlist', filterWordList)
-        console.log('aie');
+    if(filterWordList.length == 1){
         filterWordList.filter((element) => {
             resultatFilter = allRecetteList.filter((recette) => {
                 let resultat = []
@@ -135,11 +132,8 @@ function deleteFiltreIngredient(){
 
     if(filterWordList.length >= 2 ){
         filterWordList.filter((element) => {
-
-            console.log('cut');
             resultatFilter = allRecetteList.filter((recette) => {
                 let resultat = []
-            
                 for(const ingredient of recette.ingredients)
                     if(
                         ingredient.ingredient.toLowerCase().includes(element) ||
@@ -155,13 +149,14 @@ function deleteFiltreIngredient(){
             
         })
     }
+
+    console.log("resutlat filter", resultatFilter)
   
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);
 
 
     if(filterWordList.length === 0 ){
-        console.log('nada')
         recetteDisplay(allRecetteList);
     }
     

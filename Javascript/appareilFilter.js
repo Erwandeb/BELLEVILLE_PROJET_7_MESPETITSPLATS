@@ -37,9 +37,12 @@ searchBarAppareil.addEventListener('keyup',(e) => {
     filterAppareilAlgorithme();
 
   
+    /*
     if(resultatFilter.length === 0){
         noResultatBloc.innerHTML = NoResultatForResearch
     }
+    */
+    noResultatDiplay();
 
 
     // Suppression des éléments choisis dans la liste 
