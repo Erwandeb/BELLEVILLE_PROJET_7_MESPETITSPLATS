@@ -160,14 +160,26 @@ function filterAppareilAlgorithme(){
     }
 
     if(filterWordList.length >= 2 ){
-        console.log('aie appareil');
-        for(element of filterWordList){
-            resultatFilter = resultatFilter.filter((recette) => 
-            recette.ustensils.toString().toLowerCase().includes(element.toString()) ||
-            recette.appliance.toString().toLowerCase().includes(element.toString()) );
-        }
-    }
-        
+        filterWordList.filter((element) => {
+
+            resultatFilter = resultatFilter.filter((recette) => {
+                let resultat = []
+            
+                for(const ingredient of recette.ingredients)
+                    if(
+                        ingredient.ingredient.toLowerCase().includes(element) ||
+                        recette.name.toLowerCase().includes(element) ||
+                        recette.appliance.toString().toLowerCase().includes(element) ||
+                        recette.ustensils.toString().toLowerCase().includes(element) 
+                    ){
+                        return resultat
+                    }
+                
+                resultatFilter = resultat
+            })
+            
+        })
+    } 
   
     console.log('resultatfilter', resultatFilter);
     console.log('filterwordlist ', filterWordList.toString());
