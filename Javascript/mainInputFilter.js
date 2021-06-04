@@ -26,9 +26,13 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
         return;
     }
     
-    filterWordListMainBar.push(userSearchWord);
+    filterWordList.push(userSearchWord);
    
+    // Algorithme de filtre
+    filterMainSearchBarAlgorithme();
 
+    /*
+    
      //Système de filtre par réduction 
      
     if(filterWordListUstensile.length == 0 && filterWordListAppareil.length == 0 && filterWordListIngredient.length == 0){
@@ -212,4 +216,46 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
     if(resultatFilter.length === 0){
         noResultatBloc.innerHTML = NoResultatForResearch
     }
+    */
 })
+
+
+
+function filterMainSearchBarAlgorithme(){
+
+    /*
+    if(filterWordList.length == 1){
+        resultatFilter = allRecetteList.filter((recette) => 
+        recette.appliance.toString().toLowerCase().includes(filterWordList.toString()));
+    }
+    */
+
+    if(filterWordList.length >= 1 ){
+        filterWordList.filter((element) => {
+
+            resultatFilter = allRecetteList.filter((recette) => {
+                let resultat = []
+            
+                for(const ingredient of recette.ingredients)
+                    if(
+                        ingredient.ingredient.toLowerCase().includes(element) ||
+                        recette.name.toLowerCase().includes(element) ||
+                        recette.appliance.toString().toLowerCase().includes(element) ||
+                        recette.ustensils.toString().toLowerCase().includes(element) 
+                    ){
+                        return resultat
+                    }
+                
+                resultatFilter = resultat
+            })
+        })
+    } 
+
+    // Affichage des résultats sur ecran
+    recetteDisplay(resultatFilter);
+
+
+    if(filterWordList.length === 0 ){
+        recetteDisplay(allRecetteList);
+    }
+}

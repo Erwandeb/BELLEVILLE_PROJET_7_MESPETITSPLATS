@@ -31,10 +31,10 @@ searchBarIngredient.addEventListener('keyup',(e) => {
         }
     });
 
-
+    // Fonction de filtre Algo
     filterIngredientAlgorithme();
 
-
+    // Affichage message si pas de résultat
     noResultatDiplay();
 
 
