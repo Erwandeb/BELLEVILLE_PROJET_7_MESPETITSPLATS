@@ -108,6 +108,99 @@ function recetteDisplay(array){
     
 }
 
+
+// Fonction de fermeture des étiquettes filtrantes
+function closeCrossFilter() {
+    filterWordList.filter((element) => {
+
+        // SUPPRESSION DU MOT CLE APPAREIL
+        const closeBtnAppareilFilter = document.getElementById("close-btn-"+element);
+        const keywordBlockAppareil = document.getElementById("keyword-block-"+element);
+      
+        closeBtnAppareilFilter.addEventListener("click", function () {
+       
+            console.log("supression appareil")
+           
+
+                // supression étiquette HTML
+                keywordBlockAppareil.style.display ="none"; 
+                deleteKeyWord(filterWordList, element);
+                listAppareilNoDoublon.push(element);
+                selectAppareil.innerHTML ="";
+    
+                // Mis à jour de la liste
+                const filterRefreshList = listAppareilNoDoublon.map((element) => {    
+                    return `
+                            <option value="${element}">${element}</option>
+                          `;
+                }).join('');
+                selectAppareil.innerHTML = filterRefreshList;
+        
+                // Application de l'algorithme
+                deleteFiltreAppareil();
+
+        })
+    
+    
+        // SUPPRESSION  MOT CLE INGREDIENT
+       const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
+       const  keywordBlockIngredient = document.getElementById("keyword-block-"+element);
+        // Au clic sur la croix d'une etiquette de mot clé
+        closeBtnIngredientFilter.addEventListener("click", function() {
+            console.log("supression Ingredient")
+            console.log('filterWordList avant traitement', filterWordList)
+            console.log('element', element)
+            // supression étiquette HTML
+            keywordBlockIngredient.style.display ="none";  // Retrait du visuel etiquette
+            console.log('filterWordList Bingo', filterWordList)
+            listIngredientNoDoublon.push(element); 
+            selectIngredient.innerHTML ="";
+    
+    
+           // Mis à jour de la liste
+            const filterRefreshList = listIngredientNoDoublon.map((element) => {    
+                return `
+                        <option value="${element}">${element}</option>
+                    `;
+            }).join('');
+            selectIngredient.innerHTML = filterRefreshList; 
+                
+            // Application de l'algorithme
+            deleteFiltreIngredient()
+        })
+    
+    
+        // SUPPRESSION  MOT CLE USTENSILE
+        const closeBtnUstensileFilter = document.getElementById("close-btn-"+element);
+        const keywordBlockUstensile = document.getElementById("keyword-block-"+element);
+        
+    
+         closeBtnUstensileFilter.addEventListener("click", function() {
+    
+            console.log("supression ustensile")
+            // supression étiquette HTML
+            keywordBlockUstensile.style.display ="none"; 
+            listUstensileNoDoublon.push(element);
+            selectUstensile.innerHTML ="";
+    
+    
+            // Mis à jour de la liste
+            const filterRefreshList = listUstensileNoDoublon.map((element) => {    
+                return `
+                    <option value="${element}">${element}</option>
+                        `;
+            }).join('');
+            selectUstensile.innerHTML = filterRefreshList;
+    
+
+            // Application de l'algorithme
+            deleteFiltreUstensile();
+           
+        })
+    })  
+
+}
+
      
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 
 const NoResultatForResearch = `<h3 class ="no-resultat-by-searchbar"> AUCUNE RECETTE NE CORRESPOND A VOTRE RECHERCHE <h3>`
@@ -159,3 +252,5 @@ const boucleIngredientListe = fetch('Javascript/recette.json')
 
 
 let ingredientTest ="";
+
+
