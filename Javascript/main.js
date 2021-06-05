@@ -120,20 +120,22 @@ function closeCrossFilter() {
         closeBtnAppareilFilter.addEventListener("click", function () {
        
 
-                // supression étiquette HTML
-                keywordBlockAppareil.style.display ="none"; 
-                deleteKeyWord(filterWordList, element);
-                listAppareilNoDoublon.push(element);
-                selectAppareil.innerHTML ="";
+            // supression étiquette HTML
+            keywordBlockAppareil.style.display ="none"; 
+            deleteKeyWord(filterWordList, element);
+            listAppareilNoDoublon.push(element);
+            selectAppareil.innerHTML ="";
     
-                // Mis à jour de la liste
-                const filterRefreshList = listAppareilNoDoublon.map((element) => {    
-                    return `
-                            <option value="${element}">${element}</option>
-                          `;
-                }).join('');
-                selectAppareil.innerHTML = filterRefreshList;
 
+        
+            // Mis à jour de la liste
+            const filterRefreshList = listAppareilNoDoublon.map((element) => {    
+                return `
+                        <option value="${element}">${element}</option>
+                        `;
+                }).join('');
+            selectAppareil.innerHTML = filterRefreshList;
+                
 
             // Message si pas de resultat
             noResultatDiplay()
@@ -207,13 +209,15 @@ function closeCrossFilter() {
 
 
 function noResultatDiplay(){
-    if(resultatFilter.length == 0){
+    if(resultatFilter.length === 0){
         noResultatBloc.innerHTML = NoResultatForResearch;
     } 
 
+    
     if(resultatFilter.length != 0){
         noResultatBloc.innerHTML = "";
     }   
+    
 }
      
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 

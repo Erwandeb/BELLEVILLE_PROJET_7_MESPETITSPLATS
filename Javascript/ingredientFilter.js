@@ -117,6 +117,7 @@ function deleteFiltreIngredient(){
 
 
     if(filterWordList.length == 1){
+        console.log('delete Filter 1')
         filterWordList.filter((element) => {
             resultatFilter = allRecetteList.filter((recette) => {
                 let resultat = []
@@ -128,18 +129,21 @@ function deleteFiltreIngredient(){
                 resultatFilter = resultat
             })
         })
+        console.log("testing", resultatFilter)
+        recetteDisplay(resultatFilter);
     }
 
     if(filterWordList.length >= 2 ){
-        filterWordList.filter((element) => {
-            resultatFilter = allRecetteList.filter((recette) => {
+        //filterWordList.filter((element) => {
+            resultatFilter = resultatFilter.filter((recette) => {
+                console.log('testign222')
                 let resultat = []
                 for(const ingredient of recette.ingredients)
                     if(
-                        ingredient.ingredient.toLowerCase().includes(element) ||
-                        recette.name.toLowerCase().includes(element) ||
-                        recette.appliance.toString().toLowerCase().includes(element) ||
-                        recette.ustensils.toString().toLowerCase().includes(element) 
+                        ingredient.ingredient.toLowerCase().includes(filterWordList.toString()) ||
+                        recette.name.toLowerCase().includes(filterWordList.toString()) ||
+                        recette.appliance.toString().toLowerCase().includes(filterWordList.toString()) ||
+                        recette.ustensils.toString().toLowerCase().includes(filterWordList.toString()) 
                     ){
                         return resultat
                     }
@@ -147,7 +151,7 @@ function deleteFiltreIngredient(){
                 resultatFilter = resultat
             })
             
-        })
+       // })
     }
 
     console.log("resutlat filter", resultatFilter)

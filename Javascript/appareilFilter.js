@@ -142,7 +142,6 @@ function deleteFiltreAppareil(){
 
 
     if(filterWordList.length === 0 ){
-        console.log('nada')
         recetteDisplay(allRecetteList);
     }
 }
