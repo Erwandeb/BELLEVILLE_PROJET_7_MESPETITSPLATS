@@ -26,6 +26,53 @@ const displayRecettes = (recettes) => {
 // Affichage des recettes au chargement de la page 
 loadAllRecette();
 
+
+
+// Récupération des données saisies dans la liste déroulante
+let listIngredientNoDoublon = [];
+let listAppareilNoDoublon = [];
+let listUstensileNoDoublon = [];
+
+
+// Récupération de la liste d'ingrédient provenant du  JSON
+const boucleIngredientListe = fetch('Javascript/recette.json')
+.then((response) => response.json())
+.then(function (data){
+    for(item of data.recipes){
+        const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
+        for(list of recette.ingredients){
+            listIngredientRaw.push(list.ingredient);   
+        };
+        for(element of recette.appliance){
+            listAppareilRaw.push(element);
+        }
+        for(element of recette.ustensils){
+            listUstensileRaw.push(element);
+        }
+    };
+   
+    // Suppression des doublons   
+    let listIngredientNoDoublon = deleteDoublon(listIngredientRaw);
+    let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
+    let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
+
+
+    // affichage listes déroulante
+    listIngredientNoDoublon.map((element) => {
+        return   selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`;
+    })
+
+    listAppareilNoDoublon.map((element) => {
+        return  selectAppareil.innerHTML +=`<option value="${element}">${element}</option>`;
+    })
+
+    listUstensileNoDoublon.map((element) => {
+        return  selectUstensile.innerHTML +=`<option value="${element}">${element}</option>`;
+    })
+
+})
+
+
 // Variables du DOM
 const selectIngredient = document.getElementById('selectIngredient');
 const keyWordSelect = document.getElementById('keyWordSelect');
@@ -153,18 +200,26 @@ function closeCrossFilter() {
   
             // supression étiquette HTML
             keywordBlockIngredient.style.display ="none";  // Retrait du visuel etiquette
+         
             listIngredientNoDoublon.push(element); 
             selectIngredient.innerHTML ="";
     
     
            // Mis à jour de la liste
+
+           listIngredientNoDoublon.map((element) => {
+            return   selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`;
+             })
+
+            /*
             const filterRefreshList = listIngredientNoDoublon.map((element) => {    
                 return `
                         <option value="${element}">${element}</option>
                     `;
             }).join('');
             selectIngredient.innerHTML = filterRefreshList; 
-
+            */
+            
             // Message si pas de resultat
             noResultatDiplay();
 
@@ -223,50 +278,6 @@ function noResultatDiplay(){
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 
 const NoResultatForResearch = `<h3 class ="no-resultat-by-searchbar"> AUCUNE RECETTE NE CORRESPOND A VOTRE RECHERCHE <h3>`
 
-
-// Récupération des données saisies dans la liste déroulante
-let listIngredientNoDoublon = [];
-let listAppareilNoDoublon = [];
-let listUstensileNoDoublon = [];
-
-
-// Récupération de la liste d'ingrédient provenant du  JSON
-const boucleIngredientListe = fetch('Javascript/recette.json')
-.then((response) => response.json())
-.then(function (data){
-    for(item of data.recipes){
-        const recette = new Recette(item.id, item.name, item.servings, item.ingredients, item.time, item.description, item.appliance, item.ustensils);
-        for(list of recette.ingredients){
-            listIngredientRaw.push(list.ingredient);   
-        };
-        for(element of recette.appliance){
-            listAppareilRaw.push(element);
-        }
-        for(element of recette.ustensils){
-            listUstensileRaw.push(element);
-        }
-    };
-   
-    // Suppression des doublons   
-    let listIngredientNoDoublon = deleteDoublon(listIngredientRaw);
-    let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
-    let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
-
-
-    // affichage listes déroulante
-    listIngredientNoDoublon.map((element) => {
-        return   selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`;
-    })
-
-    listAppareilNoDoublon.map((element) => {
-        return  selectAppareil.innerHTML +=`<option value="${element}">${element}</option>`;
-    })
-
-    listUstensileNoDoublon.map((element) => {
-        return  selectUstensile.innerHTML +=`<option value="${element}">${element}</option>`;
-    })
-
-})
 
 
 let ingredientTest ="";
