@@ -6,6 +6,7 @@
 let filterWordList =[];
 
 searchBarAppareil.addEventListener('keyup',(e) => {
+    
     const filterWordAppareil = e.target.value;
 
     
@@ -13,55 +14,42 @@ searchBarAppareil.addEventListener('keyup',(e) => {
     let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
   
 
+    // Envoyer le filtre selectionné dans une liste générale pour le traitement en algorithme   
     listAppareilNoDoublon.filter((element) =>{
         if(filterWordAppareil === element) {
             filterWordList.push(filterWordAppareil.toLowerCase());
         }
     })
 
-        // Retrait des elements sélectionnés par l'utilisateur
-        listAppareilNoDoublon.filter((element) => {
-            if(element === filterWordAppareil){
-                const index = listAppareilNoDoublon.indexOf(element)
+    // Manipulation de la liste ingrédient : Retrait d'un ingrédient sélectionnés par l'utilisateur
+    listAppareilNoDoublon.filter((element) => {
+        if(element === filterWordAppareil){
+            const index = listAppareilNoDoublon.indexOf(element)
                 if(index > -1 ){ 
                     listAppareilNoDoublon.splice(index, 1);
                 }
-                const keyWordSelect = document.getElementById('keyWordSelect');
-                keyWordSelect.innerHTML +=`<div class="keyword-block-green" id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `
-                searchBarAppareil.value="";
-            }
-        });
+            const keyWordSelect = document.getElementById('keyWordSelect');
+            keyWordSelect.innerHTML +=`<div class="keyword-block-green" id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `
+            searchBarAppareil.value="";
+        }
+    });
 
 
- 
+    // Manipulation de la liste appareil: Ré-écriture de la liste mise à jour
+    function filterRefreshListAppareil(){
+        listAppareilNoDoublon.map((element) => {    
+            return  selectAppareil.innerHTML += `<option value="${element}">${element}</option>`;
+        }).join('');
+    } 
+    filterRefreshListAppareil();
+
+    // Fonction de filtre Algorithme
     filterAppareilAlgorithme();
 
-  
-    /*
-    if(resultatFilter.length === 0){
-        noResultatBloc.innerHTML = NoResultatForResearch
-    }
-    */
+    // Affichage message d'erreur si aucun résultat existe
     noResultatDiplay();
 
-
-    // Suppression des éléments choisis dans la liste 
-    const filterRefreshList = listAppareilNoDoublon.map((element) => {    
-        return `
-                <option value="${element}">${element}</option>
-              `;
-      }).join('');
-      selectAppareil.innerHTML = filterRefreshList;
-
-
-
-    
-
-    /*--------------------------------------------------------------------------------------------*/
-    /*------------EVENT: -------------------------------------------------------------------------*/
-    /*------------Supression des mots clés--------------------------------------------------------*/
-    /*--------------------------------------------------------------------------------------------*/
-
+    // Fonction pour supprimer une étiquette en cliquant sur la croix 
     closeCrossFilter();
 
 });
@@ -99,7 +87,6 @@ function filterAppareilAlgorithme(){
 
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);
-
 
     if(filterWordList.length === 0 ){
         recetteDisplay(allRecetteList);

@@ -6,7 +6,7 @@
 searchBarIngredient.addEventListener('keyup',(e) => {
     const filterWordIngredient = e.target.value;
 
-    // Importer la liste des appareils brut et supprimer tous les doublons 
+    // Importer la liste des ingrédients brut et supprimer tous les doublons 
     let listIngredientNoDoublon = deleteDoublon(listIngredientRaw);
   
     // Envoyer le filtre selectionné dans une liste générale pour le traitement en algorithme
@@ -30,12 +30,12 @@ searchBarIngredient.addEventListener('keyup',(e) => {
     });
 
     // Manipulation de la liste ingrédient : Ré-écriture de la liste mise à jour
-    function filterRefreshList(){
+    function filterRefreshListIngredient(){
         listIngredientNoDoublon.map((element) => {    
             return  selectIngredient.innerHTML += `<option value="${element}">${element}</option>`;
         }).join('');
     } 
-    filterRefreshList();
+    filterRefreshListIngredient();
 
     // Fonction de filtre Algorithme
     filterIngredientAlgorithme();
