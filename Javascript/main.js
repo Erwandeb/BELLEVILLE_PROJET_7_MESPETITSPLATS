@@ -91,9 +91,6 @@ let listSearchAnswer = [];
 let filterWordsList = [];
 let resultatFilter = [];
 let testCompiler = [];
-let filterWordListIngredient = [];
-let filterWordListAppareil = [];
-let filterWordListUstensile = [];
 let filterWordListMainBar = [];
 
 
@@ -174,8 +171,9 @@ function closeCrossFilter() {
             // Message si pas de resultat
             noResultatDiplay()
 
+            
             // Application de l'algorithme
-            deleteFiltreAppareil();
+            algorithmeFilterCloseCross();
         })
     
     
@@ -192,9 +190,9 @@ function closeCrossFilter() {
             // Message si pas de resultat
             noResultatDiplay();
 
-                
+            
             // Application de l'algorithme
-            deleteFiltreIngredient();
+            algorithmeFilterCloseCross();
         })
     
     
@@ -213,9 +211,9 @@ function closeCrossFilter() {
             // Message si pas de resultat
             noResultatDiplay()
 
-            // Application de l'algorithme
-            deleteFiltreUstensile();
             
+            // Application de l'algorithme
+            algorithmeFilterCloseCross();
            
         })
     })  
@@ -223,12 +221,48 @@ function closeCrossFilter() {
 }
 
 
+// Algorithme pour filtrer les données lorsqu'on clique sur la croix d'un filtre
+function algorithmeFilterCloseCross(){
+  
+    if(filterWordList.length !=0 ){
+        filterWordList.filter((element) => {
+
+            resultatFilter = allRecetteList.filter((recette) => {
+                let resultat = []
+            
+                for(const ingredient of recette.ingredients)
+                    if(
+                        ingredient.ingredient.toLowerCase().includes(element) ||
+                        recette.appliance.toString().toLowerCase().includes(element) ||
+                        recette.ustensils.toString().toLowerCase().includes(element) 
+                    ){
+                        return resultat
+                    }
+                
+                resultatFilter = resultat
+            })
+            
+        })
+    }
+
+    // Affichage des résultats sur ecran
+    recetteDisplay(resultatFilter);
+
+
+    if(filterWordList.length === 0 ){
+        recetteDisplay(allRecetteList);
+    }
+}
+
+
+
+
+// Affichage "auncun résultat ne correspond à votre recherche"
 function noResultatDiplay(){
     if(resultatFilter.length === 0){
         noResultatBloc.innerHTML = NoResultatForResearch;
     } 
 
-    
     if(resultatFilter.length != 0){
         noResultatBloc.innerHTML = "";
     }   
@@ -237,8 +271,6 @@ function noResultatDiplay(){
      
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 
 const NoResultatForResearch = `<h3 class ="no-resultat-by-searchbar"> AUCUNE RECETTE NE CORRESPOND A VOTRE RECHERCHE <h3>`
-
-
 
 let ingredientTest ="";
 
