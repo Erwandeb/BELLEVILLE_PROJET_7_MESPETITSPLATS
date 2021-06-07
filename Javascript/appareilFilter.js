@@ -37,6 +37,7 @@ searchBarAppareil.addEventListener('keyup',(e) => {
 
     // Manipulation de la liste appareil: Ré-écriture de la liste mise à jour
     function filterRefreshListAppareil(){
+        selectAppareil.innerHTML="";
         listAppareilNoDoublon.map((element) => {    
             return  selectAppareil.innerHTML += `<option value="${element}">${element}</option>`;
         }).join('');
@@ -101,17 +102,16 @@ function deleteFiltreAppareil(){
         recette.appliance.toString().toLowerCase().includes(filterWordList.toString()));
     }
 
+    
     if(filterWordList.length >= 2 ){
         filterWordList.filter((element) => {
 
-            console.log('cut');
             resultatFilter = allRecetteList.filter((recette) => {
                 let resultat = []
             
                 for(const ingredient of recette.ingredients)
                     if(
                         ingredient.ingredient.toLowerCase().includes(element) ||
-                        recette.name.toLowerCase().includes(element) ||
                         recette.appliance.toString().toLowerCase().includes(element) ||
                         recette.ustensils.toString().toLowerCase().includes(element) 
                     ){
@@ -123,6 +123,10 @@ function deleteFiltreAppareil(){
             
         })
     }
+    
+
+      
+
   
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);

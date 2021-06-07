@@ -170,20 +170,7 @@ function closeCrossFilter() {
             // supression étiquette HTML
             keywordBlockAppareil.style.display ="none"; 
             deleteKeyWord(filterWordList, element);
-            listAppareilNoDoublon.push(element);
-            selectAppareil.innerHTML ="";
-    
-
-        
-            // Mis à jour de la liste
-            const filterRefreshList = listAppareilNoDoublon.map((element) => {    
-                return `
-                        <option value="${element}">${element}</option>
-                        `;
-                }).join('');
-            selectAppareil.innerHTML = filterRefreshList;
-                
-
+          
             // Message si pas de resultat
             noResultatDiplay()
 
@@ -201,24 +188,6 @@ function closeCrossFilter() {
             // supression étiquette HTML
             keywordBlockIngredient.style.display ="none";  // Retrait du visuel etiquette
          
-            listIngredientNoDoublon.push(element); 
-            selectIngredient.innerHTML ="";
-    
-    
-           // Mis à jour de la liste
-
-           listIngredientNoDoublon.map((element) => {
-            return   selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`;
-             })
-
-            /*
-            const filterRefreshList = listIngredientNoDoublon.map((element) => {    
-                return `
-                        <option value="${element}">${element}</option>
-                    `;
-            }).join('');
-            selectIngredient.innerHTML = filterRefreshList; 
-            */
             
             // Message si pas de resultat
             noResultatDiplay();
@@ -239,17 +208,8 @@ function closeCrossFilter() {
             // supression étiquette HTML
             keywordBlockUstensile.style.display ="none"; 
             listUstensileNoDoublon.push(element);
-            selectUstensile.innerHTML ="";
-    
-    
-            // Mis à jour de la liste
-            const filterRefreshList = listUstensileNoDoublon.map((element) => {    
-                return `
-                    <option value="${element}">${element}</option>
-                        `;
-            }).join('');
-            selectUstensile.innerHTML = filterRefreshList;
-    
+          
+
             // Message si pas de resultat
             noResultatDiplay()
 

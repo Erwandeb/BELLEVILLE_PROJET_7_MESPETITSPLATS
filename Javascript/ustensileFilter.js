@@ -36,11 +36,13 @@ searchBarUstensile.addEventListener('keyup',(e) => {
     
     // Manipulation de la liste ustensile : Ré-écriture de la liste mise à jour
     function filterRefreshListUstensile(){
-        listIngredientNoDoublon.map((element) => {    
-            return  selectIngredient.innerHTML += `<option value="${element}">${element}</option>`;
+        selectUstensile.innerHTML ="";
+        listUstensileNoDoublon.map((element) => {    
+            return  selectUstensile.innerHTML += `<option value="${element}">${element}</option>`;
         }).join('');
     } 
     filterRefreshListUstensile();
+
 
     // Fonction de filtre Algorithme
     filterUstensileAlgorithme();
@@ -105,17 +107,16 @@ function deleteFiltreUstensile(){
         recette.ustensils.toString().toLowerCase().includes(filterWordList.toString()));
     }
 
+    
     if(filterWordList.length >= 2 ){
         filterWordList.filter((element) => {
 
-            console.log('cut');
-            resultatFilter = allRecetteList.filter((recette) => {
+            resultatFilter = resultatFilter.filter((recette) => {
                 let resultat = []
             
                 for(const ingredient of recette.ingredients)
                     if(
                         ingredient.ingredient.toLowerCase().includes(element) ||
-                        recette.name.toLowerCase().includes(element) ||
                         recette.appliance.toString().toLowerCase().includes(element) ||
                         recette.ustensils.toString().toLowerCase().includes(element) 
                     ){
@@ -124,18 +125,18 @@ function deleteFiltreUstensile(){
                 
                 resultatFilter = resultat
             })
-            
         })
     }
+    
   
+ 
+
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);
 
 
     if(filterWordList.length === 0 ){
-        console.log('nada')
         recetteDisplay(allRecetteList);
     }
     
-
 }
