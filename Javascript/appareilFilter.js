@@ -59,13 +59,13 @@ searchBarAppareil.addEventListener('keyup',(e) => {
 
 function filterAppareilAlgorithme(){
 
-    if(filterWordList.length === 1 && userSearchWord.length >= 3){
+    if(filterWordList.length == 1 && userSearchWord.length <= 2){
         resultatFilter = allRecetteList.filter((recette) => 
         recette.appliance.toString().toLowerCase().includes(filterWordList.toString()));
     }
 
 
-    if(filterWordList.length >= 2 && userSearchWord.length >= 3){
+    if(filterWordList.length >= 2  && userSearchWord.length <= 2){
         filterWordList.filter((element) => {
 
             resultatFilter = resultatFilter.filter((recette) => {

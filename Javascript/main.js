@@ -224,7 +224,7 @@ function closeCrossFilter() {
 // Algorithme pour filtrer les données lorsqu'on clique sur la croix d'un filtre
 function algorithmeFilterCloseCross(){
   
-    if(filterWordList.length !=0 ){
+    if(filterWordList.length != 0 && userSearchWord.length <= 2 ){
         filterWordList.filter((element) => {
 
             resultatFilter = allRecetteList.filter((recette) => {
@@ -243,13 +243,30 @@ function algorithmeFilterCloseCross(){
             })
             
         })
+    } 
+    if(filterWordList.length === 0 && userSearchWord.length >= 3 ){
+        resultatFilter = allRecetteList.filter((recette) => {
+            let resultat = [];
+            for(const ingredient of recette.ingredients)
+                if(
+                    ingredient.ingredient.toLowerCase().includes(userSearchWord) ||
+                    recette.name.toLowerCase().includes(userSearchWord) ||
+                    recette.appliance.toString().toLowerCase().includes(userSearchWord) ||
+                    recette.ustensils.toString().toLowerCase().includes(userSearchWord) 
+                ){
+                    return resultat
+                }
+            
+            resultatFilter = resultat
+        })
+       
     }
 
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);
 
 
-    if(filterWordList.length === 0 ){
+    if(filterWordList.length === 0 && userSearchWord.length <= 2){
         recetteDisplay(allRecetteList);
     }
 }

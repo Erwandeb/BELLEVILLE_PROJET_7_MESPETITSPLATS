@@ -37,7 +37,6 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
             resultatFilter = resultat
         })
     } else if (userSearchWord.length <= 2 && filterWordList.length >= 1){
-        console.log("testing ok");
         resultatFilter = resultatFilter.filter((recette) => {
             let resultat = [];
             for(const ingredient of recette.ingredients)

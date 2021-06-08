@@ -87,7 +87,6 @@ function filterUstensileAlgorithme(){
     }
 
 
-    
     if(filterWordList.length >= 1 && userSearchWord.length >= 3 ){
         filterWordList.filter((element) => {
 
