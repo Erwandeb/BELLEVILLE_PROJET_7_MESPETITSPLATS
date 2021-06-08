@@ -58,13 +58,13 @@ searchBarUstensile.addEventListener('keyup',(e) => {
 
 function filterUstensileAlgorithme(){
 
-    if(filterWordList.length == 1){
+    if(filterWordList.length === 1 && userSearchWord.length <= 2){
         resultatFilter = allRecetteList.filter((recette) => 
         recette.ustensils.toString().toLowerCase().includes(filterWordList.toString()));
     }
   
   
-    if(filterWordList.length >= 2 ){
+    if(filterWordList.length >= 2 && userSearchWord.length <= 2 ){
         filterWordList.filter((element) => {
 
             resultatFilter = resultatFilter.filter((recette) => {
@@ -86,6 +86,29 @@ function filterUstensileAlgorithme(){
         })
     }
 
+
+    
+    if(filterWordList.length >= 1 && userSearchWord.length >= 3 ){
+        filterWordList.filter((element) => {
+
+            resultatFilter = resultatFilter.filter((recette) => {
+                let resultat = []
+            
+                for(const ingredient of recette.ingredients)
+                    if(
+                        ingredient.ingredient.toLowerCase().includes(element) ||
+                        recette.name.toLowerCase().includes(element) ||
+                        recette.appliance.toString().toLowerCase().includes(element) ||
+                        recette.ustensils.toString().toLowerCase().includes(element) 
+                    ){
+                        return resultat
+                    }
+                
+                resultatFilter = resultat
+            })
+            
+        })
+    }
 
     // Affichage des résultats sur ecran
     recetteDisplay(resultatFilter);

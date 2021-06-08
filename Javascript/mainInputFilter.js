@@ -34,7 +34,6 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
                 ){
                     return resultat
                 }
-            
             resultatFilter = resultat
         })
     } else if (userSearchWord.length <= 2 && filterWordList.length >= 1){
