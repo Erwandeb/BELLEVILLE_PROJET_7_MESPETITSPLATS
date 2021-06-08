@@ -4,7 +4,7 @@
 /*--------------------------------------------------------------------------------------------*/
 
 
-filterWordListMainSearch = [];
+let filterWordListMainSearch = [];
 const searchBarGeneral = [];
 let userSearchWord = [];
 //let filtreRecetteBySearchBar = [];
@@ -17,20 +17,43 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
     userSearchWord = e.target.value.toLowerCase();
 
     // Bloquage du input avant 3 lettres 
-    if(userSearchWord.length === 0){
-        //searchDisplay();
-        console.log('pas de requete');
-    } else if(userSearchWord.length <= 2){
+    if(userSearchWord.length <= 2 ){
         noResultatBloc.innerHTML ="";
         e.preventDefault();
         e.stopPropagation();
         return;
+    } else{
+        resultatFilter = allRecetteList.filter((recette) => {
+            let resultat = []
+        
+            for(const ingredient of recette.ingredients)
+                if(
+                    ingredient.ingredient.toLowerCase().includes(userSearchWord) ||
+                    recette.name.toLowerCase().includes(userSearchWord) ||
+                    recette.appliance.toString().toLowerCase().includes(userSearchWord) ||
+                    recette.ustensils.toString().toLowerCase().includes(userSearchWord) 
+                ){
+                    return resultat
+                }
+            
+            resultatFilter = resultat
+        })
     }
     
-    
-    
-    console.log(userSearchWord);
-    filterWordListMainSearch.push(userSearchWord);
+    console.log('filterWordList', filterWordListMainSearch);
+    console.log('resultat filter', resultatFilter);
+
+    recetteDisplay(resultatFilter);
+
+    /*
+    for(element of allRecetteList){
+        if(userSearchWord.includes(element)){
+            console.log('hello de lu')
+            filterWordListMainSearch.push(userSearchWord);
+        }
+       
+    }
+    */
 
   
     
@@ -39,7 +62,7 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
     console.log('testing FWLISR', filterWordListMainBar);
 
     // Algorithme de filtre
-    filterMainSearchBarAlgorithme();
+   // filterMainSearchBarAlgorithme();
 
 })
 
@@ -73,7 +96,7 @@ function filterMainSearchBarAlgorithme(){
 
 if(filterWordList.length === 0){
 
-    userSearchWord.filter((element) => {
+    filterWordListMainSearch.filter((element) => {
         console.log('filterWordListMain', filterWordListMainBar);
         console.log('bingoo');
         resultatFilter = allRecetteList.filter((recette) => {
