@@ -244,6 +244,29 @@ function algorithmeFilterCloseCross(){
             
         })
     } 
+
+    if(filterWordList.length != 0 && userSearchWord.length >= 3 ){
+        console.log('je suis la')
+        filterWordList.filter((element) => {
+
+            resultatFilter = resultatFilter.filter((recette) => {
+                let resultat = []
+            
+                for(const ingredient of recette.ingredients)
+                    if(
+                        ingredient.ingredient.toLowerCase().includes(element) ||
+                        recette.appliance.toString().toLowerCase().includes(element) ||
+                        recette.ustensils.toString().toLowerCase().includes(element) 
+                    ){
+                        return resultat
+                    }
+                
+                resultatFilter = resultat
+            })
+            
+        })
+    } 
+
     if(filterWordList.length === 0 && userSearchWord.length >= 3 ){
         resultatFilter = allRecetteList.filter((recette) => {
             let resultat = [];
@@ -278,12 +301,9 @@ function algorithmeFilterCloseCross(){
 function noResultatDiplay(){
     if(resultatFilter.length === 0){
         noResultatBloc.innerHTML = NoResultatForResearch;
-    } 
-
-    if(resultatFilter.length != 0){
+    } else{
         noResultatBloc.innerHTML = "";
-    }   
-    
+    }
 }
      
 // Variable renvoyant un message d'erreur si aucun résultat ne correspond à la recherche 

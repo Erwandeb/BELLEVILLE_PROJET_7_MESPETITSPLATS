@@ -18,10 +18,12 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
 
     // Bloquage du input avant 3 lettres 
     if(userSearchWord.length <= 2 && filterWordList.length === 0){
+        recetteDisplay(allRecetteList);
         noResultatBloc.innerHTML ="";
         e.preventDefault();
         e.stopPropagation();
         return;
+        
     } else if(userSearchWord.length >= 3 && filterWordList.length === 0){
         resultatFilter = allRecetteList.filter((recette) => {
             let resultat = [];
@@ -57,9 +59,6 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
     recetteDisplay(resultatFilter);
 
 
-    if(filterWordList.length === 0 && userSearchWord.length === 0 ){
-        recetteDisplay(allRecetteList);
-    }
 
 });
 
