@@ -25,8 +25,8 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
         return;
         
     } else if(userSearchWord.length >= 3 && filterWordList.length === 0){
-        resultatFilter = allRecetteList.filter((recette) => {
-            let resultat = [];
+        let resultat = [];
+        for(const recette of allRecetteList){
             for(const ingredient of recette.ingredients)
                 if(
                     ingredient.ingredient.toLowerCase().includes(userSearchWord) ||
@@ -34,13 +34,14 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
                     recette.appliance.toString().toLowerCase().includes(userSearchWord) ||
                     recette.ustensils.toString().toLowerCase().includes(userSearchWord) 
                 ){
-                    return resultat
+                    resultat.push(recette);
                 }
-            resultatFilter = resultat
-        })
+        }
+        resultatFilter = deleteDoublon(resultat);
+
     } else if (userSearchWord.length <= 2 && filterWordList.length >= 1){
-        resultatFilter = resultatFilter.filter((recette) => {
-            let resultat = [];
+        let resultat = [];
+        for(const recette of resultatFilter){
             for(const ingredient of recette.ingredients)
                 if(
                     ingredient.ingredient.toLowerCase().includes(userSearchWord) ||
@@ -48,11 +49,10 @@ mainSearchBarinput.addEventListener('keyup', (e) => {
                     recette.appliance.toString().toLowerCase().includes(userSearchWord) ||
                     recette.ustensils.toString().toLowerCase().includes(userSearchWord) 
                 ){
-                    return resultat
+                    resultat.push(recette);
                 }
-            
-            resultatFilter = resultat
-        })
+        }
+        resultatFilter = deleteDoublon(resultat);
     }
 
 
