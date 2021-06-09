@@ -17,16 +17,22 @@ const selectUstensileButton = document.getElementById('selectUstensileButton');
 
 // Animation du bouton ingrédient 
 document.addEventListener('click', function(event) {
-    const isClickInside = selectIngredientButton.contains(event.target);
+    const isClickInside = ingredientButton.contains(event.target);
     if (isClickInside) {
       searchBarIngredient.style.display ="block";
-      selectAppareilButton.style.left = 80 +"px";
-      ustensileButton.style.left = 80 +"px"
+      appareilButton.style.left = 80 +"px";
+      ustensileButton.style.position = "absolute";
+      ustensileButton.style.right = 365 +"px";
       
+    }
+    if(isClickInside){
+      ustensileButton.style.left = 80 +"px";
     }
     else {
       searchBarIngredient.style.display ="none";
-      selectAppareilButton.style.left ="";
+      appareilButton.style.left ="";
+      ustensileButton.style.position = "relative";
+      ustensileButton.style.right = 0 +"px";
       ustensileButton.style.left = "";
     }
 });
@@ -34,21 +40,21 @@ document.addEventListener('click', function(event) {
 
 // Animation du bouton Appareil 
 document.addEventListener('click', function(event) {
-    const isClickInside = selectAppareilButton.contains(event.target);
+    const isClickInside = appareilButton.contains(event.target);
     if (isClickInside) {
       searchBarAppareil.style.display ="block";
-      selectUstensileButton.style.left = 80 +"px";
+      ustensileButton.style.left = 80 +"px";
     }
     else {
       searchBarAppareil.style.display ="none";
-      selectUstensileButton.style.left ="";
+      ustensileButton.style.left ="";
     }
 });
 
 
 // Animation du bouton Ustensile 
 document.addEventListener('click', function(event) {
-    const isClickInside = selectUstensileButton.contains(event.target);
+    const isClickInside = ustensileButton.contains(event.target);
     if (isClickInside) {
       searchBarUstensile.style.display ="block";
     }

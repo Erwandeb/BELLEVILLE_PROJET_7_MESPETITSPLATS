@@ -138,6 +138,20 @@ label {
   margin: 0px;
   position: relative;
 }
+#ingredientButton .title-button-ingred {
+  display: flex;
+  width: 80%;
+  position: absolute;
+  top: 35%;
+}
+#ingredientButton .title-button-ingred h4 {
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  color: white;
+}
+#ingredientButton .title-button-ingred i {
+  color: white;
+}
 #ingredientButton #selectIngredientButton {
   background-color: #3282f7;
   color: white;
@@ -188,6 +202,21 @@ label {
   margin: 0px;
   position: relative;
 }
+#appareilButton .title-button-appareil {
+  display: flex;
+  width: 80%;
+  position: absolute;
+  top: 35%;
+  left: 0px;
+}
+#appareilButton .title-button-appareil h4 {
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  color: white;
+}
+#appareilButton .title-button-appareil i {
+  color: white;
+}
 #appareilButton #selectAppareilButton {
   background-color: #68d9a4;
   color: white;
@@ -200,7 +229,6 @@ label {
   width: 160px;
   padding: 0px;
   cursor: pointer;
-  position: absolute;
 }
 #appareilButton #searchBarAppareil {
   align-items: center;
@@ -239,6 +267,21 @@ label {
   margin: 0px;
   position: relative;
 }
+#ustensileButton .title-button-ustensile {
+  display: flex;
+  width: 80%;
+  position: absolute;
+  top: 35%;
+  left: 0px;
+}
+#ustensileButton .title-button-ustensile h4 {
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  color: white;
+}
+#ustensileButton .title-button-ustensile i {
+  color: white;
+}
 #ustensileButton #selectUstensileButton {
   background-color: #ed6454;
   color: white;
@@ -251,7 +294,6 @@ label {
   width: 160px;
   padding: 0px;
   cursor: pointer;
-  position: absolute;
 }
 #ustensileButton #searchBarUstensile {
   align-items: center;
