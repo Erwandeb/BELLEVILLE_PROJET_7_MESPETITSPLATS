@@ -55,7 +55,7 @@ searchBarIngredient.addEventListener('keyup',(e) => {
 // Algorithme de filtre 
 function filterIngredientAlgorithme(){
 
-    if(filterWordList.length == 1){
+    if(filterWordList.length == 1 && userSearchWord.length <= 2){
         filterWordList.filter((element) => {
             resultatFilter = allRecetteList.filter((recette) => {
                 let resultat = []
@@ -69,7 +69,7 @@ function filterIngredientAlgorithme(){
         })
     }
 
-    if(filterWordList.length >= 2 ){
+    if(filterWordList.length >= 2 && userSearchWord.length <= 2  ){
         filterWordList.filter((element) => {
 
             resultatFilter = resultatFilter.filter((recette) => {
