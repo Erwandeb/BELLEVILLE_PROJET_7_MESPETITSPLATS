@@ -1,0 +1,42 @@
+https://jsbench.me/
+
+
+
+>>>>>>>>>>>  Code 1 "Algo avec methode ES6 filter : 
+
+let resultatFilter = [];
+
+resultatFilter = resultatFilter.filter((recette) => {
+            let resultat = [];
+            for(const ingredient of recette.ingredients)
+                if(
+                    ingredient.ingredient.toLowerCase().includes(userSearchWord) ||
+                    recette.name.toLowerCase().includes(userSearchWord) ||
+                    recette.appliance.toString().toLowerCase().includes(userSearchWord) ||
+                    recette.ustensils.toString().toLowerCase().includes(userSearchWord) 
+                ){
+                    return resultat
+                }
+            
+            resultatFilter = resultat
+        })
+
+
+
+>>>>>>>  Code 2 "Algo avec méthode for" :
+
+let resultatFilter = [];
+
+for(const recette of resultatFilter){
+            for(const ingredient of recette.ingredients)
+                if(
+                    ingredient.ingredient.toLowerCase().includes(userSearchWord) ||
+                    recette.name.toLowerCase().includes(userSearchWord) ||
+                    recette.appliance.toString().toLowerCase().includes(userSearchWord) ||
+                    recette.ustensils.toString().toLowerCase().includes(userSearchWord) 
+                ){
+                    resultat.push(recette);
+                }
+        }
+    
+
