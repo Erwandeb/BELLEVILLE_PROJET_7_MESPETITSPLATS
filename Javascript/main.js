@@ -14,7 +14,7 @@ let loadAllRecette = async() => {
     });
 }
 
-
+// Injection des recette dans HTML en POO
 const displayRecettes = (recettes) => {
     const mainSemantic = document.querySelector("main");
     for(item of recettes) {
@@ -246,7 +246,6 @@ function algorithmeFilterCloseCross(){
     } 
 
     if(filterWordList.length != 0 && userSearchWord.length >= 3 ){
-        console.log('je suis la')
         filterWordList.filter((element) => {
 
             resultatFilter = resultatFilter.filter((recette) => {

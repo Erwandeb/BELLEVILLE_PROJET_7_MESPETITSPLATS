@@ -1,0 +1,12 @@
+Bonjour, 
+
+Le lien du repository Github pour le projet n°7 "LES PETITS PLATS --- Créez un algorithme de recherche" est ci dessous :
+
+
+https://github.com/Erwandeb/BELLEVILLE_PROJET_7_MESPETITSPLATS.git
+
+
+Ce lien comporte l'ensemble du code, dont les 2 branches Git.
+
+
+Erwan de Belleville
