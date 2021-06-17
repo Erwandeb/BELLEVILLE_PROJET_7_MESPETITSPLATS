@@ -14,7 +14,7 @@ let loadAllRecette = async() => {
     });
 }
 
-
+// Injection des recettes HTML en POO
 const displayRecettes = (recettes) => {
     const mainSemantic = document.querySelector("main");
     for(item of recettes) {
