@@ -164,35 +164,74 @@ label {
   width: 160px;
   padding: 0px;
   cursor: pointer;
+  margin: 0px;
+}
+#ingredientButton #bloc-liste-ingredient {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 532px;
+  align-items: center;
+  justify-content: space-between;
+  left: 0px;
 }
 #ingredientButton #searchBarIngredient {
   align-items: center;
   background-color: #3282f7;
   color: white;
-  width: 240px;
-  height: 35px;
+  width: 100%;
+  height: 40px;
   padding-left: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  position: absolute;
-  left: 0px;
   max-height: 50px;
   overflow-y: scroll;
   font-family: "Roboto", sans-serif;
-  border-radius: 5px;
+  font-size: 14px;
+  border-radius: 5px 5px 0px 0px;
   display: none;
+  border: none;
+  position: relative;
 }
-#ingredientButton #selectIngredient {
+#ingredientButton #liste-Ingredient-injected-container {
   background-color: #3282f7;
+  width: 544px;
+  height: auto;
+  max-height: 400px;
+  border-radius: 0px 0px 5px 5px;
+  display: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+#ingredientButton #listeIngredientInjected {
   color: white;
-  padding-left: 20px;
-  max-height: 50px;
-  overflow-y: scroll;
-  appearance: none;
-}
-#ingredientButton #selectIngredient .option {
   background-color: #3282f7;
-  width: 650px;
+  list-style: none;
+  display: none;
+  margin-top: 0;
+  position: relative;
+  padding-left: 10px;
+  border-radius: 0px 0px 5px 5px;
+  height: auto;
+  max-height: 400px;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+  columns: 150px 3;
+  width: 100%;
+}
+#ingredientButton #listeIngredientInjected li {
+  background-color: #3282f7;
+  height: 40px;
+  width: 170px;
+  align-items: center;
+  justify-self: center;
+  display: flex;
+  margin-right: 0px;
+  font-size: 14px;
+}
+#ingredientButton #listeIngredientInjected li:hover {
+  font-weight: bold;
 }
 
 #appareilButton {
@@ -217,7 +256,8 @@ label {
 #appareilButton .title-button-appareil i {
   color: white;
 }
-#appareilButton #selectAppareilButton {
+
+#selectAppareilButton {
   background-color: #68d9a4;
   color: white;
   font-family: "Roboto", sans-serif;
@@ -229,35 +269,78 @@ label {
   width: 160px;
   padding: 0px;
   cursor: pointer;
+  margin: 0px;
 }
-#appareilButton #searchBarAppareil {
+
+#bloc-liste-appareil {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 532px;
+  align-items: center;
+  justify-content: space-between;
+  left: 0px;
+}
+
+#searchBarAppareil {
   align-items: center;
   background-color: #68d9a4;
   color: white;
-  width: 240px;
-  height: 35px;
+  width: 100%;
+  height: 40px;
   padding-left: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  position: absolute;
-  left: 0px;
   max-height: 50px;
   overflow-y: scroll;
   font-family: "Roboto", sans-serif;
-  border-radius: 5px;
+  font-size: 14px;
+  border-radius: 5px 5px 0px 0px;
   display: none;
+  border: none;
+  position: relative;
 }
-#appareilButton #selectAppareil {
+
+#liste-Appareil-injected-container {
   background-color: #68d9a4;
+  width: 544px;
+  height: auto;
+  max-height: 400px;
+  border-radius: 0px 0px 5px 5px;
+  display: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+#listeAppareilInjected {
   color: white;
-  padding-left: 20px;
-  max-height: 50px;
-  overflow-y: scroll;
-  appearance: none;
-}
-#appareilButton #selectAppareil .option {
   background-color: #68d9a4;
-  width: 650px;
+  list-style: none;
+  display: none;
+  margin-top: 0;
+  position: relative;
+  padding-left: 10px;
+  border-radius: 0px 0px 5px 5px;
+  height: auto;
+  max-height: 200px;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+  columns: 150px 2;
+  width: 100%;
+}
+#listeAppareilInjected li {
+  background-color: #68d9a4;
+  height: 40px;
+  width: 170px;
+  align-items: center;
+  justify-self: center;
+  display: flex;
+  margin-right: 0px;
+  font-size: 14px;
+}
+#listeAppareilInjected li:hover {
+  font-weight: bold;
 }
 
 #ustensileButton {
@@ -282,7 +365,8 @@ label {
 #ustensileButton .title-button-ustensile i {
   color: white;
 }
-#ustensileButton #selectUstensileButton {
+
+#selectUstensileButton {
   background-color: #ed6454;
   color: white;
   font-family: "Roboto", sans-serif;
@@ -294,38 +378,128 @@ label {
   width: 160px;
   padding: 0px;
   cursor: pointer;
+  margin: 0px;
 }
-#ustensileButton #searchBarUstensile {
+
+#bloc-liste-ustensile {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 532px;
+  align-items: center;
+  justify-content: space-between;
+  left: 0px;
+}
+
+#searchBarUstensile {
   align-items: center;
   background-color: #ed6454;
   color: white;
-  width: 240px;
-  height: 35px;
+  width: 100%;
+  height: 40px;
   padding-left: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  position: absolute;
-  left: 0px;
   max-height: 50px;
   overflow-y: scroll;
   font-family: "Roboto", sans-serif;
-  border-radius: 5px;
+  font-size: 14px;
+  border-radius: 5px 5px 0px 0px;
   display: none;
-  position: absolute;
-}
-#ustensileButton #selectUstensile {
-  background-color: #ed6454;
-  color: white;
-  padding-left: 20px;
-  max-height: 50px;
-  overflow-y: scroll;
-  appearance: none;
-}
-#ustensileButton #selectUstensile .option {
-  background-color: #ed6454;
-  width: 650px;
+  border: none;
+  position: relative;
 }
 
+#liste-Ustensile-injected-container {
+  background-color: #ed6454;
+  width: 544px;
+  height: auto;
+  max-height: 400px;
+  border-radius: 0px 0px 5px 5px;
+  display: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+#listeUstensileInjected {
+  color: white;
+  background-color: #ed6454;
+  list-style: none;
+  display: none;
+  margin-top: 0;
+  position: relative;
+  padding-left: 10px;
+  border-radius: 0px 0px 5px 5px;
+  height: auto;
+  max-height: 250px;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+  columns: 150px 3;
+  width: 100%;
+}
+#listeUstensileInjected li {
+  background-color: #ed6454;
+  height: 40px;
+  width: 170px;
+  align-items: center;
+  justify-self: center;
+  display: flex;
+  margin-right: 0px;
+  font-size: 14px;
+}
+#listeUstensileInjected li:hover {
+  font-weight: bold;
+}
+
+/*
+    #selectUstensileButton{
+        background-color: #ed6454;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-weight: normal;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+        height: 60px;
+        width: 160px;
+        padding: 0px;
+        cursor: pointer;
+
+    }
+
+    #searchBarUstensile{
+        align-items: center;
+        background-color: #ed6454;
+        color: white;
+        width: 240px;
+        height: 35px;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        position: absolute;
+        left: 0px;
+        max-height: 50px;
+        overflow-y: scroll;
+        font-family: 'Roboto', sans-serif;
+        border-radius: 5px;
+        display: none;
+        position: absolute;
+    }
+    #selectUstensile {
+        background-color: #ed6454;
+        color: white;
+        padding-left: 20px;
+        max-height: 50px;
+        overflow-y: scroll;
+        appearance: none;
+        .option{
+            background-color: #ed6454;
+            width: 650px;
+        }
+    }
+}
+*/
 main {
   margin-top: 50px;
   width: 100%;

@@ -2,6 +2,7 @@
 // Variables 
 let allRecetteList = [];
 let meals = [];
+let filterWordList =[];
 
 
 // Récupération des recettes dans recette.JSON
@@ -57,17 +58,20 @@ const boucleIngredientListe = fetch('Javascript/recette.json')
     let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
 
 
-    // affichage listes déroulante
-    listIngredientNoDoublon.map((element) => {
-        return   selectIngredient.innerHTML +=`<option value="${element}">${element}</option>`;
-    })
 
+    // affichage listes déroulante
+    /*
+    listIngredientNoDoublon.map((element) => {
+        return   listeIngredientInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+    })
+    */
+    
     listAppareilNoDoublon.map((element) => {
-        return  selectAppareil.innerHTML +=`<option value="${element}">${element}</option>`;
+        return searchBarAppareil.innerHTML +=`<option value="${element}">${element}</option>`;
     })
 
     listUstensileNoDoublon.map((element) => {
-        return  selectUstensile.innerHTML +=`<option value="${element}">${element}</option>`;
+        return  searchBarUstensile.innerHTML +=`<option value="${element}">${element}</option>`;
     })
 
 })
@@ -79,6 +83,9 @@ const keyWordSelect = document.getElementById('keyWordSelect');
 const selectAppareil = document.getElementById('selectAppareil');
 const selectUstensile = document.getElementById('selectUstensile');
 const noResultatBloc = document.querySelector('.no-resultat-bloc');
+const listeIngredientInjected = document.getElementById('listeIngredientInjected');
+const listeAppareilInjected = document.getElementById('listeAppareilInjected');
+const listeUstensileInjected = document.getElementById('listeUstensileInjected');
 
 // Liste des éléments brut présent dans le JSON. Attention aux doublons.
 let listIngredientRaw = [];
@@ -109,6 +116,7 @@ function deleteKeyWord(list, element){
         return list;
     }
 }
+
 
 const filtreTexte = (arr, requete) => {
     return arr.filter(el =>  el.toLowerCase().indexOf(requete.toLowerCase()) !== -1);
@@ -181,7 +189,7 @@ function closeCrossFilter() {
        const closeBtnIngredientFilter = document.getElementById("close-btn-"+element);
        const  keywordBlockIngredient = document.getElementById("keyword-block-"+element);
         // Au clic sur la croix d'une etiquette de mot clé
-        closeBtnIngredientFilter.addEventListener("click", function() {
+        closeBtnIngredientFilter.addEventListener("click", (e) => {
   
             // supression étiquette HTML
             keywordBlockIngredient.style.display ="none";  // Retrait du visuel etiquette
@@ -190,9 +198,20 @@ function closeCrossFilter() {
             // Message si pas de resultat
             noResultatDiplay();
 
-            
             // Application de l'algorithme
             algorithmeFilterCloseCross();
+
+            //Retour du mot clé dans la liste 
+            console.log(e.target.value);
+            console.log(listeIngredForDeleteing);
+
+            listeIngredForDeleteing.filter((el)=>{
+                el !== e.target.id.includes(el);
+                return 
+            })
+
+
+            
         })
     
     

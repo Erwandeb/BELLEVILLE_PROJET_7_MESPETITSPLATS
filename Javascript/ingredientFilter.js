@@ -1,42 +1,170 @@
 
-/*---------------------------------------------------------------------------------------------*/
-/*------------Ajout des mots clés Ingredient---------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------*/
+let ingredientListe = [];
+let listIngredMiseAJour = [];
+let  listeIngredForDeleteing = [];
 
-searchBarIngredient.addEventListener('keyup',(e) => {
-    const filterWordIngredient = e.target.value;
+// Liste filtre avec tous les ingrédients 
+searchBarIngredient.addEventListener('click', (e) => {
 
     // Importer la liste des ingrédients brut et supprimer tous les doublons 
     let listIngredientNoDoublon = deleteDoublon(listIngredientRaw);
-  
-    // Envoyer le filtre selectionné dans une liste générale pour le traitement en algorithme
-    listIngredientNoDoublon.filter((element) =>{
-        if(filterWordIngredient === element) {
-            filterWordList.push(filterWordIngredient.toLowerCase());
-        }
+
+    // Affichage des ingrédient dès l'ouverture du filtre 
+    listIngredientNoDoublon.map((element) => {
+        return   listeIngredientInjected.innerHTML +=`<li id="${element}">${element}</li>`;
     })
+    ingredientListe.push(listIngredientNoDoublon);
+    
 
-    // Manipulation de la liste ingrédient : Retrait d'un ingrédient sélectionnés par l'utilisateur
-    listIngredientNoDoublon.filter((element) => {
-        if(element === filterWordIngredient){
-            const index = listIngredientNoDoublon.indexOf(element)
-            if(index > -1 ){ 
-                listIngredientNoDoublon.splice(index, 1);
+    // Ecouteur d'évenement : sur chaque ingrédient de la liste
+        for(element of listIngredientNoDoublon){
+            const elementIngredient = document.getElementById(element);
+            elementIngredient.addEventListener('click',(e)=> {
+    
+                // Variable correspondant a l'ingrédient choisi par l'utilisateur directement dans la liste
+                let ingredSelectByUser = e.target.id;
+    
+                // L'ingrédient selectionné par l'utilisateur va remplir une liste de filtre commun à tous les filtres
+                filterWordList.push(ingredSelectByUser.toLowerCase());
+                listeIngredForDeleteing.push(ingredSelectByUser.toLowerCase())
+    
+                // Générer un tag pour signifier à l'utilisateur que le filtre qu'il à choisi est actif 
+                const keyWordSelect = document.getElementById('keyWordSelect');
+                for(element of listIngredientNoDoublon){
+                    if(element === ingredSelectByUser){
+                        keyWordSelect.innerHTML +=`<div class="keyword-block-bleu" id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `;
+                    }
+                } 
+    
+        
+                // Mise à jour des éléments de la liste suite au choix d'ingrédient de l'utilisateur 
+                if(listeIngredForDeleteing.length === 1){
+                    listeIngredForDeleteing.filter((element) =>{
+                        for(const item of listIngredientNoDoublon){
+                            if(item.toLowerCase() === element){
+                                listeIngredientInjected.innerHTML = "";
+                                listIngredMiseAJour = listIngredientNoDoublon.filter((ingred) => ingred !== ingredSelectByUser);
+                                listIngredMiseAJour.map((element) => {
+                                    return   listeIngredientInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                                })
+                            }
+                        }
+                    })
+                }
+                if(listeIngredForDeleteing.length >= 2){
+                    listeIngredForDeleteing.filter((element) =>{
+                        for(const item of listIngredMiseAJour){
+                            if(item.toLowerCase() === element){
+                                listeIngredientInjected.innerHTML = "";
+                            
+                                listIngredMiseAJour = listIngredMiseAJour.filter((ingred) => ingred !== ingredSelectByUser);
+                                listIngredMiseAJour.map((element) => {
+                                    return   listeIngredientInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                                })
+                            }
+                        }
+                    })
+                }
+
+                
+                
+                // Fonction de filtre Algorithme
+                filterIngredientAlgorithme();
+    
+                // Affichage message d'erreur si aucun résultat existe
+                noResultatDiplay();
+    
+                // Fonction pour supprimer une étiquette en cliquant sur la croix 
+                closeCrossFilter();
+            })
+        } 
+})
+    
+
+    
+    
+    
+    
+// L'utilsateur recherch un ingrédient à l'aide de la barre de recherche 
+searchBarIngredient.addEventListener('keyup', (e) => {
+    
+    // Déclaration variable correspondant à la recherche
+    let filterWordIngredient = e.target.value.toLowerCase();
+
+    // Importer la liste des ingrédients brut et supprimer tous les doublons 
+    let listIngredientNoDoublon = deleteDoublon(listIngredientRaw);
+
+     // Générer dynamiquement les ingredients selon la recherche utilisateur
+    if(filterWordIngredient.length >= 1){
+        ingredientListe = listIngredientNoDoublon.filter((ingredient) => {
+            if(ingredient.toLowerCase().includes(filterWordIngredient)){
+                return ingredientListe
             }
-            const keyWordSelect = document.getElementById('keyWordSelect');
-            keyWordSelect.innerHTML +=`<div class="keyword-block-bleu" id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `
-            searchBarIngredient.value="";
-        }
-    });
+        })
+    }
 
-    // Manipulation de la liste ingrédient : Ré-écriture de la liste mise à jour
-    function filterRefreshListIngredient(){
-        selectIngredient.innerHTML ="";
-        listIngredientNoDoublon.map((element) => {    
-            return  selectIngredient.innerHTML += `<option value="${element}">${element}</option>`;
-        }).join('');
-    } 
-    filterRefreshListIngredient();
+    // Affichage dynamique des ingredients en HTML 
+    if(filterWordIngredient.length === 0){
+        listeIngredientInjected.innerHTML ="";
+        ingredientListe.map((element) => {
+            return   listeIngredientInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+        })
+    }
+
+    if(filterWordIngredient.length >= 1){
+        listeIngredientInjected.innerHTML ="";
+     
+        ingredientListe.map((element) => {
+            return   listeIngredientInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+        })
+    }
+  
+      
+    // Récupérer l'ingredient choisi par l'utilisateur
+    let ingredSelectByUser ="";
+    for(item of ingredientListe){
+        const elementIngredient = document.getElementById(item);
+        elementIngredient.addEventListener('click',(e)=> {
+            ingredSelectByUser = e.target.id;
+            //elementIngredient.innerHTML ="";
+            filterWordList.push(ingredSelectByUser.toLowerCase());
+            
+
+            ingredientListe.filter((element) => {
+                if(element === ingredSelectByUser){
+                    const keyWordSelect = document.getElementById('keyWordSelect');
+                    keyWordSelect.innerHTML +=`<div class="keyword-block-bleu"  id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `
+                    searchBarIngredient.value="";
+                }
+            });
+
+            
+            // Suppression element dans la liste 
+            for(element of ingredientListe){
+                if(element === ingredSelectByUser){
+                    listeIngredientInjected.innerHTML = "";
+                    listIngredMiseAJour = ingredientListe.filter((element) => element !== ingredSelectByUser)
+                    listIngredMiseAJour.map((element) => {
+                        return   listeIngredientInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                    })
+                        
+                }
+            }
+
+            
+            // Fonction de filtre Algorithme
+            filterIngredientAlgorithme();
+
+            // Affichage message d'erreur si aucun résultat existe
+            noResultatDiplay();
+
+            // Fonction pour supprimer une étiquette en cliquant sur la croix 
+            closeCrossFilter();
+
+        })
+    }
+
+ 
 
     // Fonction de filtre Algorithme
     filterIngredientAlgorithme();

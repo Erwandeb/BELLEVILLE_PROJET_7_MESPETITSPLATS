@@ -31,26 +31,38 @@
 
         <div id="ingredientButton">
             <div class="title-button-ingred"> <h4>Ingredients</h4> <i class="fas fa-chevron-down"></i></div>
-            <label id="selectIngredientButton">
-                    <input list="selectIngredient" type="text" id="searchBarIngredient" placeholder="Recherchez un ingredient"/>
-                    <datalist id="selectIngredient"></datalist>
-            </label>
+            <form id="selectIngredientButton">
+                <div id="bloc-liste-ingredient">
+                    <input type="text" list="test"  id="searchBarIngredient" placeholder="Recherchez un ingrédient"/>
+                    <div id="liste-Ingredient-injected-container">
+                        <ul id="listeIngredientInjected"></ul>
+                    </div>
+                </div>
+            </form>
         </div>
   
         <div id="appareilButton">
             <div class="title-button-appareil"><h4>Appareil</h4> <i class="fas fa-chevron-down"></i></div>
-            <label id="selectAppareilButton">
-                    <input list="selectAppareil" type="text" id="searchBarAppareil" placeholder="Recherchez un appareil"/>
-                    <datalist id="selectAppareil"></datalist>
-            </label>
+            <form id="selectAppareilButton">
+                <div id="bloc-liste-appareil">
+                    <input type="text" list="test"  id="searchBarAppareil" placeholder="Recherchez un appareil"/>
+                    <div id="liste-Appareil-injected-container">
+                        <ul id="listeAppareilInjected"></ul>
+                    </div>
+                </div>
+            </form>
         </div>
 
         <div id="ustensileButton">
             <div class="title-button-ustensile"><h4>Ustensiles</h4> <i class="fas fa-chevron-down"></i></div>
-            <label id="selectUstensileButton">
-                    <input list="selectUstensile" type="text" id="searchBarUstensile" placeholder="Recherchez un ustensile"/>
-                    <datalist id="selectUstensile"></datalist>
-            </label>
+            <form id="selectUstensileButton">
+                <div id="bloc-liste-ustensile">
+                    <input type="text" list="test"  id="searchBarUstensile" placeholder="Recherchez un ustensile"/>
+                    <div id="liste-Ustensile-injected-container">
+                        <ul id="listeUstensileInjected"></ul>
+                    </div>
+                </div>
+            </form>
         </div>
 
     </div>

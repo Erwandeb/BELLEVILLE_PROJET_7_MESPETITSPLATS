@@ -1,11 +1,185 @@
 
+let ustensileListe = [];
+let listUstMiseAJour = [];
+let  listeUstForDeleteing = [];
 
-/*--------------------------------------------------------------------------------------------*/
-/*------------EVENT: -------------------------------------------------------------------------*/
-/*------------Ajout des mots clés Appareil----------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------*/
+// Liste filtre avec tous les ustensiles
+searchBarUstensile.addEventListener('click', (e) => {
+
+    // Importer la liste des ustensiles brut et supprimer tous les doublons 
+    let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
+
+    // Affichage des ustensiles dès l'ouverture du filtre 
+    listUstensileNoDoublon.map((element) => {
+        return   listeUstensileInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+    })
+    ustensileListe.push(listUstensileNoDoublon);
+    
+
+    // Ecouteur d'évenement : sur chaque ustensiles de la liste
+        for(element of listUstensileNoDoublon){
+            const elementUstensile = document.getElementById(element);
+            elementUstensile.addEventListener('click',(e)=> {
+    
+                // Variable correspondant a l'ustensiles choisi par l'utilisateur directement dans la liste
+                let ustSelectByUser = e.target.id;
+    
+                // L'usentensile selectionné par l'utilisateur va remplir une liste de filtre commun à tous les filtres
+                filterWordList.push(ustSelectByUser.toLowerCase());
+                listeUstForDeleteing.push(ustSelectByUser.toLowerCase())
+    
+                // Générer un tag pour signifier à l'utilisateur que le filtre qu'il à choisi est actif 
+                const keyWordSelect = document.getElementById('keyWordSelect');
+                for(element of listUstensileNoDoublon){
+                    if(element === ustSelectByUser){
+                        keyWordSelect.innerHTML +=`<div class="keyword-block-red" id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `;
+                    }
+                } 
+    
+        
+                // Mise à jour des éléments de la liste suite au choix d'ustensiles de l'utilisateur 
+                if(listeUstForDeleteing.length === 1){
+                    listeUstForDeleteing.filter((element) =>{
+                        for(const item of listUstensileNoDoublon){
+                            if(item.toLowerCase() === element){
+                                listeUstensileInjected.innerHTML = "";
+                                listUstMiseAJour = listUstensileNoDoublon.filter((ust) => ust !== ustSelectByUser);
+                                listUstMiseAJour.map((element) => {
+                                    return   listeUstensileInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                                })
+                            }
+                        }
+                    })
+                }
+                if(listeUstForDeleteing.length >= 2){
+                    listeUstForDeleteing.filter((element) =>{
+                        for(const item of listUstMiseAJour){
+                            if(item.toLowerCase() === element){
+                                listeUstensileInjected.innerHTML = "";
+                            
+                                listUstMiseAJour = listUstMiseAJour.filter((ust) => ust !== ustSelectByUser);
+                                listUstMiseAJour.map((element) => {
+                                    return   listeUstensileInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                                })
+                            }
+                        }
+                    })
+                }
+
+                
+                
+                // Fonction de filtre Algorithme
+                filterUstensileAlgorithme();
+    
+                // Affichage message d'erreur si aucun résultat existe
+                noResultatDiplay();
+    
+                // Fonction pour supprimer une étiquette en cliquant sur la croix 
+                closeCrossFilter();
+            })
+        } 
+})
+    
+
+    
+    
+    
+    
+// L'utilsateur recherch un ustensile à l'aide de la barre de recherche 
+searchBarUstensile.addEventListener('keyup', (e) => {
+    
+    // Déclaration variable correspondant à la recherche
+    let filterWordUsentsile = e.target.value.toLowerCase();
+
+    // Importer la liste des ustensiles brut et supprimer tous les doublons 
+    let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
+
+     // Générer dynamiquement les ustensiles selon la recherche utilisateur
+    if(filterWordUsentsile.length >= 1){
+        ustensileListe = listUstensileNoDoublon.filter((ustensile) => {
+            if(ustensile.toLowerCase().includes(filterWordUstensile)){
+                return ustensileListe
+            }
+        })
+    }
+
+    // Affichage dynamique des ustensiles en HTML 
+    if(filterWordUstensile.length === 0){
+        listeUstensileInjected.innerHTML ="";
+        ustensileListe.map((element) => {
+            return   listeUstensileInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+        })
+    }
+
+    if(filterWordUsentsile.length >= 1){
+        listeUstensileInjected.innerHTML ="";
+     
+        ustensileListe.map((element) => {
+            return   listeUstensileInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+        })
+    }
+  
+      
+    // Récupérer l'ingredient choisi par l'utilisateur
+    let ustSelectByUser ="";
+    for(item of ustensileListe){
+        const elementUstensile = document.getElementById(item);
+        elementUstensile.addEventListener('click',(e)=> {
+            ustSelectByUser = e.target.id;
+            //elementIngredient.innerHTML ="";
+            filterWordList.push(ustSelectByUser.toLowerCase());
+            
+
+            ustensileListe.filter((element) => {
+                if(element === ustSelectByUser){
+                    const keyWordSelect = document.getElementById('keyWordSelect');
+                    keyWordSelect.innerHTML +=`<div class="keyword-block-red" id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `
+                    searchBarUstensile.value="";
+                }
+            });
+
+            
+            // Suppression element dans la liste 
+            for(element of ustensileListe){
+                if(element === ustSelectByUser){
+                    listeUstensileInjected.innerHTML = "";
+                    listUstMiseAJour = ustensileListe.filter((element) => element !== ustSelectByUser)
+                    listUstMiseAJour.map((element) => {
+                        return   listeUstensileInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                    })
+                        
+                }
+            }
+
+            
+            // Fonction de filtre Algorithme
+            filterUstensileAlgorithme();
+
+            // Affichage message d'erreur si aucun résultat existe
+            noResultatDiplay();
+
+            // Fonction pour supprimer une étiquette en cliquant sur la croix 
+            closeCrossFilter();
+
+        })
+    }
+
+ 
+
+    // Fonction de filtre Algorithme
+    filterUstensileAlgorithme();
+
+    // Affichage message d'erreur si aucun résultat existe
+    noResultatDiplay();
+
+    // Fonction pour supprimer une étiquette en cliquant sur la croix 
+    closeCrossFilter();
+    
+});
 
 
+
+/*
 searchBarUstensile.addEventListener('keyup',(e) => {
 
     const filterWordUsentsile = e.target.value;
@@ -55,6 +229,7 @@ searchBarUstensile.addEventListener('keyup',(e) => {
     
 });
 
+*/
 
 function filterUstensileAlgorithme(){
 

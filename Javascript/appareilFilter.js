@@ -1,8 +1,193 @@
 
-/*--------------------------------------------------------------------------------------------*/
-/*------------EVENT: -------------------------------------------------------------------------*/
-/*------------Ajout des mots clés Appareil----------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------*/
+
+
+let appareilListe = [];
+let listApparMiseAJour = [];
+let  listeApparForDeleteing = [];
+
+// Liste filtre avec tous les appareils 
+searchBarAppareil.addEventListener('click', (e) => {
+
+  
+    // Importer la liste des appareils brut et supprimer tous les doublons 
+    let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
+
+    // Affichage des appareils dès l'ouverture du filtre 
+
+
+        listAppareilNoDoublon.map((element) => {
+            return   listeAppareilInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+        })
+        appareilListe.push(listAppareilNoDoublon);
+    
+
+    
+
+        // Ecouteur d'évenement : sur chaque appareil de la liste
+        for(element of listAppareilNoDoublon){
+            const elementAppareil = document.getElementById(element);
+            elementAppareil.addEventListener('click',(e)=> {
+    
+                // Variable correspondant a l'appareil choisi par l'utilisateur directement dans la liste
+                let apparSelectByUser = e.target.id;
+    
+                // L'appareil selectionné par l'utilisateur va remplir une liste de filtre commun à tous les filtres
+                filterWordList.push(apparSelectByUser.toLowerCase());
+                listeApparForDeleteing.push(apparSelectByUser.toLowerCase());
+    
+                // Générer un tag pour signifier à l'utilisateur que le filtre qu'il à choisi est actif 
+                const keyWordSelect = document.getElementById('keyWordSelect');
+                for(element of listAppareilNoDoublon){
+                    if(element === apparSelectByUser){
+                        keyWordSelect.innerHTML +=`<div class="keyword-block-green" id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `
+                    }
+                } 
+    
+        
+                // Mise à jour des éléments de la liste suite au choix d'appareil de l'utilisateur 
+                if(listeApparForDeleteing.length === 1){
+                    listeApparForDeleteing.filter((element) =>{
+                        for(const item of listAppareilNoDoublon){
+                            if(item.toLowerCase() === element){
+                                listeAppareilInjected.innerHTML = "";
+                                listApparMiseAJour = listAppareilNoDoublon.filter((appar) => appar !== apparSelectByUser);
+                                listApparMiseAJour.map((element) => {
+                                    return   listeAppareilInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                                })
+                            }
+                        }
+                    })
+                }
+                if(listeApparForDeleteing.length >= 2){
+                    listeApparForDeleteing.filter((element) =>{
+                        for(const item of listApparMiseAJour){
+                            if(item.toLowerCase() === element){
+                                listeAppareilInjected.innerHTML = "";
+                            
+                                listApparMiseAJour = listApparMiseAJour.filter((appar) => appar !== apparSelectByUser);
+                                listApparMiseAJour.map((element) => {
+                                    return   listeAppareilInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                                })
+                            }
+                        }
+                    })
+                }
+
+                
+                
+                // Fonction de filtre Algorithme
+                filterAppareilAlgorithme();
+    
+                // Affichage message d'erreur si aucun résultat existe
+                noResultatDiplay();
+    
+                // Fonction pour supprimer une étiquette en cliquant sur la croix 
+                closeCrossFilter();
+            })
+        } 
+})
+    
+
+    
+    
+    
+    
+// L'utilsateur recherch un appareil à l'aide de la barre de recherche 
+searchBarAppareil.addEventListener('keyup', (e) => {
+    
+    // Déclaration variable correspondant à la recherche
+    let filterWordAppareil = e.target.value.toLowerCase();
+
+    // Importer la liste des appareils brut et supprimer tous les doublons 
+    let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
+
+     // Générer dynamiquement les appareils selon la recherche utilisateur
+    if(filterWordAppareil.length >= 1){
+        appareilListe = listAppareilNoDoublon.filter((appareil) => {
+            if(appareil.toLowerCase().includes(filterWordAppareil)){
+                return appareilListe
+            }
+        })
+    }
+
+    // Affichage dynamique des appareils en HTML 
+    if(filterWordAppareil.length === 0){
+        listeAppareilInjected.innerHTML ="";
+        appareilListe.map((element) => {
+            return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+        })
+    }
+
+    if(filterWordAppareil.length >= 1){
+        listeAppareilInjected.innerHTML ="";
+        appareilListe.map((element) => {
+            return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+        })
+    }
+  
+      
+    // Récupérer l'ingredient choisi par l'utilisateur
+    let apparSelectByUser ="";
+    for(item of appareilListe){
+        const elementAppareil = document.getElementById(item);
+        elementAppareil.addEventListener('click',(e)=> {
+            apparSelectByUser = e.target.id;
+            //elementIngredient.innerHTML ="";
+            filterWordList.push(apparSelectByUser.toLowerCase());
+            
+
+            appareilListe.filter((element) => {
+                if(element === apparSelectByUser){
+                    const keyWordSelect = document.getElementById('keyWordSelect');
+                    keyWordSelect.innerHTML +=`<div class="keyword-block-green" id="keyword-block-${element.toLowerCase()}">${element}<i id="close-btn-${element.toLowerCase()}" class="far fa-times-circle"></i></div> `
+                    searchBarAppareil.value="";
+                }
+            });
+
+            
+            // Suppression element dans la liste 
+            for(element of appareilListe){
+                if(element === apparSelectByUser){
+                    listeAppareilInjected.innerHTML = "";
+                    listApparMiseAJour = appareilListe.filter((element) => element !== apparSelectByUser)
+                    listApparMiseAJour.map((element) => {
+                        return   listeAppareilInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                    })
+                }
+            }
+
+            
+            // Fonction de filtre Algorithme
+            filterAppareilAlgorithme();
+
+            // Affichage message d'erreur si aucun résultat existe
+            noResultatDiplay();
+
+            // Fonction pour supprimer une étiquette en cliquant sur la croix 
+            closeCrossFilter();
+
+        })
+    }
+
+ 
+    // Fonction de filtre Algorithme
+    filterAppareilAlgorithme();
+
+    // Affichage message d'erreur si aucun résultat existe
+    noResultatDiplay();
+
+    // Fonction pour supprimer une étiquette en cliquant sur la croix 
+    closeCrossFilter();
+    
+});
+
+
+
+
+
+
+/*
+
 let filterWordList =[];
 
 searchBarAppareil.addEventListener('keyup',(e) => {
@@ -54,7 +239,7 @@ searchBarAppareil.addEventListener('keyup',(e) => {
     closeCrossFilter();
 
 });
-
+*/
 
 
 function filterAppareilAlgorithme(){
