@@ -182,6 +182,8 @@ function closeCrossFilter() {
             
             // Application de l'algorithme
             algorithmeFilterCloseCross();
+
+            listApparMiseAJour.unshift(listeApparForDeleteing);
         })
     
     
@@ -202,14 +204,23 @@ function closeCrossFilter() {
             algorithmeFilterCloseCross();
 
             //Retour du mot clé dans la liste 
-            console.log(e.target.value);
             console.log(listeIngredForDeleteing);
 
+            /*
             listeIngredForDeleteing.filter((el)=>{
                 el !== e.target.id.includes(el);
                 return 
             })
+            */
 
+            console.log("avant ",listIngredMiseAJour);
+
+
+         
+           listIngredMiseAJour.unshift(listeIngredForDeleteing);
+        
+            console.log("apres",listIngredMiseAJour);
+        
 
             
         })
@@ -233,6 +244,8 @@ function closeCrossFilter() {
             
             // Application de l'algorithme
             algorithmeFilterCloseCross();
+
+            listUstMiseAJour.unshift(listeUstForDeleteing);
            
         })
     })  

@@ -3,6 +3,11 @@ let ingredientListe = [];
 let listIngredMiseAJour = [];
 let  listeIngredForDeleteing = [];
 
+const liFromSearch = document.querySelectorAll('.li');
+const blocListIngred = document.getElementById('bloc-liste-ingredient');
+
+
+
 // Liste filtre avec tous les ingrédients 
 searchBarIngredient.addEventListener('click', (e) => {
 
@@ -53,6 +58,7 @@ searchBarIngredient.addEventListener('click', (e) => {
                 }
                 if(listeIngredForDeleteing.length >= 2){
                     listeIngredForDeleteing.filter((element) =>{
+                        console.log(listIngredMiseAJour);
                         for(const item of listIngredMiseAJour){
                             if(item.toLowerCase() === element){
                                 listeIngredientInjected.innerHTML = "";
@@ -81,8 +87,6 @@ searchBarIngredient.addEventListener('click', (e) => {
 })
     
 
-    
-    
     
     
 // L'utilsateur recherch un ingrédient à l'aide de la barre de recherche 
@@ -119,6 +123,24 @@ searchBarIngredient.addEventListener('keyup', (e) => {
         })
     }
   
+    // Affichage HTML 
+    if(ingredientListe.length <= 6){
+        listeIngredientInjected.style.columns = "1";
+        blocListIngred.style.width = 200 + "px"
+        listeIngredientInjectedContainer.style.width = 212 + "px";
+        appareilButton.style.left = 60 +"px";
+        ustensileButton.style.right = 370 +"px";
+
+    } else{
+        listeIngredientInjected.style.columns = "3"; 
+        blocListIngred.style.width = 532 + "px";
+        listeIngredientInjectedContainer.style.width = 544 + "px";
+        appareilButton.style.left = 400 +"px";
+        ustensileButton.style.right = 50 +"px";
+    }
+
+
+
       
     // Récupérer l'ingredient choisi par l'utilisateur
     let ingredSelectByUser ="";

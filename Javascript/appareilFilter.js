@@ -5,6 +5,8 @@ let appareilListe = [];
 let listApparMiseAJour = [];
 let  listeApparForDeleteing = [];
 
+const blocListAppar = document.getElementById('bloc-liste-appareil');
+
 // Liste filtre avec tous les appareils 
 searchBarAppareil.addEventListener('click', (e) => {
 
@@ -101,7 +103,19 @@ searchBarAppareil.addEventListener('keyup', (e) => {
     // Importer la liste des appareils brut et supprimer tous les doublons 
     let listAppareilNoDoublon = deleteDoublon(listAppareilRaw);
 
+
+ 
+    /*
      // Générer dynamiquement les appareils selon la recherche utilisateur
+    if(filterWordAppareil.length === 1){
+        e.preventDefault();
+        e.stopPropagation();
+        return
+    }
+    */
+
+
+    // Générer dynamiquement les appareils selon la recherche utilisateur
     if(filterWordAppareil.length >= 1){
         appareilListe = listAppareilNoDoublon.filter((appareil) => {
             if(appareil.toLowerCase().includes(filterWordAppareil)){
@@ -113,16 +127,33 @@ searchBarAppareil.addEventListener('keyup', (e) => {
     // Affichage dynamique des appareils en HTML 
     if(filterWordAppareil.length === 0){
         listeAppareilInjected.innerHTML ="";
-        appareilListe.map((element) => {
-            return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
-        })
+            appareilListe.map((element) => {
+                return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+            })
     }
 
     if(filterWordAppareil.length >= 1){
-        listeAppareilInjected.innerHTML ="";
-        appareilListe.map((element) => {
-            return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+    listeAppaerilInjected.innerHTML ="";
+ 
+    appareilListe.map((element) => {
+        return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
         })
+    }
+
+
+   
+     // Affichage HTML  des résultats dynamiques
+     if(appareilListe.length <= 3){
+        listeAppareilInjected.style.columns = "1";
+        blocListAppar.style.width = 200 + "px"
+        listeAppareilInjectedContainer.style.width = 212 + "px";
+        ustensileButton.style.left = 60 +"px";
+
+    } else{
+        listeAppareilInjected.style.columns = "3"; 
+        blocListAppar.style.width = 532 + "px";
+        listeAppareilInjectedContainer.style.width = 544 + "px";
+        ustensileButton.style.right = 390 +"px";
     }
   
       

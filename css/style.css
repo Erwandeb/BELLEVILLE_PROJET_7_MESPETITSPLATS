@@ -229,6 +229,7 @@ label {
   display: flex;
   margin-right: 0px;
   font-size: 14px;
+  margin-left: 0;
 }
 #ingredientButton #listeIngredientInjected li:hover {
   font-weight: bold;
@@ -338,6 +339,7 @@ label {
   display: flex;
   margin-right: 0px;
   font-size: 14px;
+  margin-left: 0;
 }
 #listeAppareilInjected li:hover {
   font-weight: bold;
@@ -432,7 +434,7 @@ label {
   padding-left: 10px;
   border-radius: 0px 0px 5px 5px;
   height: auto;
-  max-height: 250px;
+  max-height: 320px;
   -webkit-columns: 3;
   -moz-columns: 3;
   columns: 150px 3;
@@ -447,6 +449,7 @@ label {
   display: flex;
   margin-right: 0px;
   font-size: 14px;
+  margin-left: 0px;
 }
 #listeUstensileInjected li:hover {
   font-weight: bold;

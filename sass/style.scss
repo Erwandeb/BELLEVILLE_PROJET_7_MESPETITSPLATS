@@ -250,6 +250,7 @@ label{
             display: flex;
             margin-right: 0px;
             font-size: 14px;
+            margin-left: 0;
             &:hover{
                font-weight: bold;
             }
@@ -373,6 +374,7 @@ label{
         display: flex;
         margin-right: 0px;
         font-size: 14px;
+        margin-left: 0;
         &:hover{
            font-weight: bold;
         }
@@ -483,7 +485,7 @@ label{
     border-radius: 0px 0px 5px 5px;
     //width: 100%;
     height: auto;
-    max-height: 250px;
+    max-height: 320px;
     -webkit-columns: 3;
     -moz-columns: 3;
     columns: 150px 3;
@@ -498,6 +500,7 @@ label{
         display: flex;
         margin-right: 0px;
         font-size: 14px;
+        margin-left: 0px;
         &:hover{
            font-weight: bold;
         }

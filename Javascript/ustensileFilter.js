@@ -3,6 +3,8 @@ let ustensileListe = [];
 let listUstMiseAJour = [];
 let  listeUstForDeleteing = [];
 
+const blocListUst = document.getElementById('bloc-liste-ustensile');
+
 // Liste filtre avec tous les ustensiles
 searchBarUstensile.addEventListener('click', (e) => {
 
@@ -89,13 +91,13 @@ searchBarUstensile.addEventListener('click', (e) => {
 searchBarUstensile.addEventListener('keyup', (e) => {
     
     // Déclaration variable correspondant à la recherche
-    let filterWordUsentsile = e.target.value.toLowerCase();
+    let filterWordUstensile = e.target.value.toLowerCase();
 
     // Importer la liste des ustensiles brut et supprimer tous les doublons 
     let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
 
      // Générer dynamiquement les ustensiles selon la recherche utilisateur
-    if(filterWordUsentsile.length >= 1){
+    if(filterWordUstensile.length >= 1){
         ustensileListe = listUstensileNoDoublon.filter((ustensile) => {
             if(ustensile.toLowerCase().includes(filterWordUstensile)){
                 return ustensileListe
@@ -109,16 +111,34 @@ searchBarUstensile.addEventListener('keyup', (e) => {
         ustensileListe.map((element) => {
             return   listeUstensileInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
         })
+        e.preventDefault();
     }
 
-    if(filterWordUsentsile.length >= 1){
+    if(filterWordUstensile.length >= 2){
         listeUstensileInjected.innerHTML ="";
-     
         ustensileListe.map((element) => {
             return   listeUstensileInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
         })
     }
   
+    console.log(ustensileListe)
+    // Affichage dynamique des données
+    
+       if(ustensileListe.length < 6 && filterWordUstensile.length > 1){
+        listeUstensileInjected.style.columns = "1";
+        blocListUst.style.width = 200 + "px"
+        listeUstensileInjectedContainer.style.width = 212 + "px";
+        //steButton.style.left = 60 +"px";
+
+    } else{
+        listeUstensileInjected.style.columns = "3"; 
+        blocListUst.style.width = 532 + "px";
+        listeUstensileInjectedContainer.style.width = 544 + "px";
+        //usteButton.style.right = 390 +"px";
+    }
+
+
+
       
     // Récupérer l'ingredient choisi par l'utilisateur
     let ustSelectByUser ="";
@@ -182,21 +202,21 @@ searchBarUstensile.addEventListener('keyup', (e) => {
 /*
 searchBarUstensile.addEventListener('keyup',(e) => {
 
-    const filterWordUsentsile = e.target.value;
+    const filterWordUstensile = e.target.value;
 
     // Importer la liste des ustensiles brut et supprimer tous les doublons 
     let listUstensileNoDoublon = deleteDoublon(listUstensileRaw);
 
     // Envoyer le filtre selectionné dans une liste générale pour le traitement en algorithme
     listUstensileNoDoublon.filter((element) =>{
-        if(filterWordUsentsile === element) {
-            filterWordList.push(filterWordUsentsile.toLowerCase());
+        if(filterWordUstensile === element) {
+            filterWordList.push(filterWordUstensile.toLowerCase());
         }
     })
 
     // Retrait des elements sélectionnés par l'utilisateur
     listUstensileNoDoublon.filter((element) => {
-        if(element === filterWordUsentsile){
+        if(element === filterWordUstensile){
             const index = listUstensileNoDoublon.indexOf(element)
             if(index > -1 ){ 
                 listUstensileNoDoublon.splice(index, 1);
