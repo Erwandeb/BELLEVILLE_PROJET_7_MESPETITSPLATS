@@ -140,6 +140,9 @@ searchBarIngredient.addEventListener('keyup', (e) => {
     }
 
 
+    
+
+
 
       
     // Récupérer l'ingredient choisi par l'utilisateur
@@ -150,6 +153,7 @@ searchBarIngredient.addEventListener('keyup', (e) => {
             ingredSelectByUser = e.target.id;
             //elementIngredient.innerHTML ="";
             filterWordList.push(ingredSelectByUser.toLowerCase());
+            listeIngredForDeleteing.push(ingredSelectByUser.toLowerCase())
             
 
             ingredientListe.filter((element) => {
@@ -161,6 +165,7 @@ searchBarIngredient.addEventListener('keyup', (e) => {
             });
 
             
+            
             // Suppression element dans la liste 
             for(element of ingredientListe){
                 if(element === ingredSelectByUser){
@@ -169,10 +174,41 @@ searchBarIngredient.addEventListener('keyup', (e) => {
                     listIngredMiseAJour.map((element) => {
                         return   listeIngredientInjected.innerHTML +=`<li id="${element}">${element}</li>`;
                     })
-                        
                 }
             }
-
+            
+            
+            /*
+                // Mise à jour des éléments de la liste suite au choix d'ingrédient de l'utilisateur 
+                if(listeIngredForDeleteing.length === 1){
+                    ingredientListe.filter((element) =>{
+                        for(const item of ingredientListe){
+                            if(item.toLowerCase() === element){
+                                listeIngredientInjected.innerHTML = "";
+                                listIngredMiseAJour = listIngredientNoDoublon.filter((ingred) => ingred !== ingredSelectByUser);
+                                listIngredMiseAJour.map((element) => {
+                                    return   listeIngredientInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                                })
+                            }
+                        }
+                    })
+                }
+                if(listeIngredForDeleteing.length >= 2){
+                    ingredientListe.filter((element) =>{
+                        console.log(listIngredMiseAJour);
+                        for(const item of listIngredMiseAJour){
+                            if(item.toLowerCase() === element){
+                                listeIngredientInjected.innerHTML = "";
+                            
+                                listIngredMiseAJour = listIngredMiseAJour.filter((ingred) => ingred !== ingredSelectByUser);
+                                listIngredMiseAJour.map((element) => {
+                                    return   listeIngredientInjected.innerHTML +=`<li id="${element}">${element}</li>`;
+                                })
+                            }
+                        }
+                    })
+                }
+            */
             
             // Fonction de filtre Algorithme
             filterIngredientAlgorithme();
