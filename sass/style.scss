@@ -307,7 +307,7 @@ label{
     display: flex;
     flex-direction: column;
     //height: auto;
-    width: 532px;
+    width: 200px;
     align-items: center;
     justify-content: space-between;
     left: 0px;
@@ -334,7 +334,7 @@ label{
 
 #liste-Appareil-injected-container{
     background-color: #68d9a4;
-    width: 544px;
+    width: 212px;
     height: auto;
     max-height: 400px;
     border-radius: 0px 0px 5px 5px;
@@ -360,9 +360,9 @@ label{
     //width: 100%;
     height: auto;
     max-height: 200px;
-    -webkit-columns: 3;
-    -moz-columns: 3;
-    columns: 150px 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    columns: 150px 1;
     width: 100%;
     li{
         background-color: #68d9a4;

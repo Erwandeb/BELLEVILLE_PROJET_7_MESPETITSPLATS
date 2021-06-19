@@ -124,7 +124,7 @@ searchBarIngredient.addEventListener('keyup', (e) => {
     }
   
     // Affichage HTML 
-    if(ingredientListe.length <= 6){
+    if(ingredientListe.length <= 6 ){
         listeIngredientInjected.style.columns = "1";
         blocListIngred.style.width = 200 + "px"
         listeIngredientInjectedContainer.style.width = 212 + "px";

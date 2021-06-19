@@ -113,46 +113,61 @@ searchBarAppareil.addEventListener('keyup', (e) => {
         return
     }
     */
+     // Affichage dynamique des appareils en HTML 
+     if(filterWordAppareil.length === 0){
+        listeAppareilInjected.innerHTML ="";
+        listAppareilNoDoublon.map((element) => {
+                return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+            })
+    }
 
 
     // Générer dynamiquement les appareils selon la recherche utilisateur
     if(filterWordAppareil.length >= 1){
+
+        listeAppareilInjected.innerHTML ="";
         appareilListe = listAppareilNoDoublon.filter((appareil) => {
             if(appareil.toLowerCase().includes(filterWordAppareil)){
                 return appareilListe
             }
         })
+
+        appareilListe.map((element) => {
+            return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+        })
+
     }
 
-    // Affichage dynamique des appareils en HTML 
-    if(filterWordAppareil.length === 0){
+  
+    /*
+    if(filterWordAppareil.length === 1){
+        e.preventDefault();
+        
+   
+    }
+
+    
+    if(filterWordAppareil.length >= 2){
         listeAppareilInjected.innerHTML ="";
-            appareilListe.map((element) => {
-                return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
-            })
-    }
-
-    if(filterWordAppareil.length >= 1){
-    listeAppaerilInjected.innerHTML ="";
- 
-    appareilListe.map((element) => {
-        return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
+        appareilListe.map((element) => {
+            return   listeAppareilInjected.innerHTML +=`<li id="${element}" value="${element}">${element}</li>`;
         })
     }
+    */
 
 
-   
+    console.log("update", appareilListe);
      // Affichage HTML  des résultats dynamiques
-     if(appareilListe.length <= 3){
+     if(appareilListe.length <= 3 ){
         listeAppareilInjected.style.columns = "1";
-        blocListAppar.style.width = 200 + "px"
-        listeAppareilInjectedContainer.style.width = 212 + "px";
+       // blocListAppar.style.width = 200 + "px"
+       // listeAppareilInjectedContainer.style.width = 212 + "px";
         ustensileButton.style.left = 60 +"px";
 
     } else{
-        listeAppareilInjected.style.columns = "3"; 
-        blocListAppar.style.width = 532 + "px";
-        listeAppareilInjectedContainer.style.width = 544 + "px";
+        listeAppareilInjected.style.columns = "2"; 
+        //blocListAppar.style.width = 532 + "px";
+       // listeAppareilInjectedContainer.style.width = 544 + "px";
         ustensileButton.style.right = 390 +"px";
     }
   

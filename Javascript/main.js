@@ -184,6 +184,7 @@ function closeCrossFilter() {
             algorithmeFilterCloseCross();
 
             listApparMiseAJour.unshift(listeApparForDeleteing);
+            listeApparForDeleteing.pop();
         })
     
     
@@ -218,6 +219,8 @@ function closeCrossFilter() {
 
          
            listIngredMiseAJour.unshift(listeIngredForDeleteing);
+
+           listeIngredForDeleteing.pop();
         
             console.log("apres",listIngredMiseAJour);
         
@@ -246,6 +249,7 @@ function closeCrossFilter() {
             algorithmeFilterCloseCross();
 
             listUstMiseAJour.unshift(listeUstForDeleteing);
+            listeUstForDeleteing.pop();
            
         })
     })  

@@ -50,7 +50,7 @@ document.addEventListener('click', function(event) {
     const isClickInside = appareilButton.contains(event.target);
     if (isClickInside) {
       searchBarAppareil.style.display ="block";
-      ustensileButton.style.left = 390 +"px";
+      ustensileButton.style.left = 60 +"px";
       listeAppareilInjected.style.display ="block";
       listeAppareilInjectedContainer.style.display ="block";
     }
