@@ -1,8 +1,8 @@
 # Bienvenue sur MESPETITSPLATS
 
-Il s'agit de réaliser un algorithme pour trier des recettes. 
+Il s'agit d'un algorithme pour trier des recettes. 
 L'utilisateur peut faire une recherche avec une barre de recherche principale, ainsi que 3 filtres. Les recettes sont rendues de manières dynamique dès qu'une recherche est effectué en excluant les résultats qui ne correspondent pas à la recherche.
-
+AUCUNE LIBRAIRIE EXTERNE POUR CE PROJET.
 
 Techniques abordées dans ce projet :
 
