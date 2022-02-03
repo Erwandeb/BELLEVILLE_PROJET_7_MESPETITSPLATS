@@ -4,7 +4,7 @@ Il s'agit d'un algorithme pour trier des recettes.
 L'utilisateur peut faire une recherche avec une barre de recherche principale, ainsi que 3 filtres. Les recettes sont rendues de manières dynamique dès qu'une recherche est effectué en excluant les résultats qui ne correspondent pas à la recherche.
 AUCUNE LIBRAIRIE EXTERNE POUR CE PROJET.
 
-Techniques abordées dans ce projet :
+### Techniques de développement :
 
 - Programation Orientée Objet 
 - Création et rédaction d'un algorithme de recherche en Javascript
@@ -13,6 +13,14 @@ Techniques abordées dans ce projet :
 - Réfléxion et mise en place d'un architecture web optimisée
 - Rédaction d'une fiche d'investigation
 - Utilisation de SASS
+
+
+### Outils techniques :
+
+- Vanilla javascript
+- Sass
+- HTML
+
 
 
 
